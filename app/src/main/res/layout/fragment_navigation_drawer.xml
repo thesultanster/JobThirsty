@@ -53,6 +53,46 @@
         android:layout_below="@+id/spacer1">
 
 
+        <TextView
+            android:id="@+id/profileText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/findJobOrEmployeeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profileText"
+            android:text="Find Job"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/mailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/findJobOrEmployeeText"
+            android:text="Mail"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/newsfeedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mailText"
+            android:text="Newsfeed"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/settingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Settings"
+            android:textSize="30sp" />
+
+
     </RelativeLayout>
 
 

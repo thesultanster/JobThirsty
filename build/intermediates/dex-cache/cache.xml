@@ -29,5 +29,12 @@
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
         <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-05740d0e4bace5812eae206af3379d3c8e670394.jar" />
     </item>
+    <item
+        jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/design/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-1b094ead258af9fc2c07959ad6c6f56556ce192f.jar" />
+    </item>
 
 </items>

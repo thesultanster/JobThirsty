@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +31,11 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private View containerView;
 
+    TextView profileText;
+    TextView findJobOrEmployeeText;
+    TextView mailText;
+    TextView newsfeedText;
+    TextView settingText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,24 @@ public class NavigationDrawerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
-        //home = (ImageButton) v.findViewById(R.id.homeIcon);
+        profileText = (TextView) v.findViewById(R.id.profileText);
+        findJobOrEmployeeText = (TextView) v.findViewById(R.id.findJobOrEmployeeText);
+        mailText = (TextView) v.findViewById(R.id.mailText);
+        newsfeedText = (TextView) v.findViewById(R.id.newsfeedText);
+        settingText = (TextView) v.findViewById(R.id.settingText);
+
+
+        profileText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), Profile.class);
+                startActivity(intent);
+
+            }
+        });
+
+
 
 
 
