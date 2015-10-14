@@ -79,7 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), Profile.class);
+                Intent intent = new Intent(getActivity(), EmployeeProfileActivity.class);
                 startActivity(intent);
 
             }

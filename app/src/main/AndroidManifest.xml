@@ -17,9 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Profile"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".EmployeeProfileActivity"
+            android:label="Profile"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cs.software.engineering.jobthirsty.MainActivity"/>
         </activity>
     </application>
 
