@@ -1,4 +1,4 @@
-package cs.software.engineering.jobthirsty;
+package cs.software.engineering.jobthirsty.util;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+
+import cs.software.engineering.jobthirsty.find.Find;
+import cs.software.engineering.jobthirsty.mail.Mail;
+import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
+import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
+import cs.software.engineering.jobthirsty.R;
 
 public class NavigationDrawerFramework extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -153,7 +157,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     //====================================================================================================
 
 
-    Toolbar getToolbar(){
+    protected Toolbar getToolbar(){
         return toolbar;
     }
 

@@ -2,11 +2,25 @@
 <items version="2" >
 
     <item
-        jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-0173c3dabd94b0338effa04dfbc7247a17fe9f9f.jar" />
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-33ea8a6d0a0691c06393ba4b1b807692e72151df.jar" />
+    </item>
+    <item
+        jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-984a183652940f2b67d8432fda3edfc21f7aad1a.jar" />
+    </item>
+    <item
+        jar="/Users/sultankhan/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-9277db57db4149884b8dae5e047a12e28155746b.jar" />
     </item>
     <item
         jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
@@ -16,11 +30,25 @@
         <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-05740d0e4bace5812eae206af3379d3c8e670394.jar" />
     </item>
     <item
-        jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-eb40e96241848e2336bd9b7f518679cb2f7cdaa0.jar" />
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-3e2d1b594ad08a238b51a4f114903c37cd74ca5c.jar" />
+    </item>
+    <item
+        jar="/Users/sultankhan/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-b43841fda1a964a1fb26e77d5589fda120943d26.jar" />
+    </item>
+    <item
+        jar="/Users/sultankhan/job-thirsty/app/libs/Parse-1.10.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="dfef23b83f8434c6e881096e1ac6d54dc3e52041">
+        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/Parse-1.10.3-8f2529388588a8a1c370b158e14288e755a3bb88.jar" />
     </item>
     <item
         jar="/Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/design/22.2.1/jars/classes.jar"
@@ -28,13 +56,6 @@
         revision="22.0.1"
         sha1="1821601ddbec5ff125653097812823388700af74">
         <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/classes-1b094ead258af9fc2c07959ad6c6f56556ce192f.jar" />
-    </item>
-    <item
-        jar="/Users/sultankhan/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="/Users/sultankhan/job-thirsty/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-864fcf020c59c89850fa8ee881be8f36a7994714.jar" />
     </item>
 
 </items>

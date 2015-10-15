@@ -1,7 +1,9 @@
-package cs.software.engineering.jobthirsty;
+package cs.software.engineering.jobthirsty.find;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
+import cs.software.engineering.jobthirsty.R;
 
 public class Find extends NavigationDrawerFramework {
 

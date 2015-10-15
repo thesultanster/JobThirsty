@@ -1,7 +1,9 @@
-package cs.software.engineering.jobthirsty;
+package cs.software.engineering.jobthirsty.mail;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import cs.software.engineering.jobthirsty.R;
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
 public class Mail extends NavigationDrawerFramework {
 
