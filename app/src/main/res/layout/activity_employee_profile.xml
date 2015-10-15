@@ -265,7 +265,7 @@
                 android:layout_height="@dimen/abc_action_bar_default_height_material"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/AppTheme"
+                android:theme="@style/AppTheme.Dark"
                 app:layout_collapseMode="pin" />
 
 

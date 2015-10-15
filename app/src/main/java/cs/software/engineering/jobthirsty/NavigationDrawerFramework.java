@@ -41,7 +41,8 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         super.setContentView(mDrawerLayout);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if( toolbar != null )
+            setSupportActionBar(toolbar);
  /*
         // load saved navigation state if present
         if (null == savedInstanceState) {
@@ -135,10 +136,13 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 intent = new Intent(this, EmployeeProfileActivity.class);
                 break;
             case R.id.find:
+                intent = new Intent(this, Find.class);
                 break;
             case R.id.mail:
+                intent = new Intent(this, Mail.class);
                 break;
             case R.id.newsfeed:
+                intent = new Intent(this, Newsfeed.class);
                 break;
         }
 
