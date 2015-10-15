@@ -2,7 +2,9 @@ package cs.software.engineering.jobthirsty;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Handler;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +32,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework{
     boolean projectsExpanded;
     boolean educationExpanded;
 
+    Toolbar toolbar;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
     //OVERRIDE [START] -----------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework{
 
         initialize();
         setListeners();
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
+
+        toolbar = getToolbar();
+        toolbar.getBackground().setAlpha(100);
+
+        collapsingToolbarLayout.setTitle("Sultan Khan");
+
     }
 
 

@@ -28,7 +28,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     private int mNavItemId;
 
     protected FrameLayout mContent;
-
+    protected Toolbar toolbar;
 
     @Override
     public void setContentView(final int layoutResID) {
@@ -36,14 +36,11 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         mDrawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.framework_navigation_drawer, null);
         mContent = (FrameLayout) mDrawerLayout.findViewById(R.id.content);
 
-        // Setting the content of layout your provided to the act_content frame
+        // Setting the content of layout your provided to the content frame
         getLayoutInflater().inflate(layoutResID, mContent, true);
         super.setContentView(mDrawerLayout);
 
-        // here you can get your drawer buttons and define how they
-        // should behave and what must they do, so you won't be
-        // needing to repeat it in every activity class
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
  /*
         // load saved navigation state if present
@@ -62,8 +59,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         //navigationView.getMenu().findItem(mNavItemId).setChecked(true);
 
         // set up the hamburger icon to open and close the drawer
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open,
-                R.string.close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
@@ -153,6 +149,9 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     //====================================================================================================
 
 
+    Toolbar getToolbar(){
+        return toolbar;
+    }
 
 
 
