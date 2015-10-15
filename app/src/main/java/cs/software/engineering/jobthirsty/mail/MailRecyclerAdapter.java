@@ -44,7 +44,7 @@ import cs.software.engineering.jobthirsty.R;
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            final View view = inflator.inflate(R.layout.row_newsfeed_recycler_view, parent, false);
+            final View view = inflator.inflate(R.layout.row_mail_recycler_view, parent, false);
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
 
@@ -65,7 +65,9 @@ import cs.software.engineering.jobthirsty.R;
             // This gives us current information list object
             MailRecyclerInfo current = data.get(position);
 
-            holder.title.setText(current.getTitle());
+            holder.sender.setText(current.getSender());
+            holder.subject.setText(current.getSubject());
+            holder.body.setText(current.getBody());
         }
 
         @Override
@@ -76,7 +78,10 @@ import cs.software.engineering.jobthirsty.R;
         // Created my custom view holder
         public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            TextView title;
+            TextView sender;
+            TextView subject;
+            TextView body;
+
             public MyViewHolderClicks mListener;
 
             // itemView will be my own custom layout View of the row
@@ -85,7 +90,10 @@ import cs.software.engineering.jobthirsty.R;
 
                 mListener = listener;
                 //Link the objects
-                title = (TextView) itemView.findViewById(R.id.title);
+                sender = (TextView) itemView.findViewById(R.id.sender);
+                subject = (TextView) itemView.findViewById(R.id.subject);
+                body = (TextView) itemView.findViewById(R.id.body);
+
                 itemView.setOnClickListener(this);
             }
 

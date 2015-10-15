@@ -19,8 +19,14 @@ public class MailRecyclerInfo {
         this.mail = mail;
     }
 
-    public String getTitle(){
-        return mail.get("title").toString();
+    public String getSender(){
+        return mail.get("sender").toString();
+    }
+    public String getSubject(){
+        return mail.get("subject").toString();
+    }
+    public String getBody(){
+        return mail.get("body").toString();
     }
 
     public String getParseObjectId() {

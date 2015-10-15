@@ -33,7 +33,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         setContentView(R.layout.activity_employee_profile);
 
         initialize();
-        setListeners();
+        //setListeners();
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
 
