@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.parse.ParseUser;
+
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
@@ -25,6 +27,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
+    String firstName;
+    String lastName;
 
     //OVERRIDE [START] -----------------------------------------------------------------------------
     @Override
@@ -33,14 +37,17 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         setContentView(R.layout.activity_employee_profile);
 
         initialize();
-        //setListeners();
+        setListeners();
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
 
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
 
-        collapsingToolbarLayout.setTitle("Sultan Khan");
+        firstName = ParseUser.getCurrentUser().get("firstName").toString();
+        lastName = ParseUser.getCurrentUser().get("lastName").toString();
+
+        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
     }
 

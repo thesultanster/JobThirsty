@@ -10,9 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.find.Find;
 import cs.software.engineering.jobthirsty.mail.Mail;
@@ -28,6 +33,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     private static final String NAV_ITEM_ID = "navItemId";
     private final Handler mDrawerActionHandler = new Handler();
     private DrawerLayout mDrawerLayout;
+    private View mHeaderLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private int mNavItemId;
 
@@ -44,6 +50,24 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         getLayoutInflater().inflate(layoutResID, mContent, true);
         super.setContentView(mDrawerLayout);
 
+        // Setting header variables
+        mHeaderLayout = getLayoutInflater().inflate(R.layout.framework_navigation_header, null);
+        String firstName = ParseUser.getCurrentUser().get("firstName").toString();
+        String lastName = ParseUser.getCurrentUser().get("lastName").toString();
+        final String temp = firstName + lastName;
+        Log.d("name", temp);
+
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                // Update TextView here
+                TextView fullname = (TextView) mHeaderLayout.findViewById(R.id.fullName);
+                fullname.setText(temp);
+            }
+        });
+
+
+        // Setting toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if( toolbar != null )
             setSupportActionBar(toolbar);

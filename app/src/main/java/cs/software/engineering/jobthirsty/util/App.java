@@ -7,6 +7,7 @@ import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -22,7 +23,7 @@ public class App extends Application {
         Parse.enableLocalDatastore(this);
 
         Parse.initialize(this, "HPs7awpVVwwWi7PSXJITgl3rAj3n6oQXsFtXDWVX", "sR7WI4L2JkOaB67MiQoQJJ5Jl3eNAB2YW6eZuypG");
-
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
     }
 }
