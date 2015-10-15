@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.sultan.diabetesmodule.SignUp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginBar"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+
+
+        <TextView
+            android:id="@+id/usernameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/email"
+            android:layout_marginTop="30dp"
+            android:gravity="left"
+            android:text="Username"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:text="Password"
+            android:textSize="25dp" />
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:inputType="textPassword"
+
+            />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="10dp"
+            android:text="Email"
+            android:textSize="25dp"
+            android:inputType="textEmailAddress"/>
+
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:inputType="textPassword"
+
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="15"
+                android:hint="First Name"
+                android:inputType="textPersonName"
+
+                />
+
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:hint="Last Name"
+                android:inputType="textPersonName"
+
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_margin="25dp"
+
+            android:background="#FFd7dadd" />
+
+        <Button
+
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Sign Up"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
+
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

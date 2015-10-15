@@ -21,19 +21,8 @@ public class App extends Application {
         // Enable Local Datastore
         Parse.enableLocalDatastore(this);
 
-
-
         Parse.initialize(this, "HPs7awpVVwwWi7PSXJITgl3rAj3n6oQXsFtXDWVX", "sR7WI4L2JkOaB67MiQoQJJ5Jl3eNAB2YW6eZuypG");
-        ParseAnonymousUtils.logIn(new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
-                    Log.d("MyApp", "Anonymous login failed.");
-                } else {
-                    Log.d("MyApp", "Anonymous user logged in.");
-                }
-            }
-        });
+
 
     }
 }
