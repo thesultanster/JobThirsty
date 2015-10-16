@@ -163,7 +163,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 //TODO: Find if employer or employee and go to respective activity. Ex: if( parseUser != Employee)
                 intent = new Intent(this, EmployeeProfileActivity.class);
                 break;
-            case R.id.find:
+            case R.id.find_position:
                 intent = new Intent(this, Find.class);
                 break;
             case R.id.mail:

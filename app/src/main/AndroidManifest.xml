@@ -35,6 +35,11 @@
         </activity>
         <activity android:name=".ComposeMail" >
         </activity>
+        <activity
+            android:name=".find.FindPositions"
+            android:label="@string/title_activity_find_positions"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>

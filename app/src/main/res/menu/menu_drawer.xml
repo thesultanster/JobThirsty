@@ -5,10 +5,21 @@
             android:id="@+id/profile"
             android:icon="@drawable/fab_background"
             android:title="Profile"/>
+
         <item
-            android:id="@+id/find"
-            android:icon="@drawable/fab_background"
-            android:title="Find"/>
+            android:id="@+id/find_subheader"
+            android:title="Find">
+            <menu>
+                <item
+                    android:id="@+id/find_position"
+                    android:icon="@drawable/fab_background"
+                    android:title="Find Positions"/>
+                <item
+                    android:id="@+id/applied_workers"
+                    android:icon="@drawable/fab_background"
+                    android:title="Applied Workers"/>
+            </menu>
+        </item>
 
         <item
             android:id="@+id/mail"
