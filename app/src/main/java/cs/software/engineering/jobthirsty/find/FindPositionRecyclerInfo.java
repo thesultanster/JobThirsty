@@ -19,7 +19,7 @@ public class FindPositionRecyclerInfo {
         this.position = position;
     }
 
-    public String getSender(){
+    public String getPositionTitle(){
         return position.get("positionTitle").toString();
     }
     public String getSubject(){

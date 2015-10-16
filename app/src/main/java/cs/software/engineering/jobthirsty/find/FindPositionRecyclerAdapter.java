@@ -66,7 +66,7 @@ import cs.software.engineering.jobthirsty.mail.Mail;
             // This gives us current information list object
             FindPositionRecyclerInfo current = data.get(position);
 
-            holder.sender.setText(current.getSender());
+            holder.sender.setText(current.getPositionTitle());
             holder.subject.setText(current.getSubject());
             holder.body.setText(current.getBody());
         }
