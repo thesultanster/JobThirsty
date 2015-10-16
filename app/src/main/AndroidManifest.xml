@@ -15,7 +15,6 @@
             android:name=".profile.EmployeeProfileActivity"
             android:label="Profile"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity android:name=".util.NavigationDrawerFramework" >
         </activity>
@@ -33,6 +32,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUp" >
+        </activity>
+        <activity android:name=".ComposeMail" >
         </activity>
     </application>
 
