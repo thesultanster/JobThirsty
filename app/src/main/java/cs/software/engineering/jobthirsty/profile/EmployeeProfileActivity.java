@@ -1,9 +1,11 @@
 package cs.software.engineering.jobthirsty.profile;
 
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.parse.ParseUser;
@@ -32,6 +34,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
+    ImageButton editProfileBtn;
+
     //Employee Data Variables
     String firstName;
     String lastName;
@@ -42,8 +46,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
 
-        initialize();
-        setListeners();
+        //initialize();
+        //setListeners();
 
     }
 
@@ -55,7 +59,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //HELPER FUNCTIONS[START] ----------------------------------------------------------------------
     private void initialize()
     {
-        //initialize sections
+        /*
+        //Initialize sections
         experienceSection = (LinearLayout) findViewById(R.id.experienceSection);
         skillsSection = (LinearLayout) findViewById(R.id.skillsSection);
         projectsSection = (LinearLayout) findViewById(R.id.projectsSection);
@@ -63,7 +68,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         activitiesSection = (LinearLayout) findViewById(R.id.activitiesSection);
         awardsSection = (LinearLayout) findViewById(R.id.awardsSection);
 
-        //initialize flags
+        //Initialize flags
         experienceExpanded = false;
         skillsExpanded = false;
         projectsExpanded = false;
@@ -71,15 +76,20 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         activitiesExpanded = false;
         awardsExpanded = false;
 
+        //Edit button
+        editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
+
         //Tool bar
         toolbar = getToolbar();
-        //toolbar.getBackground().setAlpha(100);
+        toolbar.getBackground().setAlpha(100);
 
         firstName = ParseUser.getCurrentUser().get("firstName").toString();
         lastName = ParseUser.getCurrentUser().get("lastName").toString();
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+        */
+
     }
 
     private void setListeners()
@@ -160,6 +170,13 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                 //update the layout
                 awardsSection.requestLayout();
+            }
+        });
+
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent i = new Intent(this, )
             }
         });
     }

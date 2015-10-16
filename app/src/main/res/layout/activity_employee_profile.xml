@@ -10,12 +10,12 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -25,55 +25,10 @@
                 android:layout_above="@+id/experienceSection"
                 android:background="#BB575266">
 
-                <LinearLayout
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="@drawable/gradient_back_name"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/me"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="10"
-                        android:gravity="end"
-                        android:text=""
-                        android:textColor="#FFFFFF"
-                        android:textSize="38sp" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-
-                        android:layout_weight="2"
-                        android:src="@mipmap/circle_green" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="2dp"
-                        android:background="#557f8c8d" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:layout_weight="3"
-                        android:text="19"
-                        android:textColor="#EEf4ba6c"
-                        android:textSize="30sp" />
-
-                </LinearLayout>
-
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/name">
+                    android:layout_alignParentEnd="true">
 
                     <ImageView
                         android:id="@+id/navigation_icon"
@@ -111,201 +66,201 @@
                         android:text="I like being awesome and coding and designing beautiful UI for applications and websites "
                         android:textColor="#e0e0e0"
                         android:textSize="15sp" />
-                    
+
                 </RelativeLayout>
             </RelativeLayout>
 
             <!-- Beginning of sections -->
             <LinearLayout
-                android:id="@+id/skillsSection"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:background="#FF000000"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/skillsSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/skills" />
+                    android:background="#FF000000"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/skills" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Skills"
-                    android:textColor="#FFffffff"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Skills"
+                        android:textColor="#FFffffff"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/experienceSection"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:background="#FF000000"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <LinearLayout
+                    android:id="@+id/experienceSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/experience" />
+                    android:background="#FF000000"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/experience" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Experience"
-                    android:textColor="#FFffffff"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Experience"
+                        android:textColor="#FFffffff"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/projectsSection"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:background="#FF000000"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <LinearLayout
+                    android:id="@+id/projectsSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/projects" />
+                    android:background="#FF000000"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/projects" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Projects"
-                    android:textColor="#FFffffff"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Projects"
+                        android:textColor="#FFffffff"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/educationSection"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:background="#FF000000"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <LinearLayout
+                    android:id="@+id/educationSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/education" />
+                    android:background="#FF000000"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/education" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Education"
-                    android:textColor="#FFffffff"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Education"
+                        android:textColor="#FFffffff"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/activitiesSection"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:background="#FF000000"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <LinearLayout
+                    android:id="@+id/activitiesSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/activities" />
+                    android:background="#FF000000"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/activities" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Activities"
-                    android:textColor="#FFffffff"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Activities"
+                        android:textColor="#FFffffff"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/awardsSection"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:background="#FF000000"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <LinearLayout
+                    android:id="@+id/awardsSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@mipmap/awards" />
+                    android:background="#FF000000"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/awards" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Awards"
-                    android:textColor="#FFffffff"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Awards"
+                        android:textColor="#FFffffff"
+                        android:textSize="20sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:fitsSystemWindows="true"
-        android:layout_height="250dp"
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="350dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
-            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary">
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/profileImage"
@@ -317,16 +272,21 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 
+            <ImageButton
+                android:id="@+id/editProfileBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"/>
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
+                android:layout_height="@dimen/abc_action_bar_default_height_material"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/AppTheme.Dark"
+                app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-
-
 </android.support.design.widget.CoordinatorLayout>
