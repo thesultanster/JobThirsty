@@ -293,15 +293,19 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:fitsSystemWindows="true"
+        android:layout_height="250dp"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary">
 
             <ImageView
                 android:id="@+id/profileImage"
@@ -315,12 +319,10 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/abc_action_bar_default_height_material"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/AppTheme.Dark"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
