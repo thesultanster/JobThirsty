@@ -19,14 +19,20 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     LinearLayout experienceSection;
     LinearLayout projectsSection;
     LinearLayout educationSection;
+    LinearLayout activitiesSection;
+    LinearLayout awardsSection;
 
     boolean skillsExpanded;
     boolean experienceExpanded;
     boolean projectsExpanded;
     boolean educationExpanded;
+    boolean activitiesExpanded;
+    boolean awardsExpanded;
 
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
+
+    //Employee Data Variables
     String firstName;
     String lastName;
 
@@ -38,16 +44,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         initialize();
         setListeners();
-
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
-
-        toolbar = getToolbar();
-        toolbar.getBackground().setAlpha(100);
-
-        firstName = ParseUser.getCurrentUser().get("firstName").toString();
-        lastName = ParseUser.getCurrentUser().get("lastName").toString();
-
-        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
     }
 
@@ -64,12 +60,26 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         skillsSection = (LinearLayout) findViewById(R.id.skillsSection);
         projectsSection = (LinearLayout) findViewById(R.id.projectsSection);
         educationSection = (LinearLayout) findViewById(R.id.educationSection);
+        activitiesSection = (LinearLayout) findViewById(R.id.activitiesSection);
+        awardsSection = (LinearLayout) findViewById(R.id.awardsSection);
 
         //initialize flags
         experienceExpanded = false;
         skillsExpanded = false;
         projectsExpanded = false;
         educationExpanded = false;
+        activitiesExpanded = false;
+        awardsExpanded = false;
+
+        //Tool bar
+        toolbar = getToolbar();
+        toolbar.getBackground().setAlpha(100);
+
+        firstName = ParseUser.getCurrentUser().get("firstName").toString();
+        lastName = ParseUser.getCurrentUser().get("lastName").toString();
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
+        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
     }
 
     private void setListeners()
@@ -123,6 +133,33 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                 //update the layout
                 educationSection.requestLayout();
+            }
+        });
+
+
+        activitiesSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //expand
+                //set the new size
+                activitiesSection.getLayoutParams().height = !activitiesExpanded ? 600 : 120;
+                activitiesExpanded = !activitiesExpanded; //flag toggle
+
+                //update the layout
+                activitiesSection.requestLayout();
+            }
+        });
+
+        awardsSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //expand
+                //set the new size
+                awardsSection.getLayoutParams().height = !awardsExpanded ? 600 : 120;
+                awardsExpanded = !awardsExpanded; //flag toggle
+
+                //update the layout
+                awardsSection.requestLayout();
             }
         });
     }

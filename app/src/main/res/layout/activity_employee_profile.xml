@@ -111,11 +111,8 @@
                         android:text="I like being awesome and coding and designing beautiful UI for applications and websites "
                         android:textColor="#e0e0e0"
                         android:textSize="15sp" />
-
-
+                    
                 </RelativeLayout>
-
-
             </RelativeLayout>
 
             <!-- Beginning of sections -->
@@ -134,7 +131,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/code" />
+                    android:src="@mipmap/skills" />
 
 
                 <TextView
@@ -163,7 +160,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/code" />
+                    android:src="@mipmap/experience" />
 
 
                 <TextView
@@ -192,7 +189,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/code" />
+                    android:src="@mipmap/projects" />
 
 
                 <TextView
@@ -221,7 +218,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/code" />
+                    android:src="@mipmap/education" />
 
 
                 <TextView
@@ -231,6 +228,64 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:text="Education"
+                    android:textColor="#FFffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activitiesSection"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:background="#FF000000"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/activities" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Activities"
+                    android:textColor="#FFffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/awardsSection"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:background="#FF000000"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/awards" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Awards"
                     android:textColor="#FFffffff"
                     android:textSize="20sp" />
             </LinearLayout>
