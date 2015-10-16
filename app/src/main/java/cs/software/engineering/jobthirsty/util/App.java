@@ -22,7 +22,7 @@ public class App extends Application {
         // Enable Local Datastore
         Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this, "HPs7awpVVwwWi7PSXJITgl3rAj3n6oQXsFtXDWVX", "sR7WI4L2JkOaB67MiQoQJJ5Jl3eNAB2YW6eZuypG");
+        Parse.initialize(this, "Qq5Zb9Oqg7PwLsZuHYfU6zKCpgMHiSerWPyWOzw1", "thcBOmJDAd7gFe3AfUphGE6pt3vAIZAmu7wexgDr");
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
     }

@@ -7,30 +7,30 @@ import com.parse.ParseObject;
  */
 public class FindPositionRecyclerInfo {
 
-    ParseObject mail;
+    ParseObject position;
 
     public FindPositionRecyclerInfo() {
         super();
 
     }
 
-    public FindPositionRecyclerInfo(ParseObject mail) {
+    public FindPositionRecyclerInfo(ParseObject position) {
         super();
-        this.mail = mail;
+        this.position = position;
     }
 
     public String getSender(){
-        return mail.get("sender").toString();
+        return position.get("positionTitle").toString();
     }
     public String getSubject(){
-        return mail.get("subject").toString();
+        return position.get("companyTitle").toString();
     }
     public String getBody(){
-        return mail.get("body").toString();
+        return position.get("location").toString();
     }
 
     public String getParseObjectId() {
-        return mail.getObjectId();
+        return position.getObjectId();
     }
 
 }
