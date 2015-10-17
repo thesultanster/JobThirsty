@@ -55,18 +55,6 @@ public class Mail extends NavigationDrawerFramework {
                     Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                 }
 
-                for (ParseObject news : mail) {
-                    adapter.addRow(new MailRecyclerInfo(news));
-                    for (ParseObject no : mail) {
-                        adapter.addRow(new MailRecyclerInfo(no));
-                    }
-                    for (ParseObject no : mail) {
-                        adapter.addRow(new MailRecyclerInfo(no));
-                    }
-
-                }
-
-
             }
         });
 

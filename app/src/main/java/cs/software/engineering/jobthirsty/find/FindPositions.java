@@ -21,8 +21,9 @@ import java.util.List;
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.mail.MailRecyclerAdapter;
 import cs.software.engineering.jobthirsty.mail.MailRecyclerInfo;
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
-public class FindPositions extends AppCompatActivity {
+public class FindPositions extends NavigationDrawerFramework {
 
 
     private RecyclerView recyclerView;
@@ -33,10 +34,6 @@ public class FindPositions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_positions);
-
-        // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         // RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

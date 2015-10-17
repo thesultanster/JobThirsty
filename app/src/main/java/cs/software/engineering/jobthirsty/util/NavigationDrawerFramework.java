@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.find.Find;
+import cs.software.engineering.jobthirsty.find.FindPositions;
 import cs.software.engineering.jobthirsty.mail.Mail;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
@@ -164,7 +165,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 intent = new Intent(this, EmployeeProfileActivity.class);
                 break;
             case R.id.find_position:
-                intent = new Intent(this, Find.class);
+                intent = new Intent(this, FindPositions.class);
                 break;
             case R.id.mail:
                 intent = new Intent(this, Mail.class);
