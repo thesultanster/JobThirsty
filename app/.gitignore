@@ -3,4 +3,4 @@
 *.iml
 *.properties
 *.pro
-.idea/workspace.xml
+*.idea/
