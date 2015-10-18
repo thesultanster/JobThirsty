@@ -10,6 +10,8 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
 
@@ -28,6 +30,12 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private boolean editable;
 
     //UI Variables
+    private RelativeLayout skillsSection;
+    private RelativeLayout experienceSection;
+    private RelativeLayout projectsSection;
+    private RelativeLayout educationSection;
+    private RelativeLayout activitiesSection;
+    private RelativeLayout awardsSection;
     private ImageButton skillsEditBtn;
     private ImageButton experienceEditBtn;
     private ImageButton projectsEditBtn;
@@ -76,6 +84,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
         editable = false;
 
+        //Section layouts
+        skillsSection = (RelativeLayout) findViewById(R.id.skillsSection);
+        experienceSection = (RelativeLayout) findViewById(R.id.experienceSection);
+        projectsSection = (RelativeLayout) findViewById(R.id.projectsSection);
+        educationSection = (RelativeLayout) findViewById(R.id.educationSection);
+        activitiesSection = (RelativeLayout) findViewById(R.id.activitiesSection);
+        awardsSection = (RelativeLayout) findViewById(R.id.awardsSection);
+
         //Section edit buttons
         skillsEditBtn = (ImageButton) findViewById(R.id.skillsEditBtn);
         experienceEditBtn = (ImageButton) findViewById(R.id.experienceEditBtn);
@@ -91,6 +107,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     private void setListeners()
     {
+        //Overall edit button
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +135,32 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 }
             }
         });
+
+        //Section edit buttons
+        skillsEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Expand layout
+                skillsSection.getLayoutParams().height += 100;
+                skillsSection.requestLayout();
+
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+                //set up Edit Text
+                EditText et = new EditText(getApplicationContext());
+                et.setLayoutParams(layoutParams);
+                et.setBackgroundColor(0xFFffffff);
+                et.setText(String.format("%s", "assdfasd"));
+                et.setTextColor(0xFF000000);
+                et.requestFocus(); //put on cursor
+
+                //add the skill
+                skillsSection.addView(et);
+            }
+        });
     }
 
     private void showEditButtons()
@@ -132,7 +175,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     private void hideEditButtons()
     {
-
         skillsEditBtn.setVisibility(View.INVISIBLE);
         experienceEditBtn.setVisibility(View.INVISIBLE);
         projectsEditBtn.setVisibility(View.INVISIBLE);
