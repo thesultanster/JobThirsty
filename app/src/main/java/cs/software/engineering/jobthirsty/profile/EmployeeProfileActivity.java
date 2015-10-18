@@ -35,6 +35,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ImageButton activitiesEditBtn;
     private ImageButton awardsEditBtn;
     private EditText location;
+    private EditText biography;
 
     //Employee Data Variables
     private String firstName;
@@ -48,7 +49,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         initialize();
         setListeners();
-
     }
 
 
@@ -86,6 +86,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         //Editable views
         location = (EditText) findViewById(R.id.location);
+        biography = (EditText) findViewById(R.id.biography);
     }
 
     private void setListeners()
@@ -100,8 +101,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 if(editable)
                 {
                     //enable edits for EditTexts
-                    location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
+                    biography.setInputType(InputType.TYPE_CLASS_TEXT);
 
                     //show edit buttons for sections
                     showEditButtons();
@@ -110,6 +111,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 {
                     //disable edits for EditTexts
                     location.setEnabled(false);
+                    biography.setEnabled(false);
 
                     //hide edit buttons for sections
                     hideEditButtons();
@@ -139,8 +141,4 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsEditBtn.setVisibility(View.INVISIBLE);
     }
     //[END] ----------------------------------------------------------------------------------------
-
-
-
-
 }
