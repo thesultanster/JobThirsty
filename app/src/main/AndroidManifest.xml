@@ -40,6 +40,11 @@
             android:label="@string/title_activity_find_positions"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name=".JobPosition"
+            android:label="@string/title_activity_job_position"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import cs.software.engineering.jobthirsty.JobPosition;
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.mail.Mail;
 
@@ -49,9 +50,11 @@ import cs.software.engineering.jobthirsty.mail.Mail;
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
 
-                    Intent intent = new Intent(context, Mail.class);
+                    Intent intent = new Intent(context, JobPosition.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());
+                    intent.putExtra("positionTitle", data.get(position).getPositionTitle());
                     view.getContext().startActivity(intent);
+
                 }
 
             });
