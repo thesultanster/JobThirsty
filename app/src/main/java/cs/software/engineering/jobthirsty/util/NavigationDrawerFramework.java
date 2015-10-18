@@ -21,6 +21,7 @@ import com.parse.Parse;
 import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.CreateJobPosition;
+import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
 import cs.software.engineering.jobthirsty.find.FindPositions;
 import cs.software.engineering.jobthirsty.mail.Mail;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
@@ -189,6 +190,9 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 break;
             case R.id.newsfeed:
                 intent = new Intent(this, Newsfeed.class);
+                break;
+            case R.id.applied_workers:
+                intent = new Intent(this, AppliedWorkers.class);
                 break;
         }
 

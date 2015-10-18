@@ -5,18 +5,27 @@
             android:id="@+id/profile"
             android:icon="@drawable/fab_background"
             android:title="Profile"/>
+
         <item
-            android:id="@+id/find_position"
-            android:icon="@drawable/fab_background"
-            android:title="Find Positions"/>
-        <item
-            android:id="@+id/applied_workers"
-            android:icon="@drawable/fab_background"
-            android:title="Applied Workers"/>
+            android:id="@+id/find_subheader"
+            android:title="Find">
+            <menu>
+                <item
+                    android:id="@+id/find_position"
+                    android:icon="@drawable/fab_background"
+                    android:title="Find Positions"/>
+                <item
+                    android:id="@+id/applied_workers"
+                    android:icon="@drawable/fab_background"
+                    android:title="Applied Workers"/>
+            </menu>
+        </item>
+
         <item
             android:id="@+id/createPosition"
             android:icon="@drawable/fab_background"
             android:title="Post Position"/>
+
         <item
             android:id="@+id/mail"
             android:icon="@drawable/fab_background"
@@ -26,4 +35,4 @@
             android:icon="@drawable/fab_background"
             android:title="Newsfeed"/>
     </group>
-</menu><!-- From: file:/Users/sultankhan/job-thirsty/app/src/main/res/menu/menu_drawer.xml -->
+</menu>

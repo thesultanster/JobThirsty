@@ -45,6 +45,11 @@
         </activity>
         <activity android:name=".CreateJobPosition" >
         </activity>
+        <activity
+            android:name=".applied_workers.AppliedWorkers"
+            android:label="@string/title_activity_applied_workers"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>
