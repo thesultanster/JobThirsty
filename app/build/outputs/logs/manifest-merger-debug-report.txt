@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:2:1-50:12
+ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:2:1-52:12
 	xmlns:android
 		ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:2:11-69
 	package
@@ -22,7 +22,7 @@ ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:6:5-79
 	android:name
 		ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:6:22-76
 application
-ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:8:5-48:19
+ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:8:5-50:19
 MERGED from [com.android.support:appcompat-v7:22.2.1] /Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.0.1] /Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:22.2.1] /Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/design/22.2.1/AndroidManifest.xml:22:5-20
@@ -102,6 +102,10 @@ ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:43:9-4
 		ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:46:13-44
 	android:name
 		ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:44:13-40
+activity#cs.software.engineering.jobthirsty.CreateJobPosition
+ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:48:9-49:20
+	android:name
+		ADDED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml:48:19-52
 uses-sdk
 INJECTED from /Users/sultankhan/job-thirsty/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:22.2.1] /Users/sultankhan/job-thirsty/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/AndroidManifest.xml:20:5-43

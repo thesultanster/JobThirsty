@@ -51,6 +51,8 @@
             android:label="@string/title_activity_job_position"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity android:name="cs.software.engineering.jobthirsty.CreateJobPosition" >
+        </activity>
     </application>
 
 </manifest>

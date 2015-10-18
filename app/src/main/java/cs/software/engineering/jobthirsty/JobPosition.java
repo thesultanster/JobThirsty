@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 public class JobPosition extends AppCompatActivity {
@@ -41,5 +42,20 @@ public class JobPosition extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+
+        switch (menuItem.getItemId()) {
+            case R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                onBackPressed();
+                return super.onOptionsItemSelected(menuItem);
+        }
     }
 }

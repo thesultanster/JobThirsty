@@ -22,6 +22,11 @@
         </item>
 
         <item
+            android:id="@+id/createPosition"
+            android:icon="@drawable/fab_background"
+            android:title="Post Position"/>
+
+        <item
             android:id="@+id/mail"
             android:icon="@drawable/fab_background"
             android:title="Mail"/>
