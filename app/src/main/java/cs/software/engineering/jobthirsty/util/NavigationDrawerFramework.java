@@ -17,10 +17,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.parse.Parse;
 import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.CreateJobPosition;
-import cs.software.engineering.jobthirsty.find.Find;
 import cs.software.engineering.jobthirsty.find.FindPositions;
 import cs.software.engineering.jobthirsty.mail.Mail;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
@@ -38,12 +38,15 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     private View mHeaderLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private int mNavItemId;
+    private NavigationView navigationView;
 
     protected FrameLayout mContent;
     protected Toolbar toolbar;
 
     @Override
     public void setContentView(final int layoutResID) {
+
+
         // Your base layout here
         mDrawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.framework_navigation_drawer, null);
         mContent = (FrameLayout) mDrawerLayout.findViewById(R.id.content);
@@ -73,28 +76,38 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if( toolbar != null )
             setSupportActionBar(toolbar);
- /*
-        // load saved navigation state if present
-        if (null == savedInstanceState) {
-            mNavItemId = R.id.profile;
-        } else {
-            mNavItemId = savedInstanceState.getInt(NAV_ITEM_ID);
-        }
-        */
 
         // listen for navigation events
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // select the correct nav menu item
-        //navigationView.getMenu().findItem(mNavItemId).setChecked(true);
 
         // set up the hamburger icon to open and close the drawer
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-       // navigate(mNavItemId);
+
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+        Menu menuNav=navigationView.getMenu();
+        MenuItem menuItem;
+
+
+        if(ParseUser.getCurrentUser().get("isBoss").equals(true)) {
+
+            menuItem = menuNav.findItem(R.id.find_position);
+            menuItem.setVisible(false);
+
+        } else {
+
+            menuItem = menuNav.findItem(R.id.createPosition);
+            menuItem.setVisible(false);
+
+            menuItem = menuNav.findItem(R.id.applied_workers);
+            menuItem.setVisible(false);
+
+        }
+
     }
 
     @Override

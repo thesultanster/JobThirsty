@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class CreateJobPosition extends AppCompatActivity {
@@ -46,6 +47,7 @@ public class CreateJobPosition extends AppCompatActivity {
                 position.put("positionTitle",positionTitle.getText().toString());
                 position.put("description",positionDescription.getText().toString());
                 position.put("location", location.getText().toString());
+                position.put("bossId", ParseUser.getCurrentUser().getObjectId().toString());
                 position.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

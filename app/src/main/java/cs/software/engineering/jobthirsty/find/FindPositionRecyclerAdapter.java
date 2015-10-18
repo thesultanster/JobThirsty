@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -57,6 +58,12 @@ import cs.software.engineering.jobthirsty.mail.Mail;
 
                 }
 
+                public void Apply(int position){
+
+
+
+                }
+
             });
 
             return holder;
@@ -86,6 +93,8 @@ import cs.software.engineering.jobthirsty.mail.Mail;
             TextView subject;
             TextView body;
 
+            Button apply;
+
             public MyViewHolderClicks mListener;
 
             // itemView will be my own custom layout View of the row
@@ -97,13 +106,18 @@ import cs.software.engineering.jobthirsty.mail.Mail;
                 sender = (TextView) itemView.findViewById(R.id.sender);
                 subject = (TextView) itemView.findViewById(R.id.subject);
                 body = (TextView) itemView.findViewById(R.id.body);
+                apply = (Button) itemView.findViewById(R.id.apply);
 
                 itemView.setOnClickListener(this);
+                apply.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
+                    case R.id.apply:
+                        mListener.Apply(getAdapterPosition());
+                        break;
                     default:
                         mListener.RowClick(v, getAdapterPosition());
                         break;
@@ -111,7 +125,8 @@ import cs.software.engineering.jobthirsty.mail.Mail;
             }
 
             public  interface MyViewHolderClicks {
-                 void RowClick(View caller, int position);
+                void RowClick(View caller, int position);
+                void Apply(int position);
             }
         }
     }

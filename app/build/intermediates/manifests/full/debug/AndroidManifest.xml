@@ -26,8 +26,6 @@
         </activity>
         <activity android:name="cs.software.engineering.jobthirsty.newsfeed.Newsfeed" >
         </activity>
-        <activity android:name="cs.software.engineering.jobthirsty.find.Find" >
-        </activity>
         <activity android:name="cs.software.engineering.jobthirsty.mail.Mail" >
         </activity>
         <activity android:name="cs.software.engineering.jobthirsty.Login" >

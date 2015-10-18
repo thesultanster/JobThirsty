@@ -52,9 +52,8 @@
                         android:textSize="18sp"
                         android:editable="false"/>
 
-
-                    <TextView
-                        android:id="@+id/description"
+                    <EditText
+                        android:id="@+id/biography"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/location"
@@ -62,9 +61,11 @@
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingTop="5dp"
-                        android:text="I like being awesome and coding and designing beautiful UI for applications and websites "
+                        android:background="#FFffffff"
+                        android:hint="[Biography]"
                         android:textColor="@color/primaryText"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:editable="false"/>
 
                 </RelativeLayout>
             </RelativeLayout>
