@@ -1,15 +1,19 @@
 package cs.software.engineering.jobthirsty.profile;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.parse.ParseUser;
 
+import cs.software.engineering.jobthirsty.Login;
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
@@ -30,6 +34,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ImageButton educationEditBtn;
     private ImageButton activitiesEditBtn;
     private ImageButton awardsEditBtn;
+    private EditText location;
 
     //Employee Data Variables
     private String firstName;
@@ -57,8 +62,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         //Tool bar
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
-        toolbar.setTitleTextColor(0xFFffffff);
-        toolbar.requestLayout();
 
         firstName = ParseUser.getCurrentUser().get("firstName").toString();
         lastName = ParseUser.getCurrentUser().get("lastName").toString();
@@ -66,6 +69,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+        collapsingToolbarLayout.setExpandedTitleColor(0xFFffffff);
 
 
         //Edit button
@@ -79,6 +83,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         educationEditBtn = (ImageButton) findViewById(R.id.educationEditBtn);
         activitiesEditBtn = (ImageButton) findViewById(R.id.activitiesEditBtn);
         awardsEditBtn = (ImageButton) findViewById(R.id.awardsEditBtn);
+
+        //Editable views
+        location = (EditText) findViewById(R.id.location);
     }
 
     private void setListeners()
@@ -92,10 +99,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 //if editable
                 if(editable)
                 {
+                    //enable edits for EditTexts
+                    location.setEnabled(true);
+                    location.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                    //show edit buttons for sections
                     showEditButtons();
                 }
                 else
                 {
+                    //disable edits for EditTexts
+                    location.setEnabled(false);
+
+                    //hide edit buttons for sections
                     hideEditButtons();
                 }
             }
