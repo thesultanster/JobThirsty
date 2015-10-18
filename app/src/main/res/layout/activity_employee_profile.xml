@@ -47,7 +47,7 @@
                         android:paddingRight="20dp"
                         android:paddingTop="10dp"
                         android:background="#FFffffff"
-                        android:hint="[Location]"
+                        android:hint="[Add Location]"
                         android:textColor="@color/primaryText"
                         android:textSize="18sp"
                         android:editable="false"/>
@@ -62,7 +62,7 @@
                         android:paddingRight="20dp"
                         android:paddingTop="5dp"
                         android:background="#FFffffff"
-                        android:hint="[Biography]"
+                        android:hint="[Add Biography]"
                         android:textColor="@color/primaryText"
                         android:textSize="15sp"
                         android:editable="false"/>
@@ -76,7 +76,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <RelativeLayout
-                    android:id="@+id/skillsSection"
+                    android:id="@+id/skillsParent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp">
@@ -93,6 +93,7 @@
                         android:src="@mipmap/skills"/>
 
                     <TextView
+                        android:id="@+id/skillsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -113,7 +114,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/experienceSection"
+                    android:id="@+id/experienceParent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp">
@@ -150,7 +151,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/projectsSection"
+                    android:id="@+id/projectsParent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp">
@@ -188,7 +189,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/educationSection"
+                    android:id="@+id/educationParent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp">
@@ -224,7 +225,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/activitiesSection"
+                    android:id="@+id/activitiesParent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp">
@@ -260,7 +261,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/awardsSection"
+                    android:id="@+id/awardsParent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp">

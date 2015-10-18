@@ -1,8 +1,5 @@
 package cs.software.engineering.jobthirsty.profile;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,17 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.parse.ParseUser;
 
-import cs.software.engineering.jobthirsty.Login;
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
 public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     //PRIVATE VARIABLES
+    private static String bullet = "\u2022";
+
     //Toolbar Variables
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -30,12 +27,18 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private boolean editable;
 
     //UI Variables
-    private RelativeLayout skillsSection;
-    private RelativeLayout experienceSection;
-    private RelativeLayout projectsSection;
-    private RelativeLayout educationSection;
-    private RelativeLayout activitiesSection;
-    private RelativeLayout awardsSection;
+    private RelativeLayout skillsParent;
+    private RelativeLayout experienceParent;
+    private RelativeLayout projectsParent;
+    private RelativeLayout educationParent;
+    private RelativeLayout activitiesParent;
+    private RelativeLayout awardsParent;
+    private ProfileSection skillsSection;
+    private ProfileSection experienceSection;
+    private ProfileSection projectsSection;
+    private ProfileSection educationSection;
+    private ProfileSection activitiesSection;
+    private ProfileSection awardsSection;
     private ImageButton skillsEditBtn;
     private ImageButton experienceEditBtn;
     private ImageButton projectsEditBtn;
@@ -84,13 +87,22 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
         editable = false;
 
+        //Parent layouts
+        skillsParent = (RelativeLayout) findViewById(R.id.skillsParent);
+        experienceParent = (RelativeLayout) findViewById(R.id.experienceParent);
+        projectsParent = (RelativeLayout) findViewById(R.id.projectsParent);
+        educationParent = (RelativeLayout) findViewById(R.id.educationParent);
+        activitiesParent = (RelativeLayout) findViewById(R.id.activitiesParent);
+        awardsParent = (RelativeLayout) findViewById(R.id.awardsParent);
+
         //Section layouts
-        skillsSection = (RelativeLayout) findViewById(R.id.skillsSection);
-        experienceSection = (RelativeLayout) findViewById(R.id.experienceSection);
-        projectsSection = (RelativeLayout) findViewById(R.id.projectsSection);
-        educationSection = (RelativeLayout) findViewById(R.id.educationSection);
-        activitiesSection = (RelativeLayout) findViewById(R.id.activitiesSection);
-        awardsSection = (RelativeLayout) findViewById(R.id.awardsSection);
+        skillsSection = new ProfileSection(getApplicationContext());
+
+        experienceSection = new ProfileSection(getApplicationContext());
+        projectsSection = new ProfileSection(getApplicationContext());
+        educationSection = new ProfileSection(getApplicationContext());
+        activitiesSection = new ProfileSection(getApplicationContext());
+        awardsSection = new ProfileSection(getApplicationContext());
 
         //Section edit buttons
         skillsEditBtn = (ImageButton) findViewById(R.id.skillsEditBtn);
@@ -141,24 +153,12 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View v) {
                 //Expand layout
-                skillsSection.getLayoutParams().height += 100;
-                skillsSection.requestLayout();
+                skillsParent.getLayoutParams().height += 100;
+                skillsParent.requestLayout();
 
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
-                //set up Edit Text
-                EditText et = new EditText(getApplicationContext());
-                et.setLayoutParams(layoutParams);
-                et.setBackgroundColor(0xFFffffff);
-                et.setText(String.format("%s", "assdfasd"));
-                et.setTextColor(0xFF000000);
-                et.requestFocus(); //put on cursor
-
-                //add the skill
-                skillsSection.addView(et);
+                skillsParent.removeView(skillsSection);
+                skillsSection.addElement();
+                skillsParent.addView(skillsSection);
             }
         });
     }
