@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,14 +17,23 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     //PRIVATE VARIABLES
     //Toolbar Variables
-    Toolbar toolbar;
-    CollapsingToolbarLayout collapsingToolbarLayout;
+    private Toolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
-    ImageButton editProfileBtn;
+    private ImageButton editProfileBtn;
+    private boolean editable;
+
+    //UI Variables
+    private ImageButton skillsEditBtn;
+    private ImageButton experienceEditBtn;
+    private ImageButton projectsEditBtn;
+    private ImageButton educationEditBtn;
+    private ImageButton activitiesEditBtn;
+    private ImageButton awardsEditBtn;
 
     //Employee Data Variables
-    String firstName;
-    String lastName;
+    private String firstName;
+    private String lastName;
 
     //OVERRIDE [START] -----------------------------------------------------------------------------
     @Override
@@ -44,9 +54,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //HELPER FUNCTIONS[START] ----------------------------------------------------------------------
     private void initialize()
     {
-        //Edit button
-        editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
-
         //Tool bar
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
@@ -59,6 +66,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+
+
+        //Edit button
+        editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
+        editable = false;
+
+        //Section edit buttons
+        skillsEditBtn = (ImageButton) findViewById(R.id.skillsEditBtn);
+        experienceEditBtn = (ImageButton) findViewById(R.id.experienceEditBtn);
+        projectsEditBtn = (ImageButton) findViewById(R.id.projectsEditBtn);
+        educationEditBtn = (ImageButton) findViewById(R.id.educationEditBtn);
+        activitiesEditBtn = (ImageButton) findViewById(R.id.activitiesEditBtn);
+        awardsEditBtn = (ImageButton) findViewById(R.id.awardsEditBtn);
     }
 
     private void setListeners()
@@ -66,9 +86,41 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(this, )
+                //toggle
+                editable = !editable;
+
+                //if editable
+                if(editable)
+                {
+                    showEditButtons();
+                }
+                else
+                {
+                    hideEditButtons();
+                }
             }
         });
+    }
+
+    private void showEditButtons()
+    {
+        skillsEditBtn.setVisibility(View.VISIBLE);
+        experienceEditBtn.setVisibility(View.VISIBLE);
+        projectsEditBtn.setVisibility(View.VISIBLE);
+        educationEditBtn.setVisibility(View.VISIBLE);
+        activitiesEditBtn.setVisibility(View.VISIBLE);
+        awardsEditBtn.setVisibility(View.VISIBLE);
+    }
+
+    private void hideEditButtons()
+    {
+
+        skillsEditBtn.setVisibility(View.INVISIBLE);
+        experienceEditBtn.setVisibility(View.INVISIBLE);
+        projectsEditBtn.setVisibility(View.INVISIBLE);
+        educationEditBtn.setVisibility(View.INVISIBLE);
+        activitiesEditBtn.setVisibility(View.INVISIBLE);
+        awardsEditBtn.setVisibility(View.INVISIBLE);
     }
     //[END] ----------------------------------------------------------------------------------------
 

@@ -70,23 +70,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/skillsSection"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
-                        android:id="@+id/tmp"
+                        android:id="@+id/skillsIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:layout_alignParentStart="true"
                         android:src="@mipmap/skills"/>
-
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -94,27 +93,36 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/skillsIcon"
                         android:text="Skills"
                         android:textColor="@color/primaryText"
                         android:textSize="20sp" />
-                </LinearLayout>
 
-                <LinearLayout
+                    <ImageButton
+                        android:id="@+id/skillsEditBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/experienceSection"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
+                        android:id="@+id/experienceIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:layout_alignParentStart="true"
                         android:src="@mipmap/experience" />
-
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -122,25 +130,35 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/experienceIcon"
                         android:text="Experience"
                         android:textColor="@color/primaryText"
                         android:textSize="20sp" />
-                </LinearLayout>
 
-                <LinearLayout
+                    <ImageButton
+                        android:id="@+id/experienceEditBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/projectsSection"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
+                        android:id="@+id/projectsIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:layout_alignParentStart="true"
                         android:src="@mipmap/projects" />
 
 
@@ -150,19 +168,28 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/projectsIcon"
                         android:text="Projects"
                         android:textColor="@color/primaryText"
                         android:textSize="20sp" />
-                </LinearLayout>
 
-                <LinearLayout
+                    <ImageButton
+                        android:id="@+id/projectsEditBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/educationSection"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
+                        android:id="@+id/educationIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginBottom="5dp"
@@ -171,26 +198,34 @@
                         android:layout_marginTop="10dp"
                         android:src="@mipmap/education" />
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/educationIcon"
                         android:text="Education"
                         android:textColor="@color/primaryText"
                         android:textSize="20sp" />
-                </LinearLayout>
 
-                <LinearLayout
+                    <ImageButton
+                        android:id="@+id/educationEditBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/activitiesSection"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
+                        android:id="@+id/activitiesIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginBottom="5dp"
@@ -199,26 +234,34 @@
                         android:layout_marginTop="10dp"
                         android:src="@mipmap/activities" />
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/activitiesIcon"
                         android:text="Activities"
                         android:textColor="@color/primaryText"
                         android:textSize="20sp" />
-                </LinearLayout>
 
-                <LinearLayout
+                    <ImageButton
+                        android:id="@+id/activitiesEditBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/awardsSection"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
+                        android:id="@+id/awardsIcon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginBottom="5dp"
@@ -233,10 +276,19 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/awardsIcon"
                         android:text="Awards"
                         android:textColor="@color/primaryText"
                         android:textSize="20sp" />
-                </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/awardsEditBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -266,7 +318,7 @@
                 android:id="@+id/editProfileBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentBottom="true"/>
+                android:layout_gravity="bottom|end"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
