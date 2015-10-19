@@ -33,7 +33,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private RelativeLayout educationParent;
     private RelativeLayout activitiesParent;
     private RelativeLayout awardsParent;
-    private ProfileSection skillsSection;
+    private SkillsSection skillsSection;
     private ProfileSection experienceSection;
     private ProfileSection projectsSection;
     private ProfileSection educationSection;
@@ -96,7 +96,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsParent = (RelativeLayout) findViewById(R.id.awardsParent);
 
         //Section layouts
-        skillsSection = new ProfileSection(getApplicationContext());
+        skillsSection = new SkillsSection(getApplicationContext());
 
         experienceSection = new ProfileSection(getApplicationContext());
         projectsSection = new ProfileSection(getApplicationContext());
@@ -135,6 +135,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //show edit buttons for sections
                     showEditButtons();
+
+                    //enable inside materials
+                    skillsSection.enableEdit();
                 }
                 else
                 {
@@ -144,6 +147,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //hide edit buttons for sections
                     hideEditButtons();
+
+                    //disable inside materials
+                    skillsSection.disableEdit();
                 }
             }
         });
