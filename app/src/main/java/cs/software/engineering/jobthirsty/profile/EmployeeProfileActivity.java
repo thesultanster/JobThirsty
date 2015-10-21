@@ -38,7 +38,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ProfileSection projectsSection;
     private ProfileSection educationSection;
     private ProfileSection activitiesSection;
-    private ProfileSection awardsSection;
+    private AwardSection awardsSection;
     private ImageButton skillsEditBtn;
     private ImageButton experienceEditBtn;
     private ImageButton projectsEditBtn;
@@ -97,12 +97,11 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         //Section layouts
         skillsSection = new SkillsSection(getApplicationContext());
-
         experienceSection = new ProfileSection(getApplicationContext());
         projectsSection = new ProfileSection(getApplicationContext());
         educationSection = new ProfileSection(getApplicationContext());
         activitiesSection = new ProfileSection(getApplicationContext());
-        awardsSection = new ProfileSection(getApplicationContext());
+        awardsSection = new AwardSection(getApplicationContext());
 
         //Section edit buttons
         skillsEditBtn = (ImageButton) findViewById(R.id.skillsEditBtn);
@@ -165,6 +164,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 skillsParent.removeView(skillsSection);
                 skillsSection.addElement();
                 skillsParent.addView(skillsSection);
+            }
+        });
+
+        awardsEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Expand layout
+                awardsParent.getLayoutParams().height += 100;
+                awardsParent.requestLayout();
+
+                awardsParent.removeView(awardsSection);
+                awardsSection.addElement();
+                awardsParent.addView(awardsSection);
             }
         });
     }
