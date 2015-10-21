@@ -137,6 +137,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //enable inside materials
                     skillsSection.enableEdit();
+                    awardsSection.enableEdit();
                 }
                 else
                 {
@@ -149,6 +150,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //disable inside materials
                     skillsSection.disableEdit();
+                    awardsSection.disableEdit();
                 }
             }
         });

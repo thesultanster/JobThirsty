@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.text.InputFilter;
 import android.text.Layout;
 import android.view.View;
 import android.widget.EditText;
@@ -53,6 +54,7 @@ public class AwardSection extends ProfileSection {
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
+        et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(28)}); //set max length
         et.requestFocus(); //put on cursor
         et.setHint("[Add Award]");
         et.setHintTextColor(0xFF808080);
