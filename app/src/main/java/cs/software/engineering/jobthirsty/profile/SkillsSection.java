@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +19,11 @@ public class SkillsSection extends ProfileSection {
 
     //PRIVATE VARIABLES
     private Context context;
+
+    //Layout parameter variables
+    private LinearLayout.LayoutParams blockLayoutParams;
+    private RelativeLayout.LayoutParams etLayoutParams;
+    private RelativeLayout.LayoutParams ivLayoutParams;
 
 
     //List for holding elements
@@ -37,55 +43,46 @@ public class SkillsSection extends ProfileSection {
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
     public void addElement()
     {
-        //Expand layout
-        this.getLayoutParams().height += 100;
-        this.requestLayout();
-
-        LinearLayout.LayoutParams llLP = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                100);
-
+        //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
-        rl.setLayoutParams(llLP);
+        rl.setLayoutParams(blockLayoutParams);
 
-        RelativeLayout.LayoutParams rlLP = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        rlLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-
-        //set up Edit Text
+        //set up EditText
         EditText et = new EditText(context);
-        et.setLayoutParams(rlLP);
+        et.setLayoutParams(etLayoutParams);
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
+        et.setSingleLine();
         et.requestFocus(); //put on cursor
         et.setHint("[Add Skill]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
 
-        //add to layout
+        //add EditText to row
         rl.addView(et);
 
-        rlLP =  new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        rlLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        rlLP.setMarginEnd(7);
-
+        //create remove button
         ImageButton iv = new ImageButton(context);
-        iv.setLayoutParams(rlLP);
+        iv.setLayoutParams(ivLayoutParams);
         iv.setBackgroundResource(R.drawable.addtmp);
         iv.getLayoutParams().height = 120;
         iv.getLayoutParams().width = 120;
+
         iv.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                //remove row
                 LinearLayout ll = (LinearLayout) v.getParent().getParent();
                 ll.removeView((RelativeLayout) v.getParent());
-                ll.getLayoutParams().height -= 100;
-                ll.requestLayout();
+
+                //wrap content
+                RelativeLayout rl = ((RelativeLayout) ll.getParent());
+                rl.getLayoutParams().height -= 100;
+                rl.requestLayout();
             }
         });
+
+        //add delete button to row
         rl.addView(iv);
 
 
@@ -115,7 +112,24 @@ public class SkillsSection extends ProfileSection {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
+        //list holding rows
         list = new ArrayList<>();
+        
+        //layout params for a row layout
+        blockLayoutParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            100);
+
+        etLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        
+        ivLayoutParams =  new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        ivLayoutParams.setMarginEnd(7);
     }
     //[END] ----------------------------------------------------------------------------------------
 }
