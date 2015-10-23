@@ -50,6 +50,10 @@
             android:label="@string/title_activity_applied_workers"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name=".profile.EmployerProfileActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
