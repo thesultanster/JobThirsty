@@ -2,17 +2,26 @@ package cs.software.engineering.jobthirsty.profile;
 
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.parse.ParseUser;
 
+import java.util.EventListener;
+
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
+import cs.software.engineering.jobthirsty.util.ScrollAwareFABBehavior;
 
 public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
@@ -27,6 +36,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private boolean editable;
 
     //UI Variables
+    private NestedScrollView scrollView;
     private RelativeLayout skillsParent;
     private RelativeLayout experienceParent;
     private RelativeLayout projectsParent;
@@ -70,6 +80,25 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //HELPER FUNCTIONS[START] ----------------------------------------------------------------------
     private void initialize()
     {
+        //set minimum height for bottom half to enable scrolling
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(displaymetrics);
+        int screenHeight = displaymetrics.heightPixels;
+
+        int actionBarHeight = 0;
+        TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        }
+
+        LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.mainLinear);
+        mainLinearLayout.setMinimumHeight(screenHeight - actionBarHeight);
+
+        //Scroll View
+        scrollView = (NestedScrollView) findViewById(R.id.scrollView);
+        scrollView.setNestedScrollingEnabled(true);
+
         //Tool bar
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
@@ -130,7 +159,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 {
                     //enable edits for EditTexts
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
-                    biography.setInputType(InputType.TYPE_CLASS_TEXT);
 
                     //show edit buttons for sections
                     showEditButtons();
@@ -193,14 +221,28 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsEditBtn.setVisibility(View.VISIBLE);
     }
 
-    private void hideEditButtons()
-    {
+    private void hideEditButtons() {
         skillsEditBtn.setVisibility(View.INVISIBLE);
         experienceEditBtn.setVisibility(View.INVISIBLE);
         projectsEditBtn.setVisibility(View.INVISIBLE);
         educationEditBtn.setVisibility(View.INVISIBLE);
         activitiesEditBtn.setVisibility(View.INVISIBLE);
         awardsEditBtn.setVisibility(View.INVISIBLE);
+    }
+
+    public static void disableTouchTheft(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        view.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+                return false;
+            }
+        });
     }
     //[END] ----------------------------------------------------------------------------------------
 }
