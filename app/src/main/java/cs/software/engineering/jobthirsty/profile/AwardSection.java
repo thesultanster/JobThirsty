@@ -56,14 +56,7 @@ public class AwardSection extends ProfileSection {
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-
-        //limiting the width
-        et.setEms(15);
-        int maxLength = 15;
-        InputFilter[] fArray = new InputFilter[1];
-        fArray[0] = new InputFilter.LengthFilter(maxLength);
-        et.setFilters(fArray);
-
+        et.setEms(18);
         et.requestFocus(); //put on cursor
         et.setHint("[Add Award]");
         et.setHintTextColor(0xFF808080);
