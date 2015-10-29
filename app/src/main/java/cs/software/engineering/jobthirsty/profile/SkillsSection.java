@@ -1,6 +1,8 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.media.Image;
+import android.text.InputFilter;
 import android.text.Layout;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import cs.software.engineering.jobthirsty.R;
 
@@ -53,6 +56,14 @@ public class SkillsSection extends ProfileSection {
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
+
+        //limiting the width
+        et.setEms(15);
+        int maxLength = 15;
+        InputFilter[] fArray = new InputFilter[1];
+        fArray[0] = new InputFilter.LengthFilter(maxLength);
+        et.setFilters(fArray);
+
         et.requestFocus(); //put on cursor
         et.setHint("[Add Skill]");
         et.setHintTextColor(0xFF808080);
@@ -64,21 +75,14 @@ public class SkillsSection extends ProfileSection {
         //create remove button
         ImageButton iv = new ImageButton(context);
         iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.addtmp);
+        iv.setBackgroundResource(R.drawable.minus);
         iv.getLayoutParams().height = 120;
         iv.getLayoutParams().width = 120;
 
         iv.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //remove row
-                LinearLayout ll = (LinearLayout) v.getParent().getParent();
-                ll.removeView((RelativeLayout) v.getParent());
-
-                //wrap content
-                RelativeLayout rl = ((RelativeLayout) ll.getParent());
-                rl.getLayoutParams().height -= 100;
-                rl.requestLayout();
+                removeRow(v);
             }
         });
 
@@ -100,9 +104,23 @@ public class SkillsSection extends ProfileSection {
 
     public void disableEdit()
     {
-        for(int i = 0; i < list.size(); ++i) {
-            list.get(i).getChildAt(0).setEnabled(false);
-            list.get(i).getChildAt(1).setVisibility(INVISIBLE); //hide minus button
+        //iterate through all rows
+        for(Iterator<RelativeLayout> i = list.iterator(); i.hasNext(); ) {
+            RelativeLayout row = i.next();
+            EditText et = (EditText) row.getChildAt(0);
+            ImageButton ib = (ImageButton) row.getChildAt(1);
+
+            //check if current item's bullet is empty
+            if(et.getText().toString().equals("")){
+                //if empty, remove the entire item
+                i.remove();
+                removeRow(row.getChildAt(0)); //pick any random child for matching the format
+            }
+            else {
+                //otherwise, simply hide them
+                et.setEnabled(false);
+                ib.setVisibility(INVISIBLE); //hide minus button
+            }
         }
     }
     //[END] ----------------------------------------------------------------------------------------
@@ -121,7 +139,7 @@ public class SkillsSection extends ProfileSection {
             100);
 
         etLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         
@@ -130,6 +148,21 @@ public class SkillsSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         ivLayoutParams.setMarginEnd(7);
+    }
+
+    //removes the relative layout
+    private void removeRow(View v)
+    {
+        if(v.getParent() != null && v.getParent().getParent() != null) {
+            //remove row
+            LinearLayout ll = (LinearLayout) v.getParent().getParent();
+            ll.removeView((RelativeLayout) v.getParent());
+
+            //wrap content
+            RelativeLayout rl = ((RelativeLayout) ll.getParent());
+            rl.getLayoutParams().height -= 100;
+            rl.requestLayout();
+        }
     }
     //[END] ----------------------------------------------------------------------------------------
 }

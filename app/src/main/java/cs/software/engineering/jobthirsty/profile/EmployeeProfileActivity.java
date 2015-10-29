@@ -95,9 +95,11 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.mainLinear);
         mainLinearLayout.setMinimumHeight(screenHeight - actionBarHeight);
 
+
         //Scroll View
         scrollView = (NestedScrollView) findViewById(R.id.scrollView);
         scrollView.setNestedScrollingEnabled(true);
+
 
         //Tool bar
         toolbar = getToolbar();
@@ -116,6 +118,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
         editable = false;
 
+
         //Parent layouts
         skillsParent = (RelativeLayout) findViewById(R.id.skillsParent);
         experienceParent = (RelativeLayout) findViewById(R.id.experienceParent);
@@ -123,6 +126,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         educationParent = (RelativeLayout) findViewById(R.id.educationParent);
         activitiesParent = (RelativeLayout) findViewById(R.id.activitiesParent);
         awardsParent = (RelativeLayout) findViewById(R.id.awardsParent);
+
 
         //Section layouts
         skillsSection = new SkillsSection(getApplicationContext());
@@ -139,6 +143,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         educationEditBtn = (ImageButton) findViewById(R.id.educationEditBtn);
         activitiesEditBtn = (ImageButton) findViewById(R.id.activitiesEditBtn);
         awardsEditBtn = (ImageButton) findViewById(R.id.awardsEditBtn);
+
 
         //Editable views
         location = (EditText) findViewById(R.id.location);
@@ -158,7 +163,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 if(editable)
                 {
                     //enable edits for EditTexts
+                    location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
+                    biography.setEnabled(true);
 
                     //show edit buttons for sections
                     showEditButtons();

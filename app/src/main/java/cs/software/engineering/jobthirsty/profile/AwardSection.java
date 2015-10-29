@@ -54,7 +54,7 @@ public class AwardSection extends ProfileSection {
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(28)}); //set max length
+        et.setEms(15);
         et.requestFocus(); //put on cursor
         et.setHint("[Add Award]");
         et.setHintTextColor(0xFF808080);
@@ -66,7 +66,7 @@ public class AwardSection extends ProfileSection {
         //create remove button
         ImageButton iv = new ImageButton(context);
         iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.addtmp);
+        iv.setBackgroundResource(R.drawable.minus);
         iv.getLayoutParams().height = 120;
         iv.getLayoutParams().width = 120;
 

@@ -31,8 +31,7 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/navigation_icon"
@@ -43,7 +42,7 @@
 
                     <EditText
                         android:id="@+id/location"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/navigation_icon"
                         android:paddingBottom="5dp"
@@ -55,9 +54,7 @@
                         android:textColor="@color/primaryText"
                         android:textSize="18sp"
                         android:editable="false"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:overScrollMode="always"/>
+                        android:ems="18"/>
 
                     <EditText
                         android:id="@+id/biography"
@@ -118,7 +115,8 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_alignParentEnd="true"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="@drawable/plus"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -155,7 +153,8 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_alignParentEnd="true"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="@drawable/plus"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -193,7 +192,8 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_alignParentEnd="true"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="@drawable/plus"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -229,7 +229,8 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_alignParentEnd="true"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="@drawable/plus"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -265,7 +266,8 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_alignParentEnd="true"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="@drawable/plus"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -301,7 +303,8 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_alignParentEnd="true"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="@drawable/plus"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
