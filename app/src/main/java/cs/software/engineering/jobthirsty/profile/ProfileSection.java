@@ -30,16 +30,6 @@ public class ProfileSection extends LinearLayout {
         super(context);
         this.context = context;
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        layoutParams.setMargins(100, 120, 0, 0);
-
-        this.setLayoutParams(layoutParams);
-        this.setOrientation(VERTICAL);
-        this.requestLayout();
-
         initialize();
     }
     //[END] ----------------------------------------------------------------------------------------
@@ -54,6 +44,16 @@ public class ProfileSection extends LinearLayout {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(100, 120, 0, 0);
+
+        this.setLayoutParams(layoutParams);
+        this.setOrientation(VERTICAL);
+        this.requestLayout();
+
     }
     //[END] ----------------------------------------------------------------------------------------
 }

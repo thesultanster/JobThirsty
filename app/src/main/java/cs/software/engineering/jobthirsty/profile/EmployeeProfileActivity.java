@@ -36,7 +36,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private boolean editable;
 
     //UI Variables
-    private NestedScrollView scrollView;
     private RelativeLayout skillsParent;
     private RelativeLayout experienceParent;
     private RelativeLayout projectsParent;
@@ -47,7 +46,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ProfileSection experienceSection;
     private ProfileSection projectsSection;
     private ProfileSection educationSection;
-    private ProfileSection activitiesSection;
+    private ActivitiesSection activitiesSection;
     private AwardSection awardsSection;
     private ImageButton skillsEditBtn;
     private ImageButton experienceEditBtn;
@@ -95,12 +94,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.mainLinear);
         mainLinearLayout.setMinimumHeight(screenHeight - actionBarHeight);
 
-
-        //Scroll View
-        scrollView = (NestedScrollView) findViewById(R.id.scrollView);
-        scrollView.setNestedScrollingEnabled(true);
-
-
         //Tool bar
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
@@ -133,7 +126,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         experienceSection = new ProfileSection(getApplicationContext());
         projectsSection = new ProfileSection(getApplicationContext());
         educationSection = new ProfileSection(getApplicationContext());
-        activitiesSection = new ProfileSection(getApplicationContext());
+        activitiesSection = new ActivitiesSection(getApplicationContext());
         awardsSection = new AwardSection(getApplicationContext());
 
         //Section edit buttons
@@ -173,6 +166,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     //enable inside materials
                     skillsSection.enableEdit();
                     awardsSection.enableEdit();
+                    activitiesSection.enableEdit();
                 }
                 else
                 {
@@ -186,6 +180,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     //disable inside materials
                     skillsSection.disableEdit();
                     awardsSection.disableEdit();
+                    activitiesSection.disableEdit();
                 }
             }
         });
@@ -214,6 +209,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 awardsParent.removeView(awardsSection);
                 awardsSection.addElement();
                 awardsParent.addView(awardsSection);
+            }
+        });
+
+        activitiesEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Expand layout
+                activitiesParent.getLayoutParams().height += 100;
+                activitiesParent.requestLayout();
+
+                activitiesParent.removeView(activitiesSection);
+                activitiesSection.addElement();
+                activitiesParent.addView(activitiesSection);
             }
         });
     }
