@@ -56,7 +56,7 @@ public class AwardSection extends ProfileSection {
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setEms(18);
+        et.setEms(12);
         et.requestFocus(); //put on cursor
         et.setHint("[Add Award]");
         et.setHintTextColor(0xFF808080);
