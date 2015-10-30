@@ -83,7 +83,7 @@ public class SkillsSection extends ProfileSection {
 
         iv.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick (View v){
                 removeRow(v);
             }
         });
@@ -184,11 +184,13 @@ public class SkillsSection extends ProfileSection {
         if(v.getParent() != null && v.getParent().getParent() != null) {
             //remove row
             LinearLayout ll = (LinearLayout) v.getParent().getParent();
-            ll.removeView((RelativeLayout) v.getParent());
+            RelativeLayout rowToRemove = (RelativeLayout) v.getParent();
+            int rowHeight = rowToRemove.getHeight();
+            ll.removeView(rowToRemove);
 
             //wrap content
             RelativeLayout rl = ((RelativeLayout) ll.getParent());
-            rl.getLayoutParams().height -= 100;
+            rl.getLayoutParams().height -= rowHeight;
             rl.requestLayout();
         }
     }
