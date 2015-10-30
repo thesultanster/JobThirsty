@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,9 @@ public class SkillsSection extends ProfileSection {
 
     //PRIVATE VARIABLES
     private Context context;
+
+    //Display info
+    DisplayMetrics displayMetrics;
 
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
@@ -51,65 +55,24 @@ public class SkillsSection extends ProfileSection {
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
-        //set up EditText
-        EditText et = new EditText(context);
-        et.setLayoutParams(etLayoutParams);
-        et.setBackgroundColor(0xFFffffff);
-        et.setTextColor(0xFF000000);
-        et.setEms(8);
-        et.setSingleLine();
-        et.requestFocus(); //put on cursor
-        et.setHint("[Add Skill]");
-        et.setHintTextColor(0xFF808080);
-        et.requestLayout(); //update
-
         //add EditText to row
-        rl.addView(et);
+        rl.addView(createSkillView());
 
         //Add ImageView for increasing/decreasing endorse
         // should only be visible to everyone else except for you
 
 
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setId(list.size()+1000); //use id that is higher than 0
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
-
-        iv.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                removeRow(v);
-            }
-        });
-
         //add delete button to row
-        rl.addView(iv);
-
+        rl.addView(createMinusButton());
 
         //Add TextView for endorse count
-        TextView endorseEt = new EditText(context);
-        endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, iv.getId());
-        endorseEt.setLayoutParams(endorseCountLayoutParams);
-        endorseEt.setEms(1);
-        endorseEt.setTextColor(0xFF000000);
-        endorseEt.setText("0");
-        endorseEt.setEnabled(false);
-        endorseEt.setBackgroundColor(0xFFFFFFFF);
-        endorseEt.setGravity(Gravity.CENTER);
-        endorseEt.setVisibility(INVISIBLE); //initially invisible
-        endorseEt.requestLayout();
-
-        //add TextView to row
-        rl.addView(endorseEt);
+        rl.addView(createEndorseView());
 
 
         //add the row
         this.addView(rl);
         list.add(rl);
-        endorseList.add(0);
+        endorseList.add(0); //endorse always starts from 0
     }
 
     public void enableEdit() {
@@ -153,6 +116,9 @@ public class SkillsSection extends ProfileSection {
         //list holding rows
         list = new ArrayList<>();
         endorseList = new ArrayList<>();
+
+        //display manager
+        displayMetrics = getResources().getDisplayMetrics();
         
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
@@ -190,6 +156,61 @@ public class SkillsSection extends ProfileSection {
             rl.getLayoutParams().height -= rowHeight;
             rl.requestLayout();
         }
+    }
+
+    private EditText createSkillView()
+    {
+        //set up EditText
+        EditText et = new EditText(context);
+        et.setLayoutParams(etLayoutParams);
+        et.setBackgroundColor(0xFFffffff);
+        et.setTextColor(0xFF000000);
+        et.setSingleLine();
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
+        et.requestFocus(); //put on cursor
+        et.setHint("[Skill]");
+        et.setHintTextColor(0xFF808080);
+        et.requestLayout(); //update
+
+        return et;
+    }
+
+    private ImageButton createMinusButton()
+    {
+        //create remove button
+        ImageButton iv = new ImageButton(context);
+        iv.setId(list.size() + 1000); //use id that is higher than 0
+        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
+        iv.setLayoutParams(ivLayoutParams);
+        iv.setBackgroundResource(R.drawable.minus);
+        iv.getLayoutParams().height = 120;
+        iv.getLayoutParams().width = 120;
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRow(v);
+            }
+        });
+
+        return iv;
+    }
+
+    private TextView createEndorseView()
+    {
+        TextView endorseEt = new EditText(context);
+        endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, list.size());
+        endorseEt.setLayoutParams(endorseCountLayoutParams);
+        endorseEt.setEms(1);
+        endorseEt.setTextColor(0xFF000000);
+        endorseEt.setText("0");
+        endorseEt.setEnabled(false);
+        endorseEt.setBackgroundColor(0xFFFFFFFF);
+        endorseEt.setGravity(Gravity.CENTER);
+        endorseEt.setVisibility(INVISIBLE); //initially invisible
+        endorseEt.requestLayout();
+
+        return endorseEt;
     }
     //[END] ----------------------------------------------------------------------------------------
 }

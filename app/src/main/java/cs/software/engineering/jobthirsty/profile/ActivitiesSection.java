@@ -55,7 +55,7 @@ public class ActivitiesSection extends ProfileSection {
         et.setSingleLine();
         et.setEms(12);
         et.requestFocus(); //put on cursor
-        et.setHint("[Add Activity]");
+        et.setHint("[Activity]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
 

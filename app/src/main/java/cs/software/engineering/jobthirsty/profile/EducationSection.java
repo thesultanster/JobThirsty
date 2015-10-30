@@ -1,6 +1,8 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,10 +22,12 @@ public class EducationSection extends ProfileSection {
     //PRIVATE VARIABLES
     private Context context;
 
+    //Display info
+    DisplayMetrics displayMetrics;
+
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
     private RelativeLayout.LayoutParams etLayoutParams;
-    private RelativeLayout.LayoutParams endorseCountLayoutParams;
     private RelativeLayout.LayoutParams ivLayoutParams;
 
 
@@ -48,13 +52,17 @@ public class EducationSection extends ProfileSection {
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
-        //add EditText to row
+        //add school to row
         rl.addView(createSchoolView());
 
         //add delete button to row
         rl.addView(createMinusButton());
 
+        //add major
         rl.addView(createMajorView());
+
+        //add GPA
+        rl.addView(createGPA());
 
 
         //add the row
@@ -78,9 +86,11 @@ public class EducationSection extends ProfileSection {
             EditText et = (EditText) row.getChildAt(0);
             ImageButton ib = (ImageButton) row.getChildAt(1);
             EditText majorEt = (EditText) row.getChildAt(2);
+            EditText gpaEt = (EditText) row.getChildAt(3);
 
             //check if current item's bullet is empty
-            if(et.getText().toString().equals("")){
+
+            if(et.getText().toString().equals("") && majorEt.getText().toString().equals("") && gpaEt.getText().toString().equals("")){
                 //if empty, remove the entire item
                 i.remove();
                 removeRow(row.getChildAt(0)); //pick any random child for matching the format
@@ -89,10 +99,14 @@ public class EducationSection extends ProfileSection {
                 //otherwise, simply hide them
                 et.setEnabled(false);
                 ib.setVisibility(INVISIBLE); //hide minus button
+                majorEt.setEnabled(false);
+                gpaEt.setEnabled(false);
 
-                //hide empty field for major
+                //hide if empty
                 if(majorEt.getText().equals(""))
-                    majorEt.setVisibility(INVISIBLE); //show visibility
+                    majorEt.setVisibility(INVISIBLE);
+                if(gpaEt.getText().equals(""))
+                    gpaEt.setVisibility(INVISIBLE);
             }
         }
     }
@@ -106,10 +120,13 @@ public class EducationSection extends ProfileSection {
         //list holding rows
         list = new ArrayList<>();
 
+        //display manager
+        displayMetrics = getResources().getDisplayMetrics();
+
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                200);
+                250);
 
         etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -117,16 +134,11 @@ public class EducationSection extends ProfileSection {
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 
-        endorseCountLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
         ivLayoutParams =  new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        ivLayoutParams.setMarginEnd(7);
     }
 
     //removes the relative layout
@@ -153,10 +165,10 @@ public class EducationSection extends ProfileSection {
         et.setLayoutParams(etLayoutParams);
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
-        et.setEms(12);
         et.setSingleLine();
+        et.setWidth(displayMetrics.widthPixels - (int)(displayMetrics.widthPixels*(0.25)));
         et.requestFocus(); //put on cursor
-        et.setHint("[Add School]");
+        et.setHint("[School]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
 
@@ -168,10 +180,11 @@ public class EducationSection extends ProfileSection {
         //create remove button
         ImageButton iv = new ImageButton(context);
         iv.setId(list.size() + 1000); //use id that is higher than 0
+        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
         iv.setLayoutParams(ivLayoutParams);
         iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
+        iv.getLayoutParams().height = 100;
+        iv.getLayoutParams().width = 100;
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,7 +213,7 @@ public class EducationSection extends ProfileSection {
         et.setEms(12);
         et.setSingleLine();
         et.requestFocus(); //put on cursor
-        et.setHint("[Add Major]");
+        et.setHint("[Major]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
 
@@ -213,21 +226,22 @@ public class EducationSection extends ProfileSection {
         RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
         tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-        //RelativeLayout.MarginLayoutParams tmpMarginLayoutParams = new RelativeLayout.MarginLayoutParams()
+        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        tmpLayoutParams.setMargins(0, 0, 135, 0);
 
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(tmpLayoutParams);
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
-        et.setEms(12);
+        et.setEms(2);
         et.setSingleLine();
         et.requestFocus(); //put on cursor
-        et.setHint("[Add GPA]");
+        et.setHint("[GPA]");
         et.setHintTextColor(0xFF808080);
+        et.setInputType(InputType.TYPE_CLASS_NUMBER);
+        et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et.requestLayout(); //update
 
         return et;

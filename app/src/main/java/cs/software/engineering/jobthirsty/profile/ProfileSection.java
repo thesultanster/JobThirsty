@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -12,6 +13,8 @@ public class ProfileSection extends LinearLayout {
     //PRIVATE VARIABLES
     private Context context;
 
+    //Display info
+    DisplayMetrics displayMetrics;
 
     //CONSTRUCTORS [START] -------------------------------------------------------------------------
     public ProfileSection(Context context){
@@ -32,11 +35,16 @@ public class ProfileSection extends LinearLayout {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
+        //display manager
+        displayMetrics = getResources().getDisplayMetrics();
+
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        layoutParams.setMargins(100, 120, 0, 0);
+        int height = (int) (displayMetrics.heightPixels*0.0625);
+
+        layoutParams.setMargins(100, height, 0, 0);
 
         this.setLayoutParams(layoutParams);
         this.setOrientation(VERTICAL);

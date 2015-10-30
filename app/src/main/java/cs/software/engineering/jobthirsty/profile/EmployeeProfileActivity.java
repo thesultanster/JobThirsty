@@ -1,5 +1,6 @@
 package cs.software.engineering.jobthirsty.profile;
 
+import android.graphics.Paint;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
@@ -21,7 +22,6 @@ import java.util.EventListener;
 
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
-import cs.software.engineering.jobthirsty.util.ScrollAwareFABBehavior;
 
 public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
@@ -44,7 +44,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private RelativeLayout awardsParent;
     private SkillsSection skillsSection;
     private ProfileSection experienceSection;
-    private ProfileSection projectsSection;
+    private ProjectsSection projectsSection;
     private EducationSection educationSection;
     private ActivitiesSection activitiesSection;
     private AwardSection awardsSection;
@@ -124,7 +124,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         //Section layouts
         skillsSection = new SkillsSection(getApplicationContext());
         experienceSection = new ProfileSection(getApplicationContext());
-        projectsSection = new ProfileSection(getApplicationContext());
+        projectsSection = new ProjectsSection(getApplicationContext());
         educationSection = new EducationSection(getApplicationContext());
         activitiesSection = new ActivitiesSection(getApplicationContext());
         awardsSection = new AwardSection(getApplicationContext());
@@ -165,6 +165,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //enable inside materials
                     skillsSection.enableEdit();
+                    projectsSection.enableEdit();
                     educationSection.enableEdit();
                     awardsSection.enableEdit();
                     activitiesSection.enableEdit();
@@ -180,6 +181,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //disable inside materials
                     skillsSection.disableEdit();
+                    projectsSection.disableEdit();
                     educationSection.disableEdit();
                     awardsSection.disableEdit();
                     activitiesSection.disableEdit();
@@ -201,11 +203,24 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             }
         });
 
+        projectsEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Expand layout
+                projectsParent.getLayoutParams().height += 100;
+                projectsParent.requestLayout();
+
+                projectsParent.removeView(projectsSection);
+                projectsSection.addElement();
+                projectsParent.addView(projectsSection);
+            }
+        });
+
         educationEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Expand layout
-                educationParent.getLayoutParams().height += 200;
+                educationParent.getLayoutParams().height += 250;
                 educationParent.requestLayout();
 
                 educationParent.removeView(educationSection);

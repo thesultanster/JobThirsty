@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
@@ -16,7 +17,7 @@ import cs.software.engineering.jobthirsty.R;
 /**
  * Created by timka on 10/18/2015.
  */
-public class AwardSection extends ProfileSection {
+public class ProjectsSection extends ProfileSection {
 
     //PRIVATE VARIABLES
     private Context context;
@@ -34,7 +35,7 @@ public class AwardSection extends ProfileSection {
     private ArrayList<RelativeLayout> list;
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
-    public AwardSection(Context context){
+    public ProjectsSection(Context context){
         super(context);
         this.context = context;
 
@@ -51,25 +52,11 @@ public class AwardSection extends ProfileSection {
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
-        //add EditText to row
-        rl.addView(createAwardView());
-
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
-
-        iv.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                removeRow(v);
-            }
-        });
+        //add school to row
+        rl.addView(createProjectView());
 
         //add delete button to row
-        rl.addView(iv);
+        rl.addView(createMinusButton());
 
 
         //add the row
@@ -81,6 +68,7 @@ public class AwardSection extends ProfileSection {
         for (int i = 0; i < list.size(); ++i){
             list.get(i).getChildAt(0).setEnabled(true);
             list.get(i).getChildAt(1).setVisibility(VISIBLE); //hide minus button
+            list.get(i).getChildAt(2).setVisibility(VISIBLE); //hide endorse count
         }
     }
 
@@ -91,9 +79,12 @@ public class AwardSection extends ProfileSection {
             RelativeLayout row = i.next();
             EditText et = (EditText) row.getChildAt(0);
             ImageButton ib = (ImageButton) row.getChildAt(1);
+            EditText majorEt = (EditText) row.getChildAt(2);
+            EditText gpaEt = (EditText) row.getChildAt(3);
 
             //check if current item's bullet is empty
-            if(et.getText().toString().equals("")){
+
+            if(et.getText().toString().equals("") && majorEt.getText().toString().equals("") && gpaEt.getText().toString().equals("")){
                 //if empty, remove the entire item
                 i.remove();
                 removeRow(row.getChildAt(0)); //pick any random child for matching the format
@@ -102,6 +93,14 @@ public class AwardSection extends ProfileSection {
                 //otherwise, simply hide them
                 et.setEnabled(false);
                 ib.setVisibility(INVISIBLE); //hide minus button
+                majorEt.setEnabled(false);
+                gpaEt.setEnabled(false);
+
+                //hide if empty
+                if(majorEt.getText().equals(""))
+                    majorEt.setVisibility(INVISIBLE);
+                if(gpaEt.getText().equals(""))
+                    gpaEt.setVisibility(INVISIBLE);
             }
         }
     }
@@ -127,12 +126,13 @@ public class AwardSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 
         ivLayoutParams =  new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        ivLayoutParams.setMarginEnd(7);
+        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
     }
 
     //removes the relative layout
@@ -152,7 +152,7 @@ public class AwardSection extends ProfileSection {
         }
     }
 
-    private EditText createAwardView()
+    private EditText createProjectView()
     {
         //set up EditText
         EditText et = new EditText(context);
@@ -160,13 +160,34 @@ public class AwardSection extends ProfileSection {
         et.setBackgroundColor(0xFFffffff);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
+        et.setWidth(displayMetrics.widthPixels - (int)(displayMetrics.widthPixels*(0.25)));
         et.requestFocus(); //put on cursor
-        et.setHint("[Award]");
+        et.setHint("[Project]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
 
         return et;
+    }
+
+    private ImageButton createMinusButton()
+    {
+        //create remove button
+        ImageButton iv = new ImageButton(context);
+        iv.setId(list.size() + 1000); //use id that is higher than 0
+        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
+        iv.setLayoutParams(ivLayoutParams);
+        iv.setBackgroundResource(R.drawable.minus);
+        iv.getLayoutParams().height = 120;
+        iv.getLayoutParams().width = 120;
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRow(v);
+            }
+        });
+
+        return iv;
     }
     //[END] ----------------------------------------------------------------------------------------
 }
