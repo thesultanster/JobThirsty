@@ -79,12 +79,10 @@ public class ProjectsSection extends ProfileSection {
             RelativeLayout row = i.next();
             EditText et = (EditText) row.getChildAt(0);
             ImageButton ib = (ImageButton) row.getChildAt(1);
-            EditText majorEt = (EditText) row.getChildAt(2);
-            EditText gpaEt = (EditText) row.getChildAt(3);
 
             //check if current item's bullet is empty
 
-            if(et.getText().toString().equals("") && majorEt.getText().toString().equals("") && gpaEt.getText().toString().equals("")){
+            if(et.getText().toString().equals("")){
                 //if empty, remove the entire item
                 i.remove();
                 removeRow(row.getChildAt(0)); //pick any random child for matching the format
@@ -93,14 +91,6 @@ public class ProjectsSection extends ProfileSection {
                 //otherwise, simply hide them
                 et.setEnabled(false);
                 ib.setVisibility(INVISIBLE); //hide minus button
-                majorEt.setEnabled(false);
-                gpaEt.setEnabled(false);
-
-                //hide if empty
-                if(majorEt.getText().equals(""))
-                    majorEt.setVisibility(INVISIBLE);
-                if(gpaEt.getText().equals(""))
-                    gpaEt.setVisibility(INVISIBLE);
             }
         }
     }
@@ -177,8 +167,8 @@ public class ProjectsSection extends ProfileSection {
         ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
         iv.setLayoutParams(ivLayoutParams);
         iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
+        iv.getLayoutParams().height = 100;
+        iv.getLayoutParams().width = 100;
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override

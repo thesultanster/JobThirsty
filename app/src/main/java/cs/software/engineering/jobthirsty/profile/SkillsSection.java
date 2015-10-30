@@ -183,8 +183,8 @@ public class SkillsSection extends ProfileSection {
         ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
         iv.setLayoutParams(ivLayoutParams);
         iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
+        iv.getLayoutParams().height = 100;
+        iv.getLayoutParams().width = 100;
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override

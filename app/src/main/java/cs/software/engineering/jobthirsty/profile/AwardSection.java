@@ -54,22 +54,8 @@ public class AwardSection extends ProfileSection {
         //add EditText to row
         rl.addView(createAwardView());
 
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
-
-        iv.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                removeRow(v);
-            }
-        });
-
         //add delete button to row
-        rl.addView(iv);
+        rl.addView(createMinusButton());
 
 
         //add the row
@@ -167,6 +153,28 @@ public class AwardSection extends ProfileSection {
         et.requestLayout(); //update
 
         return et;
+    }
+
+
+    private ImageButton createMinusButton()
+    {
+        //create remove button
+        ImageButton iv = new ImageButton(context);
+        iv.setId(list.size() + 1000); //use id that is higher than 0
+        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
+        iv.setLayoutParams(ivLayoutParams);
+        iv.setBackgroundResource(R.drawable.minus);
+        iv.getLayoutParams().height = 100;
+        iv.getLayoutParams().width = 100;
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRow(v);
+            }
+        });
+
+        return iv;
     }
     //[END] ----------------------------------------------------------------------------------------
 }

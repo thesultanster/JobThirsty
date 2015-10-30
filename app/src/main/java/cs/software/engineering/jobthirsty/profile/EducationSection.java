@@ -212,7 +212,6 @@ public class EducationSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setEms(12);
         et.setSingleLine();
-        et.requestFocus(); //put on cursor
         et.setHint("[Major]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
@@ -237,7 +236,6 @@ public class EducationSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setEms(2);
         et.setSingleLine();
-        et.requestFocus(); //put on cursor
         et.setHint("[GPA]");
         et.setHintTextColor(0xFF808080);
         et.setInputType(InputType.TYPE_CLASS_NUMBER);

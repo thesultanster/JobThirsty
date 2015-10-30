@@ -47,37 +47,11 @@ public class ActivitiesSection extends ProfileSection {
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
-        //set up EditText
-        EditText et = new EditText(context);
-        et.setLayoutParams(etLayoutParams);
-        et.setBackgroundColor(0xFFffffff);
-        et.setTextColor(0xFF000000);
-        et.setSingleLine();
-        et.setEms(12);
-        et.requestFocus(); //put on cursor
-        et.setHint("[Activity]");
-        et.setHintTextColor(0xFF808080);
-        et.requestLayout(); //update
-
         //add EditText to row
-        rl.addView(et);
-
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
-
-        iv.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                removeRow(v);
-            }
-        });
+        rl.addView(createActivityView());
 
         //add delete button to row
-        rl.addView(iv);
+        rl.addView(createMinusButton());
 
 
         //add the row
@@ -155,6 +129,44 @@ public class ActivitiesSection extends ProfileSection {
             rl.getLayoutParams().height -= rowHeight;
             rl.requestLayout();
         }
+    }
+
+    private EditText createActivityView()
+    {
+        //set up EditText
+        EditText et = new EditText(context);
+        et.setLayoutParams(etLayoutParams);
+        et.setBackgroundColor(0xFFffffff);
+        et.setTextColor(0xFF000000);
+        et.setSingleLine();
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
+        et.requestFocus(); //put on cursor
+        et.setHint("[Skill]");
+        et.setHintTextColor(0xFF808080);
+        et.requestLayout(); //update
+
+        return et;
+    }
+
+    private ImageButton createMinusButton()
+    {
+        //create remove button
+        ImageButton iv = new ImageButton(context);
+        iv.setId(list.size() + 1000); //use id that is higher than 0
+        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
+        iv.setLayoutParams(ivLayoutParams);
+        iv.setBackgroundResource(R.drawable.minus);
+        iv.getLayoutParams().height = 100;
+        iv.getLayoutParams().width = 100;
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRow(v);
+            }
+        });
+
+        return iv;
     }
     //[END] ----------------------------------------------------------------------------------------
 }
