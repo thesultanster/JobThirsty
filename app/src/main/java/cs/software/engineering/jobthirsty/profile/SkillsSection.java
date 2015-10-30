@@ -1,9 +1,6 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.media.Image;
-import android.text.InputFilter;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -109,7 +106,7 @@ public class SkillsSection extends ProfileSection {
         rl.addView(endorseEt);
 
 
-        //add the skill
+        //add the row
         this.addView(rl);
         list.add(rl);
         endorseList.add(0);

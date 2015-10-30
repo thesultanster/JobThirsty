@@ -45,7 +45,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private SkillsSection skillsSection;
     private ProfileSection experienceSection;
     private ProfileSection projectsSection;
-    private ProfileSection educationSection;
+    private EducationSection educationSection;
     private ActivitiesSection activitiesSection;
     private AwardSection awardsSection;
     private ImageButton skillsEditBtn;
@@ -125,7 +125,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         skillsSection = new SkillsSection(getApplicationContext());
         experienceSection = new ProfileSection(getApplicationContext());
         projectsSection = new ProfileSection(getApplicationContext());
-        educationSection = new ProfileSection(getApplicationContext());
+        educationSection = new EducationSection(getApplicationContext());
         activitiesSection = new ActivitiesSection(getApplicationContext());
         awardsSection = new AwardSection(getApplicationContext());
 
@@ -165,6 +165,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //enable inside materials
                     skillsSection.enableEdit();
+                    educationSection.enableEdit();
                     awardsSection.enableEdit();
                     activitiesSection.enableEdit();
                 }
@@ -179,6 +180,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //disable inside materials
                     skillsSection.disableEdit();
+                    educationSection.disableEdit();
                     awardsSection.disableEdit();
                     activitiesSection.disableEdit();
                 }
@@ -196,6 +198,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 skillsParent.removeView(skillsSection);
                 skillsSection.addElement();
                 skillsParent.addView(skillsSection);
+            }
+        });
+
+        educationEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Expand layout
+                educationParent.getLayoutParams().height += 200;
+                educationParent.requestLayout();
+
+                educationParent.removeView(educationSection);
+                educationSection.addElement();
+                educationParent.addView(educationSection);
             }
         });
 

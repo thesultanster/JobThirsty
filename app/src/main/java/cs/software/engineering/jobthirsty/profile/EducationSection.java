@@ -15,7 +15,7 @@ import cs.software.engineering.jobthirsty.R;
 /**
  * Created by timka on 10/18/2015.
  */
-public class AwardSection extends ProfileSection {
+public class EducationSection extends ProfileSection {
 
     //PRIVATE VARIABLES
     private Context context;
@@ -23,6 +23,7 @@ public class AwardSection extends ProfileSection {
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
     private RelativeLayout.LayoutParams etLayoutParams;
+    private RelativeLayout.LayoutParams endorseCountLayoutParams;
     private RelativeLayout.LayoutParams ivLayoutParams;
 
 
@@ -30,7 +31,7 @@ public class AwardSection extends ProfileSection {
     private ArrayList<RelativeLayout> list;
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
-    public AwardSection(Context context){
+    public EducationSection(Context context){
         super(context);
         this.context = context;
 
@@ -47,37 +48,13 @@ public class AwardSection extends ProfileSection {
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
-        //set up EditText
-        EditText et = new EditText(context);
-        et.setLayoutParams(etLayoutParams);
-        et.setBackgroundColor(0xFFffffff);
-        et.setTextColor(0xFF000000);
-        et.setSingleLine();
-        et.setEms(12);
-        et.requestFocus(); //put on cursor
-        et.setHint("[Add Award]");
-        et.setHintTextColor(0xFF808080);
-        et.requestLayout(); //update
-
         //add EditText to row
-        rl.addView(et);
-
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 120;
-        iv.getLayoutParams().width = 120;
-
-        iv.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                removeRow(v);
-            }
-        });
+        rl.addView(createSchoolView());
 
         //add delete button to row
-        rl.addView(iv);
+        rl.addView(createMinusButton());
+
+        rl.addView(createMajorView());
 
 
         //add the row
@@ -89,6 +66,7 @@ public class AwardSection extends ProfileSection {
         for (int i = 0; i < list.size(); ++i){
             list.get(i).getChildAt(0).setEnabled(true);
             list.get(i).getChildAt(1).setVisibility(VISIBLE); //hide minus button
+            list.get(i).getChildAt(2).setVisibility(VISIBLE); //hide endorse count
         }
     }
 
@@ -99,6 +77,7 @@ public class AwardSection extends ProfileSection {
             RelativeLayout row = i.next();
             EditText et = (EditText) row.getChildAt(0);
             ImageButton ib = (ImageButton) row.getChildAt(1);
+            EditText majorEt = (EditText) row.getChildAt(2);
 
             //check if current item's bullet is empty
             if(et.getText().toString().equals("")){
@@ -110,6 +89,10 @@ public class AwardSection extends ProfileSection {
                 //otherwise, simply hide them
                 et.setEnabled(false);
                 ib.setVisibility(INVISIBLE); //hide minus button
+
+                //hide empty field for major
+                if(majorEt.getText().equals(""))
+                    majorEt.setVisibility(INVISIBLE); //show visibility
             }
         }
     }
@@ -126,17 +109,23 @@ public class AwardSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                100);
+                200);
 
         etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        endorseCountLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         ivLayoutParams =  new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         ivLayoutParams.setMarginEnd(7);
     }
 
@@ -155,6 +144,93 @@ public class AwardSection extends ProfileSection {
             rl.getLayoutParams().height -= rowHeight;
             rl.requestLayout();
         }
+    }
+
+    private EditText createSchoolView()
+    {
+        //set up EditText
+        EditText et = new EditText(context);
+        et.setLayoutParams(etLayoutParams);
+        et.setBackgroundColor(0xFFffffff);
+        et.setTextColor(0xFF000000);
+        et.setEms(12);
+        et.setSingleLine();
+        et.requestFocus(); //put on cursor
+        et.setHint("[Add School]");
+        et.setHintTextColor(0xFF808080);
+        et.requestLayout(); //update
+
+        return et;
+    }
+
+    private ImageButton createMinusButton()
+    {
+        //create remove button
+        ImageButton iv = new ImageButton(context);
+        iv.setId(list.size() + 1000); //use id that is higher than 0
+        iv.setLayoutParams(ivLayoutParams);
+        iv.setBackgroundResource(R.drawable.minus);
+        iv.getLayoutParams().height = 120;
+        iv.getLayoutParams().width = 120;
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRow(v);
+            }
+        });
+
+        return iv;
+    }
+
+    private EditText createMajorView()
+    {
+        //set up layout params
+        RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+
+        //set up EditText
+        EditText et = new EditText(context);
+        et.setLayoutParams(tmpLayoutParams);
+        et.setBackgroundColor(0xFFffffff);
+        et.setTextColor(0xFF000000);
+        et.setEms(12);
+        et.setSingleLine();
+        et.requestFocus(); //put on cursor
+        et.setHint("[Add Major]");
+        et.setHintTextColor(0xFF808080);
+        et.requestLayout(); //update
+
+        return et;
+    }
+
+    private EditText createGPA()
+    {
+        //set up layout params
+        RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        //RelativeLayout.MarginLayoutParams tmpMarginLayoutParams = new RelativeLayout.MarginLayoutParams()
+
+        //set up EditText
+        EditText et = new EditText(context);
+        et.setLayoutParams(tmpLayoutParams);
+        et.setBackgroundColor(0xFFffffff);
+        et.setTextColor(0xFF000000);
+        et.setEms(12);
+        et.setSingleLine();
+        et.requestFocus(); //put on cursor
+        et.setHint("[Add GPA]");
+        et.setHintTextColor(0xFF808080);
+        et.requestLayout(); //update
+
+        return et;
     }
     //[END] ----------------------------------------------------------------------------------------
 }
