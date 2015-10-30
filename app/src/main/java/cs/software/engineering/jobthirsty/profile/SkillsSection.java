@@ -28,10 +28,6 @@ public class SkillsSection extends ProfileSection {
 
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
-    private RelativeLayout.LayoutParams etLayoutParams;
-    private RelativeLayout.LayoutParams endorseCountLayoutParams;
-    private RelativeLayout.LayoutParams ivLayoutParams;
-
 
     //List for holding elements
     private ArrayList<RelativeLayout> list;
@@ -63,7 +59,7 @@ public class SkillsSection extends ProfileSection {
 
 
         //add delete button to row
-        rl.addView(createMinusButton());
+        rl.addView(createMinusButton(list.size() + 1000));
 
         //Add TextView for endorse count
         rl.addView(createEndorseView());
@@ -124,49 +120,24 @@ public class SkillsSection extends ProfileSection {
         blockLayoutParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             100);
-
-        etLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-
-        endorseCountLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        ivLayoutParams =  new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        ivLayoutParams.setMarginEnd(7);
-    }
-
-    //removes the relative layout
-    private void removeRow(View v)
-    {
-        if(v.getParent() != null && v.getParent().getParent() != null) {
-            //remove row
-            LinearLayout ll = (LinearLayout) v.getParent().getParent();
-            RelativeLayout rowToRemove = (RelativeLayout) v.getParent();
-            int rowHeight = rowToRemove.getHeight();
-            ll.removeView(rowToRemove);
-
-            //wrap content
-            RelativeLayout rl = ((RelativeLayout) ll.getParent());
-            rl.getLayoutParams().height -= rowHeight;
-            rl.requestLayout();
-        }
     }
 
     private EditText createSkillView()
     {
+        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.setMargins(25, 0, 0, 0);
+
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);
-        et.setBackgroundColor(0xFFffffff);
+        //et.setBackgroundColor(0x80ffffff);
+        et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.3)));
         et.requestFocus(); //put on cursor
         et.setHint("[Skill]");
         et.setHintTextColor(0xFF808080);
@@ -175,37 +146,20 @@ public class SkillsSection extends ProfileSection {
         return et;
     }
 
-    private ImageButton createMinusButton()
-    {
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setId(list.size() + 1000); //use id that is higher than 0
-        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 100;
-        iv.getLayoutParams().width = 100;
-
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeRow(v);
-            }
-        });
-
-        return iv;
-    }
-
     private TextView createEndorseView()
     {
+        RelativeLayout.LayoutParams endorseCountLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, list.size() + 1000);
+
         TextView endorseEt = new EditText(context);
-        endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, list.size());
         endorseEt.setLayoutParams(endorseCountLayoutParams);
         endorseEt.setEms(1);
         endorseEt.setTextColor(0xFF000000);
         endorseEt.setText("0");
         endorseEt.setEnabled(false);
-        endorseEt.setBackgroundColor(0xFFFFFFFF);
+        endorseEt.setBackground(null);
         endorseEt.setGravity(Gravity.CENTER);
         endorseEt.setVisibility(INVISIBLE); //initially invisible
         endorseEt.requestLayout();

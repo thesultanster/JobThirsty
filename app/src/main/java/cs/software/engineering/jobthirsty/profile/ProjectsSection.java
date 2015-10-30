@@ -56,7 +56,10 @@ public class ProjectsSection extends ProfileSection {
         rl.addView(createProjectView());
 
         //add delete button to row
-        rl.addView(createMinusButton());
+        rl.addView(createMinusButton(list.size() + 1000));
+
+        //add project description
+        rl.addView(createDescriptionView());
 
 
         //add the row
@@ -67,8 +70,8 @@ public class ProjectsSection extends ProfileSection {
     public void enableEdit() {
         for (int i = 0; i < list.size(); ++i){
             list.get(i).getChildAt(0).setEnabled(true);
-            list.get(i).getChildAt(1).setVisibility(VISIBLE); //hide minus button
-            list.get(i).getChildAt(2).setVisibility(VISIBLE); //hide endorse count
+            list.get(i).getChildAt(1).setVisibility(VISIBLE); //show delete button
+            list.get(i).getChildAt(2).setEnabled(true);
         }
     }
 
@@ -77,20 +80,22 @@ public class ProjectsSection extends ProfileSection {
         //iterate through all rows
         for(Iterator<RelativeLayout> i = list.iterator(); i.hasNext(); ) {
             RelativeLayout row = i.next();
-            EditText et = (EditText) row.getChildAt(0);
+            EditText projectET = (EditText) row.getChildAt(0);
             ImageButton ib = (ImageButton) row.getChildAt(1);
+            EditText descriptionET = (EditText) row.getChildAt(2);
 
             //check if current item's bullet is empty
 
-            if(et.getText().toString().equals("")){
+            if(projectET.getText().toString().equals("") && descriptionET.getText().toString().equals("")){
                 //if empty, remove the entire item
                 i.remove();
                 removeRow(row.getChildAt(0)); //pick any random child for matching the format
             }
             else {
                 //otherwise, simply hide them
-                et.setEnabled(false);
+                projectET.setEnabled(false);
                 ib.setVisibility(INVISIBLE); //hide minus button
+                descriptionET.setEnabled(false);
             }
         }
     }
@@ -110,7 +115,7 @@ public class ProjectsSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                100);
+                250);
 
         etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -125,32 +130,15 @@ public class ProjectsSection extends ProfileSection {
         ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
     }
 
-    //removes the relative layout
-    private void removeRow(View v)
-    {
-        if(v.getParent() != null && v.getParent().getParent() != null) {
-            //remove row
-            LinearLayout ll = (LinearLayout) v.getParent().getParent();
-            RelativeLayout rowToRemove = (RelativeLayout) v.getParent();
-            int rowHeight = rowToRemove.getHeight();
-            ll.removeView(rowToRemove);
-
-            //wrap content
-            RelativeLayout rl = ((RelativeLayout) ll.getParent());
-            rl.getLayoutParams().height -= rowHeight;
-            rl.requestLayout();
-        }
-    }
-
     private EditText createProjectView()
     {
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);
-        et.setBackgroundColor(0xFFffffff);
+        et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int)(displayMetrics.widthPixels*(0.25)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
         et.requestFocus(); //put on cursor
         et.setHint("[Project]");
         et.setHintTextColor(0xFF808080);
@@ -159,25 +147,27 @@ public class ProjectsSection extends ProfileSection {
         return et;
     }
 
-    private ImageButton createMinusButton()
+    private EditText createDescriptionView()
     {
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setId(list.size() + 1000); //use id that is higher than 0
-        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 100;
-        iv.getLayoutParams().width = 100;
+        RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*(0.05)), 0, 0, 0);
 
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeRow(v);
-            }
-        });
+        //set up EditText
+        EditText et = new EditText(context);
+        et.setLayoutParams(tmpLayoutParams);
+        et.setBackground(null);
+        et.setTextColor(0xFF000000);
+        et.setWidth(displayMetrics.widthPixels - (int)(displayMetrics.widthPixels*(0.35)));
+        et.requestFocus(); //put on cursor
+        et.setHint("[Description]");
+        et.setHintTextColor(0xFF808080);
+        et.requestLayout(); //update
 
-        return iv;
+        return et;
     }
     //[END] ----------------------------------------------------------------------------------------
 }

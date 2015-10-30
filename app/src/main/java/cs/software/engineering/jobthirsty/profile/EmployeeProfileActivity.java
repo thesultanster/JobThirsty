@@ -207,7 +207,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View view) {
                 //Expand layout
-                projectsParent.getLayoutParams().height += 100;
+                projectsParent.getLayoutParams().height += 250;
                 projectsParent.requestLayout();
 
                 projectsParent.removeView(projectsSection);

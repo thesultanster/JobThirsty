@@ -55,7 +55,7 @@ public class AwardSection extends ProfileSection {
         rl.addView(createAwardView());
 
         //add delete button to row
-        rl.addView(createMinusButton());
+        rl.addView(createMinusButton(list.size() + 1000));
 
 
         //add the row
@@ -121,29 +121,12 @@ public class AwardSection extends ProfileSection {
         ivLayoutParams.setMarginEnd(7);
     }
 
-    //removes the relative layout
-    private void removeRow(View v)
-    {
-        if(v.getParent() != null && v.getParent().getParent() != null) {
-            //remove row
-            LinearLayout ll = (LinearLayout) v.getParent().getParent();
-            RelativeLayout rowToRemove = (RelativeLayout) v.getParent();
-            int rowHeight = rowToRemove.getHeight();
-            ll.removeView(rowToRemove);
-
-            //wrap content
-            RelativeLayout rl = ((RelativeLayout) ll.getParent());
-            rl.getLayoutParams().height -= rowHeight;
-            rl.requestLayout();
-        }
-    }
-
     private EditText createAwardView()
     {
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);
-        et.setBackgroundColor(0xFFffffff);
+        et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
@@ -153,28 +136,6 @@ public class AwardSection extends ProfileSection {
         et.requestLayout(); //update
 
         return et;
-    }
-
-
-    private ImageButton createMinusButton()
-    {
-        //create remove button
-        ImageButton iv = new ImageButton(context);
-        iv.setId(list.size() + 1000); //use id that is higher than 0
-        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
-        iv.setLayoutParams(ivLayoutParams);
-        iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 100;
-        iv.getLayoutParams().width = 100;
-
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeRow(v);
-            }
-        });
-
-        return iv;
     }
     //[END] ----------------------------------------------------------------------------------------
 }
