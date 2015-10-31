@@ -71,8 +71,9 @@ public class EducationSection extends ProfileSection {
     public void enableEdit() {
         for (int i = 0; i < list.size(); ++i){
             list.get(i).getChildAt(0).setEnabled(true);
-            list.get(i).getChildAt(1).setVisibility(VISIBLE); //hide minus button
-            list.get(i).getChildAt(2).setVisibility(VISIBLE); //hide endorse count
+            list.get(i).getChildAt(1).setVisibility(VISIBLE); //show minus button
+            list.get(i).getChildAt(2).setEnabled(true);
+            list.get(i).getChildAt(3).setEnabled(true);
         }
     }
 
@@ -124,7 +125,7 @@ public class EducationSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                250);
+                200);
     }
 
 
@@ -135,6 +136,7 @@ public class EducationSection extends ProfileSection {
             RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
@@ -142,7 +144,7 @@ public class EducationSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.3)));
         et.requestFocus(); //put on cursor
         et.setHint("[School]");
         et.setHintTextColor(0xFF808080);
@@ -156,15 +158,16 @@ public class EducationSection extends ProfileSection {
     private EditText createMajorView()
     {
         //set up layout params
-        RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
-        tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
-        et.setLayoutParams(tmpLayoutParams);
+        et.setLayoutParams(etLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setWidth((int)(displayMetrics.widthPixels*0.55));
@@ -179,24 +182,23 @@ public class EducationSection extends ProfileSection {
     private EditText createGPA()
     {
         //set up layout params
-        RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
-        tmpLayoutParams.setMargins(0, 0, 135, 0);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        etLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        etLayoutParams.setMargins(0, 0, (int)(displayMetrics.widthPixels*0.1), 0);
 
         //set up EditText
         EditText et = new EditText(context);
-        et.setLayoutParams(tmpLayoutParams);
+        et.setLayoutParams(etLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setEms(2);
         et.setSingleLine();
         et.setHint("[GPA]");
         et.setHintTextColor(0xFF808080);
-        et.setInputType(InputType.TYPE_CLASS_NUMBER);
-        et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et.requestLayout(); //update
 
         return et;

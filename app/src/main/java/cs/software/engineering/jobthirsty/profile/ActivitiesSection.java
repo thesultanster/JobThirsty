@@ -1,7 +1,6 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -9,8 +8,6 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import cs.software.engineering.jobthirsty.R;
 
 /**
  * Created by timka on 10/18/2015.
@@ -22,8 +19,6 @@ public class ActivitiesSection extends ProfileSection {
 
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
-    private RelativeLayout.LayoutParams etLayoutParams;
-    private RelativeLayout.LayoutParams ivLayoutParams;
 
 
     //List for holding elements
@@ -101,21 +96,16 @@ public class ActivitiesSection extends ProfileSection {
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 100);
-
-        etLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-
-        ivLayoutParams =  new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        ivLayoutParams.setMarginEnd(7);
     }
 
     private EditText createActivityView()
     {
+        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
+
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);

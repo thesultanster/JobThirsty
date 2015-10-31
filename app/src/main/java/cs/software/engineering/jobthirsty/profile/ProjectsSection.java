@@ -1,9 +1,9 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.text.InputType;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -113,7 +113,7 @@ public class ProjectsSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                250);
+                200);
     }
 
     private EditText createProjectView()
@@ -123,6 +123,7 @@ public class ProjectsSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
@@ -149,15 +150,34 @@ public class ProjectsSection extends ProfileSection {
         tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*(0.05)), 0, 0, 0);
 
         //set up EditText
-        EditText et = new EditText(context);
+        final EditText et = new EditText(context);
         et.setLayoutParams(tmpLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
-        et.setWidth(displayMetrics.widthPixels - (int)(displayMetrics.widthPixels*(0.35)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
         et.requestFocus(); //put on cursor
         et.setHint("[Description]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
+
+        et.addTextChangedListener(new TextWatcher() {
+            int initialCount;
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                initialCount = et.getLineCount();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //if(et.getLineCount())
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         return et;
     }

@@ -3,7 +3,6 @@ package cs.software.engineering.jobthirsty.profile;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cs.software.engineering.jobthirsty.R;
 
 /**
  * Created by timka on 10/18/2015.
@@ -128,16 +126,15 @@ public class SkillsSection extends ProfileSection {
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        etLayoutParams.setMargins(25, 0, 0, 0);
+        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);
-        //et.setBackgroundColor(0x80ffffff);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.3)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
         et.requestFocus(); //put on cursor
         et.setHint("[Skill]");
         et.setHintTextColor(0xFF808080);
