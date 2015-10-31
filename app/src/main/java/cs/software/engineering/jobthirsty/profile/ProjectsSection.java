@@ -3,7 +3,6 @@ package cs.software.engineering.jobthirsty.profile;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -12,22 +11,14 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cs.software.engineering.jobthirsty.R;
-
 /**
  * Created by timka on 10/18/2015.
  */
 public class ProjectsSection extends ProfileSection {
 
     //PRIVATE VARIABLES
-    private Context context;
-
-    //Display info
-    DisplayMetrics displayMetrics;
-
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
-
 
     //List for holding elements
     private ArrayList<RelativeLayout> list;
@@ -68,8 +59,10 @@ public class ProjectsSection extends ProfileSection {
     public void enableEdit() {
         for (int i = 0; i < list.size(); ++i){
             list.get(i).getChildAt(0).setEnabled(true);
+            list.get(i).getChildAt(0).setVisibility(VISIBLE);
             list.get(i).getChildAt(1).setVisibility(VISIBLE); //show delete button
             list.get(i).getChildAt(2).setEnabled(true);
+            list.get(i).getChildAt(2).setVisibility(VISIBLE);
         }
     }
 
@@ -113,7 +106,7 @@ public class ProjectsSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                200);
+                LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     private EditText createProjectView()
@@ -123,7 +116,7 @@ public class ProjectsSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
+        etLayoutParams.setMargins((int) (displayMetrics.widthPixels * 0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
@@ -155,29 +148,9 @@ public class ProjectsSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
-        et.requestFocus(); //put on cursor
         et.setHint("[Description]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
-
-        et.addTextChangedListener(new TextWatcher() {
-            int initialCount;
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                initialCount = et.getLineCount();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //if(et.getLineCount())
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         return et;
     }

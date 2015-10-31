@@ -1,7 +1,6 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -16,11 +15,6 @@ import java.util.Iterator;
 public class AwardSection extends ProfileSection {
 
     //PRIVATE VARIABLES
-    private Context context;
-
-    //Display info
-    DisplayMetrics displayMetrics;
-
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
 
@@ -95,9 +89,6 @@ public class AwardSection extends ProfileSection {
     {
         //list holding rows
         list = new ArrayList<>();
-
-        //display manager
-        displayMetrics = getResources().getDisplayMetrics();
 
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(

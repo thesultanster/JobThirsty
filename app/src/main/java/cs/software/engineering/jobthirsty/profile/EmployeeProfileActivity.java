@@ -18,48 +18,51 @@ import android.widget.RelativeLayout;
 
 import com.parse.ParseUser;
 
-import java.util.EventListener;
-
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
 public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     //PRIVATE VARIABLES
-    private static String bullet = "\u2022";
-
     //Toolbar Variables
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
-    private ImageButton editProfileBtn;
-    private boolean editable;
-
     //UI Variables
+    //Parent layout
     private RelativeLayout skillsParent;
     private RelativeLayout experienceParent;
     private RelativeLayout projectsParent;
     private RelativeLayout educationParent;
     private RelativeLayout activitiesParent;
     private RelativeLayout awardsParent;
+
+    //Child layout
     private SkillsSection skillsSection;
-    private ProfileSection experienceSection;
+    private ExperienceSection experienceSection;
     private ProjectsSection projectsSection;
     private EducationSection educationSection;
     private ActivitiesSection activitiesSection;
     private AwardSection awardsSection;
+
+    //Entire Edit button
+    private ImageButton editProfileBtn;
+    private boolean editable;
+
+    //Edit button for each section
     private ImageButton skillsEditBtn;
     private ImageButton experienceEditBtn;
     private ImageButton projectsEditBtn;
     private ImageButton educationEditBtn;
     private ImageButton activitiesEditBtn;
     private ImageButton awardsEditBtn;
-    private EditText location;
-    private EditText biography;
+
 
     //Employee Data Variables
     private String firstName;
     private String lastName;
+    private EditText location;
+    private EditText biography;
 
     //OVERRIDE [START] -----------------------------------------------------------------------------
     @Override
@@ -123,7 +126,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         //Section layouts
         skillsSection = new SkillsSection(getApplicationContext());
-        experienceSection = new ProfileSection(getApplicationContext());
+        experienceSection = new ExperienceSection(getApplicationContext());
         projectsSection = new ProjectsSection(getApplicationContext());
         educationSection = new EducationSection(getApplicationContext());
         activitiesSection = new ActivitiesSection(getApplicationContext());
@@ -165,6 +168,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //enable inside materials
                     skillsSection.enableEdit();
+                    experienceSection.enableEdit();
                     projectsSection.enableEdit();
                     educationSection.enableEdit();
                     awardsSection.enableEdit();
@@ -181,6 +185,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                     //disable inside materials
                     skillsSection.disableEdit();
+                    experienceSection.disableEdit();
                     projectsSection.disableEdit();
                     educationSection.disableEdit();
                     awardsSection.disableEdit();
@@ -193,23 +198,24 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         skillsEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Expand layout
-                skillsParent.getLayoutParams().height += 100;
-                skillsParent.requestLayout();
-
                 skillsParent.removeView(skillsSection);
                 skillsSection.addElement();
                 skillsParent.addView(skillsSection);
             }
         });
 
+        experienceEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                experienceParent.removeView(experienceSection);
+                experienceSection.addElement();
+                experienceParent.addView(experienceSection);
+            }
+        });
+
         projectsEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Expand layout
-                projectsParent.getLayoutParams().height += 200;
-                projectsParent.requestLayout();
-
                 projectsParent.removeView(projectsSection);
                 projectsSection.addElement();
                 projectsParent.addView(projectsSection);
@@ -219,10 +225,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         educationEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Expand layout
-                educationParent.getLayoutParams().height += 200;
-                educationParent.requestLayout();
-
                 educationParent.removeView(educationSection);
                 educationSection.addElement();
                 educationParent.addView(educationSection);
@@ -232,10 +234,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Expand layout
-                awardsParent.getLayoutParams().height += 100;
-                awardsParent.requestLayout();
-
                 awardsParent.removeView(awardsSection);
                 awardsSection.addElement();
                 awardsParent.addView(awardsSection);
@@ -245,10 +243,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         activitiesEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Expand layout
-                activitiesParent.getLayoutParams().height += 100;
-                activitiesParent.requestLayout();
-
                 activitiesParent.removeView(activitiesSection);
                 activitiesSection.addElement();
                 activitiesParent.addView(activitiesSection);

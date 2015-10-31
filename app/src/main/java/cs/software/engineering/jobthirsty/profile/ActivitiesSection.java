@@ -15,11 +15,8 @@ import java.util.Iterator;
 public class ActivitiesSection extends ProfileSection {
 
     //PRIVATE VARIABLES
-    private Context context;
-
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
-
 
     //List for holding elements
     private ArrayList<RelativeLayout> list;
@@ -104,7 +101,7 @@ public class ActivitiesSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
+        etLayoutParams.setMargins((int) (displayMetrics.widthPixels * 0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);

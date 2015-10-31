@@ -15,10 +15,10 @@ import cs.software.engineering.jobthirsty.R;
 public class ProfileSection extends LinearLayout {
 
     //PRIVATE VARIABLES
-    private Context context;
+    protected Context context;
 
     //Display info
-    DisplayMetrics displayMetrics;
+    protected DisplayMetrics displayMetrics;
 
     //CONSTRUCTORS [START] -------------------------------------------------------------------------
     public ProfileSection(Context context){
@@ -60,6 +60,7 @@ public class ProfileSection extends LinearLayout {
     }
 
     //removes the relative layout
+    // v == any object in the row's relative layout
     protected void removeRow(View v)
     {
         if(v.getParent() != null && v.getParent().getParent() != null) {
@@ -89,9 +90,9 @@ public class ProfileSection extends LinearLayout {
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        int height = (int) (displayMetrics.heightPixels*0.0625);
+        int top = (int) (displayMetrics.heightPixels*0.0625);
 
-        layoutParams.setMargins(50, height, 25, 0);
+        layoutParams.setMargins(50, top, 25, 0);
 
         this.setLayoutParams(layoutParams);
         this.setOrientation(VERTICAL);

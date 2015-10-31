@@ -83,7 +83,7 @@
                 <RelativeLayout
                     android:id="@+id/skillsParent"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
                     <ImageView
@@ -117,12 +117,18 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
+
+                    <!-- Filler -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@+id/skillsIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/experienceParent"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
                     <ImageView
@@ -155,12 +161,18 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
+
+                    <!-- Filler -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@+id/experienceIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/projectsParent"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
                     <ImageView
@@ -194,12 +206,18 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
+
+                    <!-- Filler -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@+id/projectsIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/educationParent"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
                     <ImageView
@@ -231,12 +249,18 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
+
+                    <!-- Filler -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@+id/educationIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/activitiesParent"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
                     <ImageView
@@ -268,12 +292,18 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
+
+                    <!-- Filler -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@+id/activitiesIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/awardsParent"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
                     <ImageView
@@ -305,6 +335,12 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
+
+                    <!-- Filler -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@+id/awardsIcon"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

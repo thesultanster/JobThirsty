@@ -1,7 +1,8 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.text.InputType;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -13,7 +14,7 @@ import java.util.Iterator;
 /**
  * Created by timka on 10/18/2015.
  */
-public class EducationSection extends ProfileSection {
+public class ExperienceSection extends ProfileSection {
 
     //PRIVATE VARIABLES
     //Layout parameter variables
@@ -23,7 +24,7 @@ public class EducationSection extends ProfileSection {
     private ArrayList<RelativeLayout> list;
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
-    public EducationSection(Context context){
+    public ExperienceSection(Context context){
         super(context);
         this.context = context;
 
@@ -41,16 +42,13 @@ public class EducationSection extends ProfileSection {
         rl.setLayoutParams(blockLayoutParams);
 
         //add school to row
-        rl.addView(createSchoolView());
+        rl.addView(createExperienceView());
 
         //add delete button to row
         rl.addView(createMinusButton(list.size() + 1000));
 
-        //add major
-        rl.addView(createMajorView());
-
-        //add GPA
-        rl.addView(createGPA());
+        //add project description
+        rl.addView(createDescriptionView());
 
 
         //add the row
@@ -62,11 +60,9 @@ public class EducationSection extends ProfileSection {
         for (int i = 0; i < list.size(); ++i){
             list.get(i).getChildAt(0).setEnabled(true);
             list.get(i).getChildAt(0).setVisibility(VISIBLE);
-            list.get(i).getChildAt(1).setVisibility(VISIBLE); //show minus button
+            list.get(i).getChildAt(1).setVisibility(VISIBLE); //show delete button
             list.get(i).getChildAt(2).setEnabled(true);
             list.get(i).getChildAt(2).setVisibility(VISIBLE);
-            list.get(i).getChildAt(3).setEnabled(true);
-            list.get(i).getChildAt(3).setVisibility(VISIBLE);
         }
     }
 
@@ -75,32 +71,27 @@ public class EducationSection extends ProfileSection {
         //iterate through all rows
         for(Iterator<RelativeLayout> i = list.iterator(); i.hasNext(); ) {
             RelativeLayout row = i.next();
-            EditText et = (EditText) row.getChildAt(0);
+            EditText experienceET = (EditText) row.getChildAt(0);
             ImageButton ib = (ImageButton) row.getChildAt(1);
-            EditText majorEt = (EditText) row.getChildAt(2);
-            EditText gpaEt = (EditText) row.getChildAt(3);
+            EditText descriptionET = (EditText) row.getChildAt(2);
 
             //check if current item's bullet is empty
 
-            if(et.getText().toString().equals("") && majorEt.getText().toString().equals("") && gpaEt.getText().toString().equals("")){
+            if(experienceET.getText().toString().equals("") && descriptionET.getText().toString().equals("")){
                 //if empty, remove the entire item
                 i.remove();
                 removeRow(row.getChildAt(0)); //pick any random child for matching the format
             }
             else {
                 //otherwise, simply hide them
-                et.setEnabled(false);
+                experienceET.setEnabled(false);
                 ib.setVisibility(INVISIBLE); //hide minus button
-                majorEt.setEnabled(false);
-                gpaEt.setEnabled(false);
+                descriptionET.setEnabled(false);
 
-                //hide if empty
-                if(et.getText().toString().equals(""))
-                    et.setVisibility(INVISIBLE);
-                if(majorEt.getText().toString().equals(""))
-                    majorEt.setVisibility(INVISIBLE);
-                if(gpaEt.getText().toString().equals(""))
-                    gpaEt.setVisibility(INVISIBLE);
+                if(experienceET.getText().toString().equals(""))
+                    experienceET.setVisibility(INVISIBLE);
+                if(descriptionET.getText().toString().equals(""))
+                    descriptionET.setVisibility(INVISIBLE);
             }
         }
     }
@@ -120,18 +111,17 @@ public class EducationSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                200);
+                LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
-
-    private EditText createSchoolView()
+    private EditText createExperienceView()
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
+        etLayoutParams.setMargins((int) (displayMetrics.widthPixels * 0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
@@ -139,61 +129,32 @@ public class EducationSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.3)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
         et.requestFocus(); //put on cursor
-        et.setHint("[School]");
+        et.setHint("[Experience]");
         et.setHintTextColor(0xFF808080);
         et.requestLayout(); //update
 
         return et;
     }
 
-
-
-    private EditText createMajorView()
+    private EditText createDescriptionView()
     {
-        //set up layout params
-        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        etLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
-        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
+        tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
+        tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*(0.05)), 0, 0, 0);
 
         //set up EditText
-        EditText et = new EditText(context);
-        et.setLayoutParams(etLayoutParams);
+        final EditText et = new EditText(context);
+        et.setLayoutParams(tmpLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
-        et.setWidth((int)(displayMetrics.widthPixels*0.55));
-        et.setSingleLine();
-        et.setHint("[Major]");
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
+        et.setHint("[Description]");
         et.setHintTextColor(0xFF808080);
-        et.requestLayout(); //update
-
-        return et;
-    }
-
-    private EditText createGPA()
-    {
-        //set up layout params
-        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        etLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
-        etLayoutParams.setMargins(0, 0, (int)(displayMetrics.widthPixels*0.1), 0);
-
-        //set up EditText
-        EditText et = new EditText(context);
-        et.setLayoutParams(etLayoutParams);
-        et.setBackground(null);
-        et.setTextColor(0xFF000000);
-        et.setEms(2);
-        et.setSingleLine();
-        et.setHint("[GPA]");
-        et.setHintTextColor(0xFF808080);
-        et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et.requestLayout(); //update
 
         return et;
