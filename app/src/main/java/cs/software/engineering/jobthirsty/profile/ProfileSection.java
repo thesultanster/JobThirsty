@@ -46,8 +46,8 @@ public class ProfileSection extends LinearLayout {
         ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
         iv.setLayoutParams(ivLayoutParams);
         iv.setBackgroundResource(R.drawable.minus);
-        iv.getLayoutParams().height = 100;
-        iv.getLayoutParams().width = 100;
+        iv.getLayoutParams().height = 80;
+        iv.getLayoutParams().width = 80;
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +95,6 @@ public class ProfileSection extends LinearLayout {
 
         this.setLayoutParams(layoutParams);
         this.setOrientation(VERTICAL);
-        this.setBackgroundResource(R.color.primaryColorLight);
         this.requestLayout();
     }
 

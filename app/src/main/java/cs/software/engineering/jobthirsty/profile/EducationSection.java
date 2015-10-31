@@ -27,8 +27,6 @@ public class EducationSection extends ProfileSection {
 
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
-    private RelativeLayout.LayoutParams etLayoutParams;
-    private RelativeLayout.LayoutParams ivLayoutParams;
 
 
     //List for holding elements
@@ -127,24 +125,24 @@ public class EducationSection extends ProfileSection {
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 250);
-
-        etLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
     }
 
 
     private EditText createSchoolView()
     {
+        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int)(displayMetrics.widthPixels*(0.25)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
         et.requestFocus(); //put on cursor
         et.setHint("[School]");
         et.setHintTextColor(0xFF808080);

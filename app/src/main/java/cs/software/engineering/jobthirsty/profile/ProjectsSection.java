@@ -27,8 +27,6 @@ public class ProjectsSection extends ProfileSection {
 
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
-    private RelativeLayout.LayoutParams etLayoutParams;
-    private RelativeLayout.LayoutParams ivLayoutParams;
 
 
     //List for holding elements
@@ -116,22 +114,16 @@ public class ProjectsSection extends ProfileSection {
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 250);
+    }
 
-        etLayoutParams = new RelativeLayout.LayoutParams(
+    private EditText createProjectView()
+    {
+        RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 
-        ivLayoutParams =  new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-    }
-
-    private EditText createProjectView()
-    {
         //set up EditText
         EditText et = new EditText(context);
         et.setLayoutParams(etLayoutParams);

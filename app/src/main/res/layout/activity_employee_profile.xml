@@ -111,8 +111,8 @@
 
                     <ImageButton
                         android:id="@+id/skillsEditBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="3dp"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
@@ -149,8 +149,8 @@
 
                     <ImageButton
                         android:id="@+id/experienceEditBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="3dp"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
@@ -188,8 +188,8 @@
 
                     <ImageButton
                         android:id="@+id/projectsEditBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="3dp"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
@@ -225,8 +225,8 @@
 
                     <ImageButton
                         android:id="@+id/educationEditBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="3dp"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
@@ -262,8 +262,8 @@
 
                     <ImageButton
                         android:id="@+id/activitiesEditBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="3dp"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
@@ -299,8 +299,8 @@
 
                     <ImageButton
                         android:id="@+id/awardsEditBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="3dp"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
