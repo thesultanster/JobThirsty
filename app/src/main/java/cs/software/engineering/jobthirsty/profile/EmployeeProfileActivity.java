@@ -1,12 +1,11 @@
 package cs.software.engineering.jobthirsty.profile;
 
-import android.graphics.Paint;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,10 +15,19 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
+import cs.software.engineering.jobthirsty.util.StringParser;
 
 public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
@@ -27,6 +35,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //Toolbar Variables
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+
 
     //UI Variables
     //Parent layout
@@ -63,6 +72,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private String lastName;
     private EditText location;
     private EditText biography;
+
+
+    //Debug Variables
+    String TAG = "datacheck";
 
     //OVERRIDE [START] -----------------------------------------------------------------------------
     @Override
@@ -190,6 +203,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     educationSection.disableEdit();
                     awardsSection.disableEdit();
                     activitiesSection.disableEdit();
+
+                    sendDataToParse();
                 }
             }
         });
@@ -260,13 +275,55 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsEditBtn.setVisibility(View.VISIBLE);
     }
 
-    private void hideEditButtons() {
+    private void hideEditButtons()
+    {
         skillsEditBtn.setVisibility(View.INVISIBLE);
         experienceEditBtn.setVisibility(View.INVISIBLE);
         projectsEditBtn.setVisibility(View.INVISIBLE);
         educationEditBtn.setVisibility(View.INVISIBLE);
         activitiesEditBtn.setVisibility(View.INVISIBLE);
         awardsEditBtn.setVisibility(View.INVISIBLE);
+    }
+
+    private void sendDataToParse()
+    {
+        final String locationData = location.getText().toString();
+        final String biographyData = biography.getText().toString();
+
+        final ArrayList<String> skillsData = (new StringParser(skillsSection.getData())).getParsed();
+        final ArrayList<String> experienceData = (new StringParser(experienceSection.getData())).getParsed();
+        final ArrayList<String> projectData = (new StringParser(projectsSection.getData())).getParsed();
+        final ArrayList<String> educationData = (new StringParser(educationSection.getData())).getParsed();
+        final ArrayList<String> activitiesData = activitiesSection.getData();
+        final ArrayList<String> awardsData = awardsSection.getData();
+
+
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject dataRow, ParseException e) {
+                dataRow.put("location", locationData);
+                dataRow.put("biography", biographyData);
+
+                dataRow.put("skills", skillsData);
+                dataRow.put("experience", experienceData);
+                dataRow.put("projects", projectData);
+                dataRow.put("education", educationData);
+                dataRow.put("activities", activitiesData);
+                dataRow.put("awards", awardsData);
+                dataRow.saveInBackground();
+            }
+        });
+
+
+
+
+        /*
+        ArrayList<ArrayList<String>> concatSkillsData = (new StringParser(skillsData, false)).getConcated();
+        for(int i = 0; i < concatSkillsData.size(); ++i) {
+            Log.d(TAG, "<" + concatSkillsData.get(i).get(0) + ", " + concatSkillsData.get(i).get(1) + ">");
+        }
+        */
     }
 
     public static void disableTouchTheft(View view) {

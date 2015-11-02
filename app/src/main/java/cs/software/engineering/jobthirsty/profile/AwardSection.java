@@ -19,9 +19,6 @@ public class AwardSection extends ProfileSection {
     private LinearLayout.LayoutParams blockLayoutParams;
 
 
-    //List for holding elements
-    private ArrayList<RelativeLayout> list;
-
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
     public AwardSection(Context context){
         super(context);
@@ -80,6 +77,21 @@ public class AwardSection extends ProfileSection {
             }
         }
     }
+
+    //fetches data from activity
+    public ArrayList<String> getData()
+    {
+        ArrayList<String> data = new ArrayList<>();
+
+        for(int i = 0; i < list.size(); ++i) {
+            RelativeLayout row = list.get(i);
+
+            EditText et = (EditText) row.getChildAt(0);
+            data.add(et.getText().toString());
+        }
+
+        return data;
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -87,9 +99,6 @@ public class AwardSection extends ProfileSection {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
-        //list holding rows
-        list = new ArrayList<>();
-
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,

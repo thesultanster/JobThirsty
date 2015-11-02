@@ -1,8 +1,6 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,8 +18,6 @@ public class ExperienceSection extends ProfileSection {
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
 
-    //List for holding elements
-    private ArrayList<RelativeLayout> list;
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
     public ExperienceSection(Context context){
@@ -95,6 +91,28 @@ public class ExperienceSection extends ProfileSection {
             }
         }
     }
+
+    //fetches data from activity
+    public ArrayList<ArrayList<String>> getData()
+    {
+        //          0          1
+        //rows of <experience, description> pairs
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+
+        for(int i = 0; i < list.size(); ++i) {
+            RelativeLayout row = list.get(i);
+
+            EditText experienceET = (EditText) row.getChildAt(0);
+            EditText descriptionET = (EditText) row.getChildAt(2);
+
+            ArrayList<String> pair = new ArrayList<>();
+            pair.add(experienceET.getText().toString());
+            pair.add(descriptionET.getText().toString());
+            data.add(pair);
+        }
+
+        return data;
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -102,12 +120,6 @@ public class ExperienceSection extends ProfileSection {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
-        //list holding rows
-        list = new ArrayList<>();
-
-        //display manager
-        displayMetrics = getResources().getDisplayMetrics();
-
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,

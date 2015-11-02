@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 import cs.software.engineering.jobthirsty.R;
 
 /**
@@ -19,6 +21,9 @@ public class ProfileSection extends LinearLayout {
 
     //Display info
     protected DisplayMetrics displayMetrics;
+
+    //List for holding elements
+    protected ArrayList<RelativeLayout> list;
 
     //CONSTRUCTORS [START] -------------------------------------------------------------------------
     public ProfileSection(Context context){
@@ -53,6 +58,8 @@ public class ProfileSection extends LinearLayout {
             @Override
             public void onClick(View v) {
                 removeRow(v);
+                RelativeLayout toRemove = (RelativeLayout) v.getParent();
+                list.remove(toRemove);
             }
         });
 
@@ -97,6 +104,9 @@ public class ProfileSection extends LinearLayout {
         this.setLayoutParams(layoutParams);
         this.setOrientation(VERTICAL);
         this.requestLayout();
+
+        //list holding rows
+        list = new ArrayList<>();
     }
 
     //[END] ----------------------------------------------------------------------------------------

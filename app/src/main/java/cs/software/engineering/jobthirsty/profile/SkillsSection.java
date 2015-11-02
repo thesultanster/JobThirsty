@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -21,9 +22,6 @@ public class SkillsSection extends ProfileSection {
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
 
-    //List for holding elements
-    private ArrayList<RelativeLayout> list;
-    private ArrayList<Integer> endorseList;
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
     public SkillsSection(Context context){
@@ -60,7 +58,6 @@ public class SkillsSection extends ProfileSection {
         //add the row
         this.addView(rl);
         list.add(rl);
-        endorseList.add(0); //endorse always starts from 0
     }
 
     public void enableEdit() {
@@ -94,6 +91,28 @@ public class SkillsSection extends ProfileSection {
             }
         }
     }
+
+    //fetches data from activity
+    public ArrayList<ArrayList<String>> getData()
+    {
+        //          0          1
+        //rows of <skill, endorseCount> pairs
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+
+        for(int i = 0; i < list.size(); ++i) {
+            RelativeLayout row = list.get(i);
+
+            EditText skillsET = (EditText) row.getChildAt(0);
+            EditText endorseET = (EditText) row.getChildAt(2);
+
+            ArrayList<String> pair = new ArrayList<>();
+            pair.add(skillsET.getText().toString());
+            pair.add(endorseET.getText().toString());
+            data.add(pair);
+        }
+
+        return data;
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -101,10 +120,6 @@ public class SkillsSection extends ProfileSection {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
-        //list holding rows
-        list = new ArrayList<>();
-        endorseList = new ArrayList<>();
-
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,

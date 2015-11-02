@@ -19,8 +19,6 @@ public class EducationSection extends ProfileSection {
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
 
-    //List for holding elements
-    private ArrayList<RelativeLayout> list;
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
     public EducationSection(Context context){
@@ -104,6 +102,30 @@ public class EducationSection extends ProfileSection {
             }
         }
     }
+
+    //fetches data from activity
+    public ArrayList<ArrayList<String>> getData()
+    {
+        //           0       1  ,  2
+        //rows of <school, major, GPA> pairs
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+
+        for(int i = 0; i < list.size(); ++i) {
+            RelativeLayout row = list.get(i);
+
+            EditText schoolET = (EditText) row.getChildAt(0);
+            EditText majorET = (EditText) row.getChildAt(2);
+            EditText GPAET = (EditText) row.getChildAt(3);
+
+            ArrayList<String> triplet = new ArrayList<>();
+            triplet.add(schoolET.getText().toString());
+            triplet.add(majorET.getText().toString());
+            triplet.add(GPAET.getText().toString());
+            data.add(triplet);
+        }
+
+        return data;
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -111,9 +133,6 @@ public class EducationSection extends ProfileSection {
     //HELPER FUNCTIONS [START] ---------------------------------------------------------------------
     private void initialize()
     {
-        //list holding rows
-        list = new ArrayList<>();
-
         //display manager
         displayMetrics = getResources().getDisplayMetrics();
 
