@@ -40,7 +40,7 @@ public class ActivitiesSection extends ProfileSection {
         rl.addView(createActivityView());
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000));
+        rl.addView(createMinusButton(list.size() + 1000, true));
 
 
         //add the row

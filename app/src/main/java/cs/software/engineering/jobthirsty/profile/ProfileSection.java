@@ -37,7 +37,7 @@ public class ProfileSection extends LinearLayout {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    protected ImageButton createMinusButton(int id)
+    protected ImageButton createMinusButton(int id, boolean enabled)
     {
         RelativeLayout.LayoutParams ivLayoutParams =  new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -62,6 +62,10 @@ public class ProfileSection extends LinearLayout {
                 list.remove(toRemove);
             }
         });
+
+        if(!enabled) {
+            iv.setVisibility(INVISIBLE);
+        }
 
         return iv;
     }

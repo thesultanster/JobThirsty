@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.opengl.Visibility;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import cs.software.engineering.jobthirsty.util.StringParser;
 
 
 /**
@@ -35,24 +38,24 @@ public class SkillsSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement()
+    public void addElement(String skill, String endorseCount, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
         //add EditText to row
-        rl.addView(createSkillView());
+        rl.addView(createSkillView(skill, enabled));
 
         //Add ImageView for increasing/decreasing endorse
         // should only be visible to everyone else except for you
 
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000));
+        rl.addView(createMinusButton(list.size() + 1000, enabled));
 
         //Add TextView for endorse count
-        rl.addView(createEndorseView());
+        rl.addView(createEndorseView(endorseCount, enabled));
 
 
         //add the row
@@ -113,6 +116,23 @@ public class SkillsSection extends ProfileSection {
 
         return data;
     }
+
+    //loads the data to activity
+    public void setData(ArrayList<String> data)
+    {
+        ArrayList<ArrayList<String>> dataParsed = (new StringParser(data, false)).getParsed();
+        for(int i = 0; i < dataParsed.size(); ++i) {
+            //get skill row
+            ArrayList<String> skill = dataParsed.get(i);
+
+            //parse out each field
+            String skillText = skill.get(0);
+            String endorseCount = skill.get(1);
+
+            //set data
+            addElement(skillText, endorseCount, false);
+        }
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -126,7 +146,7 @@ public class SkillsSection extends ProfileSection {
             100);
     }
 
-    private EditText createSkillView()
+    private EditText createSkillView(String skill, boolean enabled)
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -141,15 +161,26 @@ public class SkillsSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setSingleLine();
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
-        et.requestFocus(); //put on cursor
         et.setHint("[Skill]");
         et.setHintTextColor(0xFF808080);
+
+        if(enabled) {
+            et.requestFocus(); //put on cursor
+        }
+        else {
+            et.setEnabled(false);
+        }
+
+        if(!skill.equals("")) {
+            et.setText(skill);
+        }
+
         et.requestLayout(); //update
 
         return et;
     }
 
-    private TextView createEndorseView()
+    private TextView createEndorseView(String endorseCount, boolean enabled)
     {
         RelativeLayout.LayoutParams endorseCountLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -160,11 +191,18 @@ public class SkillsSection extends ProfileSection {
         endorseEt.setLayoutParams(endorseCountLayoutParams);
         endorseEt.setEms(1);
         endorseEt.setTextColor(0xFF000000);
-        endorseEt.setText("0");
-        endorseEt.setEnabled(false);
+        endorseEt.setText(endorseCount);
+        endorseEt.setEnabled(enabled);
         endorseEt.setBackground(null);
         endorseEt.setGravity(Gravity.CENTER);
-        endorseEt.setVisibility(INVISIBLE); //initially invisible
+
+        if(enabled) {
+            endorseEt.setVisibility(INVISIBLE); //initially invisible
+        }
+        else {
+            endorseEt.setVisibility(VISIBLE); //set visible when loaded
+        }
+
         endorseEt.requestLayout();
 
         return endorseEt;

@@ -41,7 +41,7 @@ public class AwardSection extends ProfileSection {
         rl.addView(createAwardView());
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000));
+        rl.addView(createMinusButton(list.size() + 1000, true));
 
 
         //add the row

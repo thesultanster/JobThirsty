@@ -42,7 +42,7 @@ public class EducationSection extends ProfileSection {
         rl.addView(createSchoolView());
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000));
+        rl.addView(createMinusButton(list.size() + 1000, true));
 
         //add major
         rl.addView(createMajorView());

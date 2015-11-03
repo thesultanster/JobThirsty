@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -84,6 +85,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         setContentView(R.layout.activity_employee_profile);
 
         initialize();
+        loadProfilePage();
         setListeners();
     }
 
@@ -114,12 +116,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
 
-        firstName = ParseUser.getCurrentUser().get("firstName").toString();
-        lastName = ParseUser.getCurrentUser().get("lastName").toString();
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
-        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
         collapsingToolbarLayout.setExpandedTitleColor(0xFFffffff);
 
 
@@ -214,7 +212,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View v) {
                 skillsParent.removeView(skillsSection);
-                skillsSection.addElement();
+                skillsSection.addElement("", "0", true);
                 skillsParent.addView(skillsSection);
             }
         });
@@ -290,10 +288,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         final String locationData = location.getText().toString();
         final String biographyData = biography.getText().toString();
 
-        final ArrayList<String> skillsData = (new StringParser(skillsSection.getData())).getParsed();
-        final ArrayList<String> experienceData = (new StringParser(experienceSection.getData())).getParsed();
-        final ArrayList<String> projectData = (new StringParser(projectsSection.getData())).getParsed();
-        final ArrayList<String> educationData = (new StringParser(educationSection.getData())).getParsed();
+        final ArrayList<String> skillsData = (new StringParser(skillsSection.getData())).getConcated();
+        final ArrayList<String> experienceData = (new StringParser(experienceSection.getData())).getConcated();
+        final ArrayList<String> projectData = (new StringParser(projectsSection.getData())).getConcated();
+        final ArrayList<String> educationData = (new StringParser(educationSection.getData())).getConcated();
         final ArrayList<String> activitiesData = activitiesSection.getData();
         final ArrayList<String> awardsData = awardsSection.getData();
 
@@ -326,7 +324,71 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         */
     }
 
-    public static void disableTouchTheft(View view) {
+    //dataId need to be passed in to distinguish who's profile to load up
+    private void retrieveDataFromParse(String dataId)
+    {
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        q.getInBackground(dataId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject dataRow, ParseException e) {
+                String locationData = dataRow.get("location").toString();
+                String biographyData = dataRow.get("biography").toString();
+
+                ArrayList<String> skillsData = (ArrayList<String>) dataRow.get("skills");
+
+                location.setText(locationData);
+                location.setEnabled(false);
+                biography.setText(biographyData);
+                biography.setEnabled(false);
+
+
+                skillsParent.removeView(skillsSection);
+                skillsSection.setData(skillsData);
+                skillsParent.addView(skillsSection);
+
+                //Add rest of them
+            }
+        });
+/*
+        final String locationData = location.getText().toString();
+        final String biographyData = biography.getText().toString();
+
+        final ArrayList<String> skillsData = (new StringParser(skillsSection.getData())).getParsed();
+        final ArrayList<String> experienceData = (new StringParser(experienceSection.getData())).getParsed();
+        final ArrayList<String> projectData = (new StringParser(projectsSection.getData())).getParsed();
+        final ArrayList<String> educationData = (new StringParser(educationSection.getData())).getParsed();
+        final ArrayList<String> activitiesData = activitiesSection.getData();
+        final ArrayList<String> awardsData = awardsSection.getData();
+        */
+
+
+        /*
+        ArrayList<ArrayList<String>> concatSkillsData = (new StringParser(skillsData, false)).getConcated();
+        for(int i = 0; i < concatSkillsData.size(); ++i) {
+            Log.d(TAG, "<" + concatSkillsData.get(i).get(0) + ", " + concatSkillsData.get(i).get(1) + ">");
+        }
+        */
+    }
+
+    //Load profile page
+    private void loadProfilePage()
+    {
+        //get appropriate user through intent's getStringExtra
+
+        //...
+
+        firstName = ParseUser.getCurrentUser().get("firstName").toString();
+        lastName = ParseUser.getCurrentUser().get("lastName").toString();
+
+        //display profile's name
+        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+
+        //fetch data id (need to load the correct user)
+        String dataId = ParseUser.getCurrentUser().get("dataId").toString();
+        retrieveDataFromParse(dataId);
+    }
+
+    private static void disableTouchTheft(View view) {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

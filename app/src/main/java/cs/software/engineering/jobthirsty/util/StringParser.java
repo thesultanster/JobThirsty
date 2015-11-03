@@ -1,6 +1,5 @@
 package cs.software.engineering.jobthirsty.util;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,8 +9,8 @@ import java.util.Arrays;
 public class StringParser {
 
     //Result Variables
-    private ArrayList<String> parsed = new ArrayList<>();
-    private ArrayList<ArrayList<String>> concated = new ArrayList<>();
+    private ArrayList<String> concated = new ArrayList<>();
+    private ArrayList<ArrayList<String>> parsed = new ArrayList<>();
 
 
     // CONSTRUCTORS [START] ------------------------------------------------------------------------
@@ -28,7 +27,7 @@ public class StringParser {
             }
 
             //add to list
-            parsed.add(concatenated);
+            concated.add(concatenated);
         }
     }
 
@@ -40,7 +39,7 @@ public class StringParser {
             String line = toSplit.get(i);
             String[] tmp = line.split("!##!");
             ArrayList<String> parsedRow = new ArrayList<>(Arrays.asList(tmp));
-            concated.add(parsedRow);
+            parsed.add(parsedRow);
         }
     }
     // [END] ---------------------------------------------------------------------------------------
@@ -48,7 +47,7 @@ public class StringParser {
 
 
     // UTILITY FUNCTIONS [START] -------------------------------------------------------------------
-    public ArrayList<String> getParsed(){ return parsed; }
-    public ArrayList<ArrayList<String>> getConcated(){ return concated; }
+    public ArrayList<ArrayList<String>> getParsed(){ return parsed; }
+    public ArrayList<String> getConcated(){ return concated; }
     // [END] ---------------------------------------------------------------------------------------
 }

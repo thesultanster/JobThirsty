@@ -41,7 +41,7 @@ public class ProjectsSection extends ProfileSection {
         rl.addView(createProjectView());
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000));
+        rl.addView(createMinusButton(list.size() + 1000, true));
 
         //add project description
         rl.addView(createDescriptionView());
