@@ -13,6 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
+import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
 
@@ -31,10 +32,9 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if(ParseUser.getCurrentUser() != null){
-            Intent intent = new Intent(this, EmployeeProfileActivity.class);
+            Intent intent = new Intent(this, Newsfeed.class);
             startActivity(intent);
         }
-
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
@@ -42,13 +42,9 @@ public class Login extends AppCompatActivity {
 
         login = (Button) findViewById(R.id.loginButton);
         login.setOnClickListener(new View.OnClickListener()
-
         {
             @Override
             public void onClick(View v) {
-
-
-
                 ParseUser.logInInBackground(username.getText().toString(),  password.getText().toString(), new LogInCallback() {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null) {
@@ -57,15 +53,10 @@ public class Login extends AppCompatActivity {
                             installation.put("userId", ParseUser.getCurrentUser().getObjectId());
                             installation.saveInBackground();
 
-                            // If user exist and authenticated, send user to Welcome.class
-                            //  Need to check flag to send user to appropriate activty (worker or boss)
-                            boolean isBoss = (boolean) ParseUser.getCurrentUser().get("isBoss");
-
-                            Intent intent = isBoss ? new Intent(Login.this, EmployerProfileActivity.class)
-                                                   : new Intent(Login.this, EmployeeProfileActivity.class);
+                            Intent intent = new Intent(Login.this, Newsfeed.class);
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
-                            finish();
+                            //finish();
                         } else {
                             Toast.makeText(
                                     getApplicationContext(),

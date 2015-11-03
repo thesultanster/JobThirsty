@@ -33,6 +33,7 @@ public class Newsfeed extends NavigationDrawerFramework {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(Newsfeed.this));
 
+        //ToDo: Need to load the page according to the user (worker or boss
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Newsfeed");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> newsfeed, ParseException e) {

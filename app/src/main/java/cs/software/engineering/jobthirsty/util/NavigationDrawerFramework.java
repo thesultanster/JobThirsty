@@ -21,12 +21,14 @@ import com.parse.Parse;
 import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.CreateJobPosition;
+import cs.software.engineering.jobthirsty.Login;
 import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
 import cs.software.engineering.jobthirsty.find.FindPositions;
 import cs.software.engineering.jobthirsty.mail.Mail;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 import cs.software.engineering.jobthirsty.R;
+import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
 
 public class NavigationDrawerFramework extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -177,7 +179,13 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         switch(itemId){
             case R.id.profile:
                 //TODO: Find if employer or employee and go to respective activity. Ex: if( parseUser != Employee)
-                intent = new Intent(this, EmployeeProfileActivity.class);
+
+                // If user exist and authenticated, send user to Welcome.class
+                //  Need to check flag to send user to appropriate activty (worker or boss)
+                boolean isBoss = (boolean) ParseUser.getCurrentUser().get("isBoss");
+
+                intent = isBoss ? new Intent(this, EmployerProfileActivity.class)
+                                : new Intent(this, EmployeeProfileActivity.class);
                 break;
             case R.id.find_position:
                 intent = new Intent(this, FindPositions.class);
