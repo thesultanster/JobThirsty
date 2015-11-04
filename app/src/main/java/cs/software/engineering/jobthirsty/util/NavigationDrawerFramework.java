@@ -205,7 +205,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         }
 
         startActivity(intent);
-
     }
 
     //====================================================================================================

@@ -63,6 +63,9 @@ public class SignUp extends AppCompatActivity {
 
                             // Go to Main Page when successfully logged in
                             Intent intent = new Intent(SignUp.this, EmployeeProfileActivity.class);
+                            intent.putExtra("firstname", ParseUser.getCurrentUser().get("firstname").toString());
+                            intent.putExtra("lastname", ParseUser.getCurrentUser().get("lastname").toString());
+
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
                             finish();

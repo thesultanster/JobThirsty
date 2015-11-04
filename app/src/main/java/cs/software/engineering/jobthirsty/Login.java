@@ -56,6 +56,8 @@ public class Login extends AppCompatActivity {
                             Intent intent = new Intent(Login.this, Newsfeed.class);
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
+
+                            //TODO: need to implement the double tapping on the back button (dialog asking yes or no).
                             //finish();
                         } else {
                             Toast.makeText(

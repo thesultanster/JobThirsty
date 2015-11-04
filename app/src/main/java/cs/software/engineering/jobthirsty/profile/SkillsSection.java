@@ -161,14 +161,12 @@ public class SkillsSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setSingleLine();
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
+        et.setEnabled(enabled);
         et.setHint("[Skill]");
         et.setHintTextColor(0xFF808080);
 
         if(enabled) {
             et.requestFocus(); //put on cursor
-        }
-        else {
-            et.setEnabled(false);
         }
 
         if(!skill.equals("")) {

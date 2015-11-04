@@ -21,9 +21,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cs.software.engineering.jobthirsty.R;
@@ -221,7 +219,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View view) {
                 experienceParent.removeView(experienceSection);
-                experienceSection.addElement();
+                experienceSection.addElement("", "", true);
                 experienceParent.addView(experienceSection);
             }
         });
@@ -230,7 +228,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View view) {
                 projectsParent.removeView(projectsSection);
-                projectsSection.addElement();
+                projectsSection.addElement("", "", true);
                 projectsParent.addView(projectsSection);
             }
         });
@@ -312,16 +310,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 dataRow.saveInBackground();
             }
         });
-
-
-
-
-        /*
-        ArrayList<ArrayList<String>> concatSkillsData = (new StringParser(skillsData, false)).getConcated();
-        for(int i = 0; i < concatSkillsData.size(); ++i) {
-            Log.d(TAG, "<" + concatSkillsData.get(i).get(0) + ", " + concatSkillsData.get(i).get(1) + ">");
-        }
-        */
     }
 
     //dataId need to be passed in to distinguish who's profile to load up
@@ -335,39 +323,28 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 String biographyData = dataRow.get("biography").toString();
 
                 ArrayList<String> skillsData = (ArrayList<String>) dataRow.get("skills");
+                ArrayList<String> experienceData = (ArrayList<String>) dataRow.get("experience");
+                ArrayList<String> projectData = (ArrayList<String>) dataRow.get("projects");
 
                 location.setText(locationData);
                 location.setEnabled(false);
                 biography.setText(biographyData);
                 biography.setEnabled(false);
 
-
                 skillsParent.removeView(skillsSection);
                 skillsSection.setData(skillsData);
                 skillsParent.addView(skillsSection);
 
+                experienceParent.removeView(experienceSection);
+                experienceSection.setData(experienceData);
+                experienceParent.addView(experienceSection);
+
+                projectsParent.removeView(projectsSection);
+                projectsSection.setData(projectData);
+                projectsParent.addView(projectsSection);
                 //Add rest of them
             }
         });
-/*
-        final String locationData = location.getText().toString();
-        final String biographyData = biography.getText().toString();
-
-        final ArrayList<String> skillsData = (new StringParser(skillsSection.getData())).getParsed();
-        final ArrayList<String> experienceData = (new StringParser(experienceSection.getData())).getParsed();
-        final ArrayList<String> projectData = (new StringParser(projectsSection.getData())).getParsed();
-        final ArrayList<String> educationData = (new StringParser(educationSection.getData())).getParsed();
-        final ArrayList<String> activitiesData = activitiesSection.getData();
-        final ArrayList<String> awardsData = awardsSection.getData();
-        */
-
-
-        /*
-        ArrayList<ArrayList<String>> concatSkillsData = (new StringParser(skillsData, false)).getConcated();
-        for(int i = 0; i < concatSkillsData.size(); ++i) {
-            Log.d(TAG, "<" + concatSkillsData.get(i).get(0) + ", " + concatSkillsData.get(i).get(1) + ">");
-        }
-        */
     }
 
     //Load profile page
@@ -376,6 +353,12 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         //get appropriate user through intent's getStringExtra
 
         //...
+
+
+        firstName = getIntent().getStringExtra("firstname");
+        lastName = getIntent().getStringExtra("lastname");
+
+        //CONTINUE....
 
         firstName = ParseUser.getCurrentUser().get("firstName").toString();
         lastName = ParseUser.getCurrentUser().get("lastName").toString();

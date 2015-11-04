@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cs.software.engineering.jobthirsty.util.StringParser;
+
 /**
  * Created by timka on 10/18/2015.
  */
@@ -31,20 +33,20 @@ public class ExperienceSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement()
+    public void addElement(String experienceText, String experienceDescription, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
         //add school to row
-        rl.addView(createExperienceView());
+        rl.addView(createExperienceView(experienceText, enabled));
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000, true));
+        rl.addView(createMinusButton(list.size() + 1000, enabled));
 
         //add project description
-        rl.addView(createDescriptionView());
+        rl.addView(createDescriptionView(experienceDescription, enabled));
 
 
         //add the row
@@ -113,6 +115,23 @@ public class ExperienceSection extends ProfileSection {
 
         return data;
     }
+
+    //loads the data to activity
+    public void setData(ArrayList<String> data)
+    {
+        ArrayList<ArrayList<String>> dataParsed = (new StringParser(data, false)).getParsed();
+        for(int i = 0; i < dataParsed.size(); ++i) {
+            //get experience row
+            ArrayList<String> experience = dataParsed.get(i);
+
+            //parse out each field
+            String experienceText = experience.get(0);
+            String experienceDescription = experience.get(1);
+
+            //set data
+            addElement(experienceText, experienceDescription, false);
+        }
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -126,7 +145,7 @@ public class ExperienceSection extends ProfileSection {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
-    private EditText createExperienceView()
+    private EditText createExperienceView(String experienceText, boolean enabled)
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -142,15 +161,23 @@ public class ExperienceSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setSingleLine();
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
-        et.requestFocus(); //put on cursor
+        et.setEnabled(enabled);
         et.setHint("[Experience]");
         et.setHintTextColor(0xFF808080);
+
+        if(enabled) {
+            et.requestFocus(); //put on cursor
+        }
+
+        if(!experienceText.equals("")) {
+            et.setText(experienceText);
+        }
         et.requestLayout(); //update
 
         return et;
     }
 
-    private EditText createDescriptionView()
+    private EditText createDescriptionView(String experienceDescription, boolean enabled)
     {
         RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -165,8 +192,15 @@ public class ExperienceSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
+        et.setEnabled(enabled);
         et.setHint("[Description]");
         et.setHintTextColor(0xFF808080);
+
+        if(!experienceDescription.equals("")) {
+            et.setText(experienceDescription);
+            et.setVisibility(VISIBLE); //set visible when loaded
+        }
+
         et.requestLayout(); //update
 
         return et;

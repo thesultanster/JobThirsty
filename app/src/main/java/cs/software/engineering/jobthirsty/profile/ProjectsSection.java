@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cs.software.engineering.jobthirsty.util.StringParser;
+
 /**
  * Created by timka on 10/18/2015.
  */
@@ -31,20 +33,20 @@ public class ProjectsSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement()
+    public void addElement(String projectText, String projectDescription, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
         //add school to row
-        rl.addView(createProjectView());
+        rl.addView(createProjectView(projectText, enabled));
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000, true));
+        rl.addView(createMinusButton(list.size() + 1000, enabled));
 
         //add project description
-        rl.addView(createDescriptionView());
+        rl.addView(createDescriptionView(projectDescription, enabled));
 
 
         //add the row
@@ -108,6 +110,23 @@ public class ProjectsSection extends ProfileSection {
 
         return data;
     }
+
+    //loads the data to activity
+    public void setData(ArrayList<String> data)
+    {
+        ArrayList<ArrayList<String>> dataParsed = (new StringParser(data, false)).getParsed();
+        for(int i = 0; i < dataParsed.size(); ++i) {
+            //get experience row
+            ArrayList<String> experience = dataParsed.get(i);
+
+            //parse out each field
+            String projectText = experience.get(0);
+            String projectDescription = experience.get(1);
+
+            //set data
+            addElement(projectText, projectDescription, false);
+        }
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -121,7 +140,7 @@ public class ProjectsSection extends ProfileSection {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
-    private EditText createProjectView()
+    private EditText createProjectView(String projectText, boolean enabled)
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -137,15 +156,23 @@ public class ProjectsSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setSingleLine();
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
-        et.requestFocus(); //put on cursor
+        et.setEnabled(enabled);
         et.setHint("[Project]");
         et.setHintTextColor(0xFF808080);
+
+        if(enabled) {
+            et.requestFocus(); //put on cursor
+        }
+
+        if(!projectText.equals("")) {
+            et.setText(projectText);
+        }
         et.requestLayout(); //update
 
         return et;
     }
 
-    private EditText createDescriptionView()
+    private EditText createDescriptionView(String projectDeescription, boolean enabled)
     {
         RelativeLayout.LayoutParams tmpLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -160,8 +187,15 @@ public class ProjectsSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
+        et.setEnabled(enabled);
         et.setHint("[Description]");
         et.setHintTextColor(0xFF808080);
+
+        if(!projectDeescription.equals("")) {
+            et.setText(projectDeescription);
+            et.setVisibility(VISIBLE); //set visible when loaded
+        }
+
         et.requestLayout(); //update
 
         return et;
