@@ -86,8 +86,6 @@ public class ExperienceSection extends ProfileSection {
                 ib.setVisibility(INVISIBLE); //hide minus button
                 descriptionET.setEnabled(false);
 
-                if(experienceET.getText().toString().equals(""))
-                    experienceET.setVisibility(INVISIBLE);
                 if(descriptionET.getText().toString().equals(""))
                     descriptionET.setVisibility(INVISIBLE);
             }
@@ -200,9 +198,6 @@ public class ExperienceSection extends ProfileSection {
             et.setText(experienceDescription);
             et.setVisibility(VISIBLE); //set visible when loaded
         }
-
-        et.requestLayout(); //update
-
         return et;
     }
     //[END] ----------------------------------------------------------------------------------------

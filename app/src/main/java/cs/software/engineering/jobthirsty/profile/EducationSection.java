@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cs.software.engineering.jobthirsty.util.StringParser;
+
 /**
  * Created by timka on 10/18/2015.
  */
@@ -32,23 +34,23 @@ public class EducationSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement()
+    public void addElement(String educationText, String educationMajor, String educationGPA, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
         //add school to row
-        rl.addView(createSchoolView());
+        rl.addView(createSchoolView(educationText, enabled));
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000, true));
+        rl.addView(createMinusButton(list.size() + 1000, enabled));
 
         //add major
-        rl.addView(createMajorView());
+        rl.addView(createMajorView(educationMajor, enabled));
 
         //add GPA
-        rl.addView(createGPA());
+        rl.addView(createGPA(educationGPA, enabled));
 
 
         //add the row
@@ -126,6 +128,25 @@ public class EducationSection extends ProfileSection {
 
         return data;
     }
+
+
+    //loads the data to activity
+    public void setData(ArrayList<String> data)
+    {
+        ArrayList<ArrayList<String>> dataParsed = (new StringParser(data, false)).getParsed();
+        for(int i = 0; i < dataParsed.size(); ++i) {
+            //get experience row
+            ArrayList<String> education = dataParsed.get(i);
+
+            //parse out each field
+            String educationText = education.get(0);
+            String educationMajor = education.get(1);
+            String educationGPA = education.get(2);
+
+            //set data
+            addElement(educationText, educationMajor, educationGPA, false);
+        }
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -143,7 +164,7 @@ public class EducationSection extends ProfileSection {
     }
 
 
-    private EditText createSchoolView()
+    private EditText createSchoolView(String educationText, boolean enabled)
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -158,10 +179,18 @@ public class EducationSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.3)));
-        et.requestFocus(); //put on cursor
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.27)));
+        et.setEnabled(enabled);
         et.setHint("[School]");
         et.setHintTextColor(0xFF808080);
+
+        if(enabled) {
+            et.requestFocus(); //put on cursor
+        }
+
+        if(!educationText.equals("")) {
+            et.setText(educationText);
+        }
         et.requestLayout(); //update
 
         return et;
@@ -169,7 +198,7 @@ public class EducationSection extends ProfileSection {
 
 
 
-    private EditText createMajorView()
+    private EditText createMajorView(String educationMajor, boolean enabled)
     {
         //set up layout params
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
@@ -184,16 +213,21 @@ public class EducationSection extends ProfileSection {
         et.setLayoutParams(etLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
-        et.setWidth((int)(displayMetrics.widthPixels*0.55));
+        et.setWidth((int) (displayMetrics.widthPixels * 0.55));
         et.setSingleLine();
+        et.setEnabled(enabled);
         et.setHint("[Major]");
         et.setHintTextColor(0xFF808080);
-        et.requestLayout(); //update
+
+        if(!educationMajor.equals("")) {
+            et.setText(educationMajor);
+            et.setVisibility(VISIBLE); //set visible when loaded
+        }
 
         return et;
     }
 
-    private EditText createGPA()
+    private EditText createGPA(String educationGPA, boolean enabled)
     {
         //set up layout params
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
@@ -210,10 +244,15 @@ public class EducationSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setEms(2);
         et.setSingleLine();
+        et.setEnabled(enabled);
         et.setHint("[GPA]");
         et.setHintTextColor(0xFF808080);
         et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et.requestLayout(); //update
+
+        if(!educationGPA.equals("")) {
+            et.setText(educationGPA);
+            et.setVisibility(VISIBLE); //set visible when loaded
+        }
 
         return et;
     }

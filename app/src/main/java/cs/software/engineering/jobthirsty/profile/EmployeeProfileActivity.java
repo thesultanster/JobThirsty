@@ -22,6 +22,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cs.software.engineering.jobthirsty.R;
@@ -237,17 +238,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View view) {
                 educationParent.removeView(educationSection);
-                educationSection.addElement();
+                educationSection.addElement("", "", "", true);
                 educationParent.addView(educationSection);
-            }
-        });
-
-        awardsEditBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                awardsParent.removeView(awardsSection);
-                awardsSection.addElement();
-                awardsParent.addView(awardsSection);
             }
         });
 
@@ -255,8 +247,17 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View view) {
                 activitiesParent.removeView(activitiesSection);
-                activitiesSection.addElement();
+                activitiesSection.addElement("", true);
                 activitiesParent.addView(activitiesSection);
+            }
+        });
+
+        awardsEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                awardsParent.removeView(awardsSection);
+                awardsSection.addElement("", true);
+                awardsParent.addView(awardsSection);
             }
         });
     }
@@ -325,6 +326,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 ArrayList<String> skillsData = (ArrayList<String>) dataRow.get("skills");
                 ArrayList<String> experienceData = (ArrayList<String>) dataRow.get("experience");
                 ArrayList<String> projectData = (ArrayList<String>) dataRow.get("projects");
+                ArrayList<String> educationData = (ArrayList<String>) dataRow.get("education");
+                ArrayList<String> activitiesData = (ArrayList<String>) dataRow.get("activities");
+                ArrayList<String> awardsData = (ArrayList<String>) dataRow.get("awards");
 
                 location.setText(locationData);
                 location.setEnabled(false);
@@ -342,7 +346,18 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 projectsParent.removeView(projectsSection);
                 projectsSection.setData(projectData);
                 projectsParent.addView(projectsSection);
-                //Add rest of them
+
+                educationParent.removeView(educationSection);
+                educationSection.setData(educationData);
+                educationParent.addView(educationSection);
+
+                activitiesParent.removeView(activitiesSection);
+                activitiesSection.setData(activitiesData);
+                activitiesParent.addView(activitiesSection);
+
+                awardsParent.removeView(awardsSection);
+                awardsSection.setData(awardsData);
+                awardsParent.addView(awardsSection);
             }
         });
     }

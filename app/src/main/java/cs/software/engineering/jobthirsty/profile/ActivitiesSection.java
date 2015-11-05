@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cs.software.engineering.jobthirsty.util.StringParser;
+
 /**
  * Created by timka on 10/18/2015.
  */
@@ -30,17 +32,17 @@ public class ActivitiesSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement()
+    public void addElement(String activitiesText, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
         //add EditText to row
-        rl.addView(createActivityView());
+        rl.addView(createActivityView(activitiesText, enabled));
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000, true));
+        rl.addView(createMinusButton(list.size() + 1000, enabled));
 
 
         //add the row
@@ -91,6 +93,22 @@ public class ActivitiesSection extends ProfileSection {
 
         return data;
     }
+
+    //loads the data to activity
+    public void setData(ArrayList<String> data)
+    {
+        ArrayList<ArrayList<String>> dataParsed = (new StringParser(data, false)).getParsed();
+        for(int i = 0; i < dataParsed.size(); ++i) {
+            //get skill row
+            ArrayList<String> activity = dataParsed.get(i);
+
+            //parse out each field
+            String activitiesText = activity.get(0);
+
+            //set data
+            addElement(activitiesText, false);
+        }
+    }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -104,7 +122,7 @@ public class ActivitiesSection extends ProfileSection {
                 100);
     }
 
-    private EditText createActivityView()
+    private EditText createActivityView(String activityText, boolean enabled)
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -119,9 +137,18 @@ public class ActivitiesSection extends ProfileSection {
         et.setTextColor(0xFF000000);
         et.setSingleLine();
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.25)));
-        et.requestFocus(); //put on cursor
+        et.setEnabled(enabled);
         et.setHint("[Activity]");
         et.setHintTextColor(0xFF808080);
+
+        if(enabled) {
+            et.requestFocus(); //put on cursor
+        }
+
+        if(!activityText.equals("")) {
+            et.setText(activityText);
+        }
+
         et.requestLayout(); //update
 
         return et;
