@@ -365,24 +365,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //Load profile page
     private void loadProfilePage()
     {
-        //get appropriate user through intent's getStringExtra
-
-        //...
-
-
-        firstName = getIntent().getStringExtra("firstname");
-        lastName = getIntent().getStringExtra("lastname");
-
-        //CONTINUE....
-
-        firstName = ParseUser.getCurrentUser().get("firstName").toString();
-        lastName = ParseUser.getCurrentUser().get("lastName").toString();
+        Bundle extras = getIntent().getExtras();
+        firstName = extras.getString("firstName");
+        lastName = extras.getString("lastName");
+        String dataId = extras.getString("dataId");
 
         //display profile's name
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
-        //fetch data id (need to load the correct user)
-        String dataId = ParseUser.getCurrentUser().get("dataId").toString();
         retrieveDataFromParse(dataId);
     }
 
