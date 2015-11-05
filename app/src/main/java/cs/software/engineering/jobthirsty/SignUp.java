@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -59,12 +60,15 @@ public class SignUp extends AppCompatActivity {
                         // Login When Sign Up Done
 
                         try {
+                            //add new row
+                            //ParseObject row = new ParseObject("")
                             ParseUser.logIn(username.getText().toString(), password.getText().toString());
 
                             // Go to Main Page when successfully logged in
                             Intent intent = new Intent(SignUp.this, EmployeeProfileActivity.class);
-                            intent.putExtra("firstname", ParseUser.getCurrentUser().get("firstname").toString());
-                            intent.putExtra("lastname", ParseUser.getCurrentUser().get("lastname").toString());
+                            intent.putExtra("firstName", firstName.getText().toString());
+                            intent.putExtra("lastName", lastName.getText().toString());
+                            intent.putExtra("dataId", ParseUser.getCurrentUser().get("dataId").toString());
 
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
