@@ -120,7 +120,7 @@ public class AwardSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                100);
+                LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     private EditText createAwardView(String awardText, boolean enabled)

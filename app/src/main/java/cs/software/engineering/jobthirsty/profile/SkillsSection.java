@@ -1,7 +1,6 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
-import android.opengl.Visibility;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -9,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -143,7 +141,7 @@ public class SkillsSection extends ProfileSection {
         //layout params for a row layout
         blockLayoutParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            100);
+            LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     private EditText createSkillView(String skill, boolean enabled)
