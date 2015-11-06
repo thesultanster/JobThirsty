@@ -369,11 +369,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         firstName = extras.getString("firstName");
         lastName = extras.getString("lastName");
         String dataId = extras.getString("dataId");
+        boolean isNew = extras.getBoolean("isNew");
 
         //display profile's name
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
-        retrieveDataFromParse(dataId);
+        if(!isNew) {
+            retrieveDataFromParse(dataId);
+        }
     }
 
     private static void disableTouchTheft(View view) {

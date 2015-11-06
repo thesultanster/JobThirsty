@@ -190,6 +190,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 intent.putExtra("firstName", ParseUser.getCurrentUser().get("firstName").toString());
                 intent.putExtra("lastName", ParseUser.getCurrentUser().get("lastName").toString());
                 intent.putExtra("dataId", ParseUser.getCurrentUser().get("dataId").toString());
+                intent.putExtra("isNew", false);
                 break;
             case R.id.find_position:
                 intent = new Intent(this, FindPositions.class);
@@ -205,6 +206,11 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 break;
             case R.id.applied_workers:
                 intent = new Intent(this, AppliedWorkers.class);
+                break;
+            case R.id.logout:
+                ParseUser.logOut();
+                intent = new Intent(this, Login.class);
+                finish();
                 break;
         }
 

@@ -2,6 +2,10 @@
     <!-- group with single selected item so only one item is highlighted in the nav menu -->
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/newsfeed"
+            android:icon="@drawable/fab_background"
+            android:title="Newsfeed"/>
+        <item
             android:id="@+id/profile"
             android:icon="@drawable/fab_background"
             android:title="Profile"/>
@@ -31,8 +35,8 @@
             android:icon="@drawable/fab_background"
             android:title="Mail"/>
         <item
-            android:id="@+id/newsfeed"
+            android:id="@+id/logout"
             android:icon="@drawable/fab_background"
-            android:title="Newsfeed"/>
+            android:title="Log Out"/>
     </group>
 </menu>
