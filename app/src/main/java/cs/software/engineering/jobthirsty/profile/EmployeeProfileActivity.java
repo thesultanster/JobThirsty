@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,13 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cs.software.engineering.jobthirsty.R;
@@ -369,29 +366,11 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         firstName = extras.getString("firstName");
         lastName = extras.getString("lastName");
         String dataId = extras.getString("dataId");
-        boolean isNew = extras.getBoolean("isNew");
 
         //display profile's name
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
-        if(!isNew) {
-            retrieveDataFromParse(dataId);
-        }
-    }
-
-    private static void disableTouchTheft(View view) {
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                view.getParent().requestDisallowInterceptTouchEvent(true);
-                switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        view.getParent().requestDisallowInterceptTouchEvent(false);
-                        break;
-                }
-                return false;
-            }
-        });
+        retrieveDataFromParse(dataId);
     }
     //[END] ----------------------------------------------------------------------------------------
 }

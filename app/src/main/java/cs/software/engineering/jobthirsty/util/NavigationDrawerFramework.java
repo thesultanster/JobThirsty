@@ -190,7 +190,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 intent.putExtra("firstName", ParseUser.getCurrentUser().get("firstName").toString());
                 intent.putExtra("lastName", ParseUser.getCurrentUser().get("lastName").toString());
                 intent.putExtra("dataId", ParseUser.getCurrentUser().get("dataId").toString());
-                intent.putExtra("isNew", false);
                 break;
             case R.id.find_position:
                 intent = new Intent(this, FindPositions.class);

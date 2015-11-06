@@ -13,16 +13,21 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
 
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
+import cs.software.engineering.jobthirsty.util.StringParser;
 
 public class EmployerProfileActivity extends NavigationDrawerFramework {
 
     //PRIVATE VARIABLES
-    private static String bullet = "\u2022";
-
     //Toolbar Variables
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -40,9 +45,6 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     // Child layout
     private JobsSection jobsSection;
 
-    //Edit button for each section
-    private ImageButton jobsEditBtn;
-
     //Employer Data Variables
     private String firstName;
     private String lastName;
@@ -54,6 +56,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         setContentView(R.layout.activity_employer_profile);
 
         initialize();
+        loadProfilePage();
         setListeners();
     }
     //[END] ----------------------------------------------------------------------------------------
@@ -102,15 +105,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         jobsParent = (RelativeLayout) findViewById(R.id.jobsParent);
 
         //Section layouts
-        jobsSection = new JobsSection(getApplicationContext(), firstName, lastName);
-
-        //Section edit buttons
-        jobsEditBtn = (ImageButton) findViewById(R.id.jobsEditBtn);
-        
-        // Populate dynamic layout
-//        jobsParent.removeView(jobsSection);
-//        jobsSection.addElement("", "", "", false);
-//        jobsParent.addView(jobsSection);
+        jobsSection = new JobsSection(getApplicationContext());
     }
 
     private void setListeners()
@@ -125,49 +120,77 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 //if editable
                 if (editable) {
                     //enable edits for EditTexts
+                    location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
-                    biography.setInputType(InputType.TYPE_CLASS_TEXT);
+                    biography.setEnabled(true);
 
-                    //show edit buttons for sections
-                    showEditButtons();
-
-                    //enable inside materials
-                    jobsSection.enableEdit();
-                    
-                } else {
+                }
+                else {
                     //disable edits for EditTexts
                     location.setEnabled(false);
                     biography.setEnabled(false);
-
-                    //hide edit buttons for sections
-                    hideEditButtons();
-
-                    //disable inside materials
-                    jobsSection.disableEdit();
-
-//                    sendDataToParse();
+                    sendDataToParse();
                 }
             }
         });
+    }
 
-        jobsEditBtn.setOnClickListener(new View.OnClickListener() {
+    private void sendDataToParse()
+    {
+        final String locationData = location.getText().toString();
+        final String biographyData = biography.getText().toString();
+
+        final ArrayList<String> jobsData = jobsSection.getData();
+
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
             @Override
-            public void onClick(View view) {
+            public void done(ParseObject dataRow, ParseException e) {
+                dataRow.put("location", locationData);
+                dataRow.put("biography", biographyData);
+
+                dataRow.put("jobPostings", jobsData);
+                dataRow.saveInBackground();
+            }
+        });
+    }
+
+    //dataId need to be passed in to distinguish who's profile to load up
+    private void retrieveDataFromParse(String dataId)
+    {
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployerData");
+        q.getInBackground(dataId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject dataRow, ParseException e) {
+                String locationData = dataRow.get("location") == null ? "" : dataRow.get("location").toString();
+                String biographyData = dataRow.get("biography") == null ? "" : dataRow.get("biography").toString();
+
+                ArrayList<String> jobsData = dataRow.get("jobPostings") == null ? new ArrayList<String>() : (ArrayList<String>) dataRow.get("jobPostings");
+
+                location.setText(locationData);
+                location.setEnabled(false);
+                biography.setText(biographyData);
+                biography.setEnabled(false);
+
                 jobsParent.removeView(jobsSection);
-                jobsSection.addElement("", "", true);
+                jobsSection.setData(jobsData);
                 jobsParent.addView(jobsSection);
             }
         });
     }
 
-    private void showEditButtons()
+    //Load profile page
+    private void loadProfilePage()
     {
-        jobsEditBtn.setVisibility(View.VISIBLE);
-    }
+        Bundle extras = getIntent().getExtras();
+        firstName = extras.getString("firstName");
+        lastName = extras.getString("lastName");
+        String dataId = extras.getString("dataId");
 
-    private void hideEditButtons()
-    {
-        jobsEditBtn.setVisibility(View.INVISIBLE);
+        //display profile's name
+        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+
+        retrieveDataFromParse(dataId);
     }
     //[END] ----------------------------------------------------------------------------------------
 }

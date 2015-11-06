@@ -71,7 +71,7 @@ public class SignUp extends AppCompatActivity {
                         data = new ParseObject("EmployerData");
                         data.put("location", "");
                         data.put("biography", "");
-                        data.put("jobPostings", Arrays.asList(""));
+                        data.put("jobPostings", null);
                     } else {
                         data = new ParseObject("EmployeeData");
                         data.put("location", "");
@@ -124,7 +124,6 @@ public class SignUp extends AppCompatActivity {
                             intent.putExtra("firstName", firstName.getText().toString());
                             intent.putExtra("lastName", lastName.getText().toString());
                             intent.putExtra("dataId", ParseUser.getCurrentUser().get("dataId").toString());
-                            intent.putExtra("isNew", true);
 
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Signed Up", Toast.LENGTH_SHORT).show();
