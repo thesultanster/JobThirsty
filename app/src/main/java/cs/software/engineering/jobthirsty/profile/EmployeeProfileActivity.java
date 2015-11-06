@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -52,7 +53,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private AwardSection awardsSection;
 
     //Entire Edit button
-    private ImageButton editProfileBtn;
+    private TextView editProfileBtn;
     private boolean editable;
 
     //Edit button for each section
@@ -118,7 +119,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
 
         //Edit button
-        editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
+        editProfileBtn = (TextView) findViewById(R.id.editProfileBtn);
         editable = false;
 
 
