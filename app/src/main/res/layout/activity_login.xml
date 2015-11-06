@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="Job Thirsty"
+        android:text="JobThirsty"
         android:textSize="40dp" />
 
 
