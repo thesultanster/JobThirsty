@@ -16,6 +16,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
@@ -71,17 +72,17 @@ public class SignUp extends AppCompatActivity {
                         data = new ParseObject("EmployerData");
                         data.put("location", "");
                         data.put("biography", "");
-                        data.put("jobPostings", null);
+                        data.put("jobPostings", new ArrayList<String>());
                     } else {
                         data = new ParseObject("EmployeeData");
                         data.put("location", "");
                         data.put("biography", "");
-                        data.put("experience", Arrays.asList(""));
-                        data.put("projects", Arrays.asList(""));
-                        data.put("education", Arrays.asList(""));
-                        data.put("activities", Arrays.asList(""));
-                        data.put("awards", Arrays.asList(""));
-                        data.put("skills", Arrays.asList(""));
+                        data.put("experience", new ArrayList<String>());
+                        data.put("projects", new ArrayList<String>());
+                        data.put("education", new ArrayList<String>());
+                        data.put("activities", new ArrayList<String>());
+                        data.put("awards", new ArrayList<String>());
+                        data.put("skills", new ArrayList<String>());
 //                        data.put("userId", );
                     }
                     data.save();

@@ -142,7 +142,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
 
         final ArrayList<String> jobsData = jobsSection.getData();
 
-        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployerData");
         q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject dataRow, ParseException e) {
@@ -165,7 +165,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 String locationData = dataRow.get("location") == null ? "" : dataRow.get("location").toString();
                 String biographyData = dataRow.get("biography") == null ? "" : dataRow.get("biography").toString();
 
-                ArrayList<String> jobsData = dataRow.get("jobPostings") == null ? new ArrayList<String>() : (ArrayList<String>) dataRow.get("jobPostings");
+                ArrayList<String> jobsData = (ArrayList<String>) dataRow.get("jobPostings");
 
                 location.setText(locationData);
                 location.setEnabled(false);
