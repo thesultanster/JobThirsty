@@ -35,6 +35,7 @@ public class SignUp extends AppCompatActivity {
     Button signUp;
     Button login;
     ParseUser user;
+    ParseObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,9 @@ public class SignUp extends AppCompatActivity {
                 String dataId = "";
                 try {
                     if (isEmployer) {
-                        ParseObject data = new ParseObject("EmployerData");
-                        data.save();
-                        dataId = data.getObjectId();
+                        data = new ParseObject("EmployerData");
                     } else {
-                        ParseObject data = new ParseObject("EmployeeData");
+                        data = new ParseObject("EmployeeData");
                         data.put("location", "");
                         data.put("biography", "");
                         data.put("experience", Arrays.asList(""));
@@ -81,9 +80,9 @@ public class SignUp extends AppCompatActivity {
                         data.put("awards", Arrays.asList(""));
                         data.put("skills", Arrays.asList(""));
 //                        data.put("userId", );
-                        data.save();
-                        dataId = data.getObjectId();
                     }
+                    data.save();
+                    dataId = data.getObjectId();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -109,6 +108,7 @@ public class SignUp extends AppCompatActivity {
                             //add new row
                             //ParseObject row = new ParseObject("")
                             ParseUser.logIn(username.getText().toString(), password.getText().toString());
+                            data.put("userId", ParseUser.getCurrentUser().getObjectId().toString());
 
                             // Go to Main Page when successfully logged in
                             Intent intent;
