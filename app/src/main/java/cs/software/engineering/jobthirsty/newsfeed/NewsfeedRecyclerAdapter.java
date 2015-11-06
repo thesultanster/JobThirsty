@@ -66,6 +66,7 @@ import cs.software.engineering.jobthirsty.R;
             NewsfeedRecyclerInfo current = data.get(position);
 
             holder.title.setText(current.getTitle());
+            holder.update.setText(current.getUpdate());
         }
 
         @Override
@@ -77,6 +78,7 @@ import cs.software.engineering.jobthirsty.R;
         public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             TextView title;
+            TextView update;
             public MyViewHolderClicks mListener;
 
             // itemView will be my own custom layout View of the row
@@ -86,6 +88,7 @@ import cs.software.engineering.jobthirsty.R;
                 mListener = listener;
                 //Link the objects
                 title = (TextView) itemView.findViewById(R.id.title);
+                update = (TextView) itemView.findViewById(R.id.update);
                 itemView.setOnClickListener(this);
             }
 

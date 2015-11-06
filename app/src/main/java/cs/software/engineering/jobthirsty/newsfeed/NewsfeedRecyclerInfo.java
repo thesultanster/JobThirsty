@@ -22,6 +22,9 @@ public class NewsfeedRecyclerInfo {
     public String getTitle(){
         return news.get("title").toString();
     }
+    public String getUpdate(){
+        return news.get("update").toString();
+    }
 
     public String getParseObjectId() {
         return news.getObjectId();

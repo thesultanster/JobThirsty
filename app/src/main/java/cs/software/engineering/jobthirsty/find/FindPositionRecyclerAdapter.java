@@ -68,13 +68,18 @@ import cs.software.engineering.jobthirsty.mail.Mail;
 
                     ParseObject applicant = new ParseObject("AppliedWorkers");
                     applicant.put("name", user.get("firstName").toString() + user.get("lastName").toString());
-                    applicant.put("location",user.get("location").toString());
+                    //applicant.put("location",user.get("location").toString());
                     applicant.put("degree", user.get("degree").toString());
                     applicant.put("quote",user.get("quote"));
                     applicant.put("position", data.get(position).getPositionTitle());
                     applicant.put("applicantId", user.getObjectId().toString());
                     applicant.put("positionId", data.get(position).getParseObjectId());
                     applicant.saveInBackground();
+
+                    ParseObject news = new ParseObject("Newsfeed");
+                    news.put("title", ParseUser.getCurrentUser().get("firstName") );
+                    news.put("update", ParseUser.getCurrentUser().get("firstName") + " Applied for " + data.get(position).getPositionTitle() );
+                    news.saveInBackground();
 
                 }
 
