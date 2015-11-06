@@ -22,7 +22,6 @@ public class Login extends AppCompatActivity {
     EditText username;
     EditText password;
 
-
     Button login;
     Button signUp;
 
@@ -31,7 +30,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(ParseUser.getCurrentUser() != null){
+        if (ParseUser.getCurrentUser() != null) {
             Intent intent = new Intent(this, Newsfeed.class);
             startActivity(intent);
         }
@@ -39,8 +38,9 @@ public class Login extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
-
         login = (Button) findViewById(R.id.loginButton);
+        signUp = (Button) findViewById(R.id.signUpButton);
+
         login.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -68,13 +68,10 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-
             }
 
         });
 
-
-        signUp = (Button) findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,9 +79,6 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
 
     }
 }
