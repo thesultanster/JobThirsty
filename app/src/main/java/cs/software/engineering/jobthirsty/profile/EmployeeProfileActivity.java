@@ -266,6 +266,22 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 awardsParent.addView(awardsSection);
             }
         });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseObject connection = new ParseObject("Connections");
+                connection.put("handshake", false);
+                connection.put("intenderName", ParseUser.getCurrentUser().get("firstName"));
+                connection.put("recieverName", firstName);
+                connection.saveInBackground();
+
+                ParseObject newsfeed = new ParseObject("Newsfeed");
+                newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
+                newsfeed.put("update", firstName + " was connected by " + ParseUser.getCurrentUser().get("firstName"));
+                newsfeed.saveInBackground();
+            }
+        });
     }
 
     private void showEditButtons()
