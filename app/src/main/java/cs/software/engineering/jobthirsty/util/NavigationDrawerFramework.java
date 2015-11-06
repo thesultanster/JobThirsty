@@ -63,11 +63,12 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         mHeaderLayout = getLayoutInflater().inflate(R.layout.framework_navigation_header, null);
         String firstName = ParseUser.getCurrentUser().get("firstName").toString();
         String lastName = ParseUser.getCurrentUser().get("lastName").toString();
-        final String temp = firstName + lastName;
+        final String temp = firstName +" " + lastName;
         Log.d("name", temp);
 
 
-        runOnUiThread(new Runnable() {
+        this.runOnUiThread(new Runnable() {
+            @Override
             public void run() {
                 // Update TextView here
                 TextView fullname = (TextView) mHeaderLayout.findViewById(R.id.fullName);
