@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,7 +41,7 @@ public class JobsSection extends ProfileSection {
         rl.setLayoutParams(blockLayoutParams);
 
         //add job to row
-        rl.addView(createJobView(educationText, enabled));
+        rl.addView(createJobView(educationText));
 
         //add delete button to row
         rl.addView(createMinusButton(list.size() + 1000, enabled));
@@ -58,7 +59,7 @@ public class JobsSection extends ProfileSection {
         for(int i = 0; i < list.size(); ++i) {
             RelativeLayout row = list.get(i);
 
-            EditText jobText = (EditText) row.getChildAt(0);
+            TextView jobText = (TextView) row.getChildAt(0);
             data.add(jobText.getText().toString());
         }
 
@@ -89,7 +90,7 @@ public class JobsSection extends ProfileSection {
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
-    private EditText createJobView(String jobText, boolean enabled)
+    private TextView createJobView(String jobText)
     {
         RelativeLayout.LayoutParams etLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -99,26 +100,16 @@ public class JobsSection extends ProfileSection {
         etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
-        EditText et = new EditText(context);
-        et.setLayoutParams(etLayoutParams);
-        et.setBackground(null);
-        et.setTextColor(0xFF000000);
-        et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.27)));
-        et.setEnabled(enabled);
-        et.setHint("[Job Posted]");
-        et.setHintTextColor(0xFF808080);
+        TextView tv = new EditText(context);
+        tv.setLayoutParams(etLayoutParams);
+        tv.setBackground(null);
+        tv.setTextColor(0xFF000000);
+        tv.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.27)));
+        tv.setText(jobText);
+        tv.setEnabled(false);
+        tv.requestLayout(); //update
 
-        if(enabled) {
-            et.requestFocus(); //put on cursor
-        }
-
-        if(!jobText.equals("")) {
-            et.setText(jobText);
-        }
-        et.requestLayout(); //update
-
-        return et;
+        return tv;
     }
     //[END] ----------------------------------------------------------------------------------------
 }

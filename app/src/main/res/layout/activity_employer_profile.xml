@@ -96,7 +96,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/skillsIcon"
-                    android:text="Skills"
+                    android:text="Job Postings"
                     android:textColor="@color/primaryText"
                     android:textSize="20sp" />
 

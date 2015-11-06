@@ -13,13 +13,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
@@ -124,8 +127,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
                     biography.setEnabled(true);
 
-                }
-                else {
+                } else {
                     //disable edits for EditTexts
                     location.setEnabled(false);
                     biography.setEnabled(false);
@@ -165,16 +167,34 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 String locationData = dataRow.get("location") == null ? "" : dataRow.get("location").toString();
                 String biographyData = dataRow.get("biography") == null ? "" : dataRow.get("biography").toString();
 
-                ArrayList<String> jobsData = (ArrayList<String>) dataRow.get("jobPostings");
+                final ArrayList<String> jobsData = new ArrayList<>();
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
+                query.whereEqualTo("bossId", ParseUser.getCurrentUser().getObjectId());
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> rows, ParseException e) {
+                        if (e == null) {
+                            for (int i = 0; i < rows.size(); ++i) {
+                                ParseObject po = rows.get(i);
+                                String jobTitle = po.get("positionTitle").toString();
+                                jobsData.add(jobTitle);
+                            }
+
+
+                            jobsParent.removeView(jobsSection);
+                            jobsSection.setData(jobsData);
+                            jobsParent.addView(jobsSection);
+                        } else {
+                            // error
+                        }
+                    }
+                });
 
                 location.setText(locationData);
                 location.setEnabled(false);
                 biography.setText(biographyData);
                 biography.setEnabled(false);
 
-                jobsParent.removeView(jobsSection);
-                jobsSection.setData(jobsData);
-                jobsParent.addView(jobsSection);
             }
         });
     }
