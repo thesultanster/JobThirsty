@@ -2,6 +2,7 @@ package cs.software.engineering.jobthirsty.profile;
 
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.DisplayMetrics;
@@ -36,6 +37,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
 
     //UI Variables
+    //FAB
+    private FloatingActionButton fab;
+
+
     //Parent layout
     private RelativeLayout skillsParent;
     private RelativeLayout experienceParent;
@@ -109,7 +114,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.mainLinear);
         mainLinearLayout.setMinimumHeight(screenHeight - actionBarHeight);
 
-        //Tool bar
+        // Floating Action Bar
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        //Toolbar
         toolbar = getToolbar();
         toolbar.getBackground().setAlpha(100);
 
@@ -367,6 +375,16 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         firstName = extras.getString("firstName");
         lastName = extras.getString("lastName");
         String dataId = extras.getString("dataId");
+
+        // if user is seeing their own profile then hide connection fab
+        if(ParseUser.getCurrentUser().get("dataId").equals(dataId)){
+            fab.setVisibility(View.INVISIBLE);
+        }
+        // else if user is seeing someone else's profile, hide editProfile button
+        else {
+            editProfileBtn.setVisibility(View.INVISIBLE);
+        }
+
 
         //display profile's name
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
