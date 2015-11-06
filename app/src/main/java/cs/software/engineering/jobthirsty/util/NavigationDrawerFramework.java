@@ -24,6 +24,7 @@ import cs.software.engineering.jobthirsty.CreateJobPosition;
 import cs.software.engineering.jobthirsty.Login;
 import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
 import cs.software.engineering.jobthirsty.find.FindPositions;
+import cs.software.engineering.jobthirsty.find_workers.FindWorker;
 import cs.software.engineering.jobthirsty.mail.Mail;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
@@ -193,6 +194,9 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 break;
             case R.id.find_position:
                 intent = new Intent(this, FindPositions.class);
+                break;
+            case R.id.find_worker:
+                intent = new Intent(this, FindWorker.class);
                 break;
             case R.id.createPosition:
                 intent = new Intent(this, CreateJobPosition.class);
