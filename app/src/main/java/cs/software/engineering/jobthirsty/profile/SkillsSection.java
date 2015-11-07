@@ -2,13 +2,22 @@ package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import cs.software.engineering.jobthirsty.util.StringParser;
@@ -36,7 +45,7 @@ public class SkillsSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement(String skill, String endorseCount, boolean enabled)
+    public void addElement(String skill, String endorseCount, boolean isOwnerUser, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
@@ -53,7 +62,7 @@ public class SkillsSection extends ProfileSection {
         rl.addView(createMinusButton(list.size() + 1000, enabled));
 
         //Add TextView for endorse count
-        rl.addView(createEndorseView(endorseCount, enabled));
+        rl.addView(createEndorseView(endorseCount, isOwnerUser, enabled));
 
 
         //add the row
@@ -104,7 +113,7 @@ public class SkillsSection extends ProfileSection {
             RelativeLayout row = list.get(i);
 
             EditText skillsET = (EditText) row.getChildAt(0);
-            EditText endorseET = (EditText) row.getChildAt(2);
+            TextView endorseET = (TextView) row.getChildAt(2);
 
             ArrayList<String> pair = new ArrayList<>();
             pair.add(skillsET.getText().toString());
@@ -116,7 +125,7 @@ public class SkillsSection extends ProfileSection {
     }
 
     //loads the data to activity
-    public void setData(ArrayList<String> data)
+    public void setData(ArrayList<String> data, boolean isOwnerUser)
     {
         ArrayList<ArrayList<String>> dataParsed = (new StringParser(data, false)).getParsed();
         for(int i = 0; i < dataParsed.size(); ++i) {
@@ -128,9 +137,12 @@ public class SkillsSection extends ProfileSection {
             String endorseCount = skill.get(1);
 
             //set data
-            addElement(skillText, endorseCount, false);
+            addElement(skillText, endorseCount, isOwnerUser, false);
         }
     }
+
+    //setter for dataId
+    public void setDataId(String dataId) { this.dataId = dataId; }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -176,20 +188,19 @@ public class SkillsSection extends ProfileSection {
         return et;
     }
 
-    private TextView createEndorseView(String endorseCount, boolean enabled)
+    private TextView createEndorseView(final String endorseCount, boolean isOwnerUser, boolean enabled)
     {
         RelativeLayout.LayoutParams endorseCountLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, list.size() + 1000);
 
-        TextView endorseEt = new EditText(context);
+        final TextView endorseEt = new TextView(context);
         endorseEt.setLayoutParams(endorseCountLayoutParams);
         endorseEt.setEms(1);
         endorseEt.setTextColor(0xFF000000);
         endorseEt.setText(endorseCount);
-        endorseEt.setEnabled(enabled);
-        endorseEt.setBackground(null);
+        //endorseEt.setEnabled(enabled);
         endorseEt.setGravity(Gravity.CENTER);
 
         if(enabled) {
@@ -200,6 +211,40 @@ public class SkillsSection extends ProfileSection {
         }
 
         endorseEt.requestLayout();
+
+        //only enable it if you are not the owner of this profile
+        if(!isOwnerUser) {
+            endorseEt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String count = endorseEt.getText().toString();
+                    final int countInt = Integer.parseInt(count) + 1; //increment
+                    endorseEt.setText((countInt + ""));
+
+                    RelativeLayout parentRL = (RelativeLayout) v.getParent();
+                    EditText skillNameET = (EditText) parentRL.getChildAt(0);
+                    final String skillName = skillNameET.getText().toString();
+
+                    ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+                    q.getInBackground(dataId, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject dataRow, ParseException e) {
+                            ArrayList<ArrayList<String>> parsedSkillsData = getData();
+                            for(int i = 0; i < parsedSkillsData.size(); ++i) {
+                                ArrayList<String> row = parsedSkillsData.get(i);
+                                String skill = row.get(0);
+
+                                if(skill.equals(skillName)) {
+                                    parsedSkillsData.get(i).set(1, countInt + "");
+                                }
+                            }
+
+                            dataRow.put("skills", (new StringParser(parsedSkillsData)).getConcated());
+                        }
+                    });
+                }
+            });
+        }
 
         return endorseEt;
     }

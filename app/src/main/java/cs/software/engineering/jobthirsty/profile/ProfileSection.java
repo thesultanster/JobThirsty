@@ -24,6 +24,7 @@ public class ProfileSection extends LinearLayout {
 
     //List for holding elements
     protected ArrayList<RelativeLayout> list;
+    protected String dataId;
 
     //CONSTRUCTORS [START] -------------------------------------------------------------------------
     public ProfileSection(Context context){

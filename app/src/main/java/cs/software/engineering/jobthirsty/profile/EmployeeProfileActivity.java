@@ -76,6 +76,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private EditText location;
     private EditText biography;
 
+    private String dataId;
+
 
     //Debug Variables
     String TAG = "datacheck";
@@ -217,7 +219,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View v) {
                 skillsParent.removeView(skillsSection);
-                skillsSection.addElement("", "0", true);
+                skillsSection.addElement("", "0", true, true);
                 skillsParent.addView(skillsSection);
             }
         });
@@ -336,7 +338,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     }
 
     //dataId need to be passed in to distinguish who's profile to load up
-    private void retrieveDataFromParse(String dataId)
+    private void retrieveDataFromParse(final String dataId, final boolean isOwnerUser)
     {
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
@@ -358,7 +360,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 biography.setEnabled(false);
 
                 skillsParent.removeView(skillsSection);
-                skillsSection.setData(skillsData);
+                skillsSection.setData(skillsData, isOwnerUser);
                 skillsParent.addView(skillsSection);
 
                 experienceParent.removeView(experienceSection);
@@ -390,10 +392,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         Bundle extras = getIntent().getExtras();
         firstName = extras.getString("firstName");
         lastName = extras.getString("lastName");
-        String dataId = extras.getString("dataId");
+        dataId = extras.getString("dataId");
+
+        skillsSection.setDataId(dataId);
+
+        boolean isOwnerUser = ParseUser.getCurrentUser().get("dataId").equals(dataId);
 
         // if user is seeing their own profile then hide connection fab
-        if(ParseUser.getCurrentUser().get("dataId").equals(dataId)){
+        if(isOwnerUser){
             fab.setVisibility(View.INVISIBLE);
         }
         // else if user is seeing someone else's profile, hide editProfile button
@@ -405,7 +411,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         //display profile's name
         collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
-        retrieveDataFromParse(dataId);
+        retrieveDataFromParse(dataId, isOwnerUser);
     }
     //[END] ----------------------------------------------------------------------------------------
 }
