@@ -311,7 +311,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         final String locationData = location.getText().toString();
         final String biographyData = biography.getText().toString();
 
-        //final ArrayList<String> skillsData = (new StringParser(skillsSection.getData())).getConcated();
+        final ArrayList<String> skillsData = skillsSection.getData();
         final ArrayList<String> experienceData = (new StringParser(experienceSection.getData())).getConcated();
         final ArrayList<String> projectData = (new StringParser(projectsSection.getData())).getConcated();
         final ArrayList<String> educationData = (new StringParser(educationSection.getData())).getConcated();
@@ -326,7 +326,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 dataRow.put("location", locationData);
                 dataRow.put("biography", biographyData);
 
-                //dataRow.put("skills", skillsData);
+                dataRow.put("skills", skillsData);
                 dataRow.put("experience", experienceData);
                 dataRow.put("projects", projectData);
                 dataRow.put("education", educationData);

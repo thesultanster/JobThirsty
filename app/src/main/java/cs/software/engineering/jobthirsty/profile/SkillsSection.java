@@ -20,6 +20,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Queue;
 
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.StringParser;
@@ -104,6 +105,38 @@ public class SkillsSection extends ProfileSection {
                 tv.setVisibility(VISIBLE); //show visibility
             }
         }
+    }
+
+    //fetches data from activity
+    public ArrayList<String> getData()
+    {
+        final ArrayList<String> data = new ArrayList<>();
+
+        for(int i = 0; i < list.size(); ++i) {
+            RelativeLayout row = list.get(i);
+
+            EditText et = (EditText) row.getChildAt(0);
+            TextView tv = (TextView) row.getChildAt(2);
+
+            //no endorsement
+            if(tv.getText().equals("0")) {
+                data.add(et.getText().toString());
+            }
+            //need to fetch from db if there are any endorsements
+            else {
+                ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+                q.getInBackground(dataId, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject dataRow, ParseException e) {
+                        String skill = dataRow.get("skills").toString();
+                        data.add(skill);
+                    }
+                });
+
+            }
+        }
+
+        return data;
     }
 
     //loads the data to activity
