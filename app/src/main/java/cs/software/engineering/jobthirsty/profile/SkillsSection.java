@@ -20,6 +20,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 
 import cs.software.engineering.jobthirsty.R;
@@ -118,6 +119,8 @@ public class SkillsSection extends ProfileSection {
             EditText et = (EditText) row.getChildAt(0);
             TextView tv = (TextView) row.getChildAt(2);
 
+            final String skillName = et.getText().toString();
+
             //no endorsement
             if(tv.getText().equals("0")) {
                 data.add(et.getText().toString());
@@ -125,14 +128,43 @@ public class SkillsSection extends ProfileSection {
             //need to fetch from db if there are any endorsements
             else {
                 ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+                //q.whereEqualTo("dataId", dataId);
+                try {
+                    ParseObject dataRow = q.get(dataId);
+                    //TODO: continue
+                    ArrayList<String> skills = (ArrayList<String>) dataRow.get("skills");
+                    ArrayList<ArrayList<String>> skillsList = (new StringParser(skills, false)).getParsed();
+                    for(int j = 0; j < skillsList.size(); ++j) {
+                        ArrayList<String> skillRow = skillsList.get(j);
+                        String cmpName = skillRow.get(0).toString();
+                        if (skillName.equals(cmpName)) {
+                            data.add(skills.get(i));
+                            break;
+                        }
+                    }
+
+                }
+                catch (ParseException e) {
+
+                }
+/*
                 q.getInBackground(dataId, new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject dataRow, ParseException e) {
-                        String skill = dataRow.get("skills").toString();
-                        data.add(skill);
+                        //String skill = dataRow.get("skills").toString();
+                        ArrayList<String> skills = (ArrayList<String>) dataRow.get("skills");
+                        ArrayList<ArrayList<String>> skillsList = (new StringParser(skills, false)).getParsed();
+                        for(int i = 0; i < skillsList.size(); ++i) {
+                            ArrayList<String> skillRow = skillsList.get(i);
+                            String cmpName = skillRow.get(0).toString();
+                            if(skillName.equals(cmpName)) {
+                                data.add(skills.get(i));
+                                break;
+                            }
+                        }
                     }
                 });
-
+*/
             }
         }
 

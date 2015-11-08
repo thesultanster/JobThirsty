@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
         if (ParseUser.getCurrentUser() != null) {
             Intent intent = new Intent(this, Newsfeed.class);
             startActivity(intent);
+            finish();
         }
 
         username = (EditText) findViewById(R.id.username);
