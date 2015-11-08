@@ -127,11 +127,15 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
                     biography.setEnabled(true);
 
+                    jobsSection.enableEdit();
+
                 } else {
                     //disable edits for EditTexts
                     location.setEnabled(false);
                     biography.setEnabled(false);
                     sendDataToParse();
+
+                    jobsSection.disableEdit();
                 }
             }
         });
@@ -167,7 +171,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 String locationData = dataRow.get("location") == null ? "" : dataRow.get("location").toString();
                 String biographyData = dataRow.get("biography") == null ? "" : dataRow.get("biography").toString();
 
-                final ArrayList<String> jobsData = new ArrayList<>();
+                final ArrayList<ArrayList<String>> jobsData = new ArrayList<>();
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
                 query.whereEqualTo("bossId", ParseUser.getCurrentUser().getObjectId());
@@ -177,7 +181,12 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                             for (int i = 0; i < rows.size(); ++i) {
                                 ParseObject po = rows.get(i);
                                 String jobTitle = po.get("positionTitle").toString();
-                                jobsData.add(jobTitle);
+                                String objectId = po.getObjectId();
+
+                                ArrayList<String> row = new ArrayList<>();
+                                row.add(jobTitle);
+                                row.add(objectId);
+                                jobsData.add(row);
                             }
 
 

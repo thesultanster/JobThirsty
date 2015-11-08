@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.StringParser;
 
 
@@ -31,6 +33,8 @@ public class SkillsSection extends ProfileSection {
     //PRIVATE VARIABLES
     //Layout parameter variables
     private LinearLayout.LayoutParams blockLayoutParams;
+
+    private String TAG = "checkEndorse";
 
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
@@ -45,7 +49,7 @@ public class SkillsSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement(String skill, String endorseCount, boolean isOwnerUser, boolean enabled)
+    public void addElement(String skill, boolean isOwnerUser, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
@@ -62,7 +66,7 @@ public class SkillsSection extends ProfileSection {
         rl.addView(createMinusButton(list.size() + 1000, enabled));
 
         //Add TextView for endorse count
-        rl.addView(createEndorseView(endorseCount, isOwnerUser, enabled));
+        rl.addView(createEndorseView(isOwnerUser, enabled));
 
 
         //add the row
@@ -102,28 +106,6 @@ public class SkillsSection extends ProfileSection {
         }
     }
 
-    //fetches data from activity
-    public ArrayList<ArrayList<String>> getData()
-    {
-        //          0          1
-        //rows of <skill, endorseCount> pairs
-        ArrayList<ArrayList<String>> data = new ArrayList<>();
-
-        for(int i = 0; i < list.size(); ++i) {
-            RelativeLayout row = list.get(i);
-
-            EditText skillsET = (EditText) row.getChildAt(0);
-            TextView endorseET = (TextView) row.getChildAt(2);
-
-            ArrayList<String> pair = new ArrayList<>();
-            pair.add(skillsET.getText().toString());
-            pair.add(endorseET.getText().toString());
-            data.add(pair);
-        }
-
-        return data;
-    }
-
     //loads the data to activity
     public void setData(ArrayList<String> data, boolean isOwnerUser)
     {
@@ -134,11 +116,20 @@ public class SkillsSection extends ProfileSection {
 
             //parse out each field
             String skillText = skill.get(0);
-            String endorseCount = skill.get(1);
 
             //set data
-            addElement(skillText, endorseCount, isOwnerUser, false);
+            addElement(skillText, isOwnerUser, false);
         }
+
+        //update the endorses
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        q.getInBackground(dataId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject dataRow, ParseException e) {
+                ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
+                updateEndorse(data);
+            }
+        });
     }
 
     //setter for dataId
@@ -188,7 +179,7 @@ public class SkillsSection extends ProfileSection {
         return et;
     }
 
-    private TextView createEndorseView(final String endorseCount, boolean isOwnerUser, boolean enabled)
+    private TextView createEndorseView(boolean isOwnerUser, boolean enabled)
     {
         RelativeLayout.LayoutParams endorseCountLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -198,9 +189,10 @@ public class SkillsSection extends ProfileSection {
         final TextView endorseEt = new TextView(context);
         endorseEt.setLayoutParams(endorseCountLayoutParams);
         endorseEt.setEms(1);
+        endorseEt.setWidth(100);
+        endorseEt.setHeight(100);
         endorseEt.setTextColor(0xFF000000);
-        endorseEt.setText(endorseCount);
-        //endorseEt.setEnabled(enabled);
+        endorseEt.setText("0");
         endorseEt.setGravity(Gravity.CENTER);
 
         if(enabled) {
@@ -217,29 +209,44 @@ public class SkillsSection extends ProfileSection {
             endorseEt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String count = endorseEt.getText().toString();
-                    final int countInt = Integer.parseInt(count) + 1; //increment
-                    endorseEt.setText((countInt + ""));
+                    RelativeLayout currentRow = (RelativeLayout) v.getParent();
+                    int foundIndex = 0;
+                    for (int i = 0; i < list.size(); ++i) {
+                        if (list.get(i).equals(currentRow)) {
+                            foundIndex = i;
+                            break;
+                        }
+                    }
+                    //final to put it in getInBackground
+                    final int rowCount = foundIndex;
 
-                    RelativeLayout parentRL = (RelativeLayout) v.getParent();
-                    EditText skillNameET = (EditText) parentRL.getChildAt(0);
-                    final String skillName = skillNameET.getText().toString();
-
+                    //get dataRow
                     ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
                     q.getInBackground(dataId, new GetCallback<ParseObject>() {
                         @Override
                         public void done(ParseObject dataRow, ParseException e) {
-                            ArrayList<ArrayList<String>> parsedSkillsData = getData();
-                            for(int i = 0; i < parsedSkillsData.size(); ++i) {
-                                ArrayList<String> row = parsedSkillsData.get(i);
-                                String skill = row.get(0);
+                            ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
+                            ArrayList<ArrayList<String>> endorsedUsers = getEndorsedUsers(data);
 
-                                if(skill.equals(skillName)) {
-                                    parsedSkillsData.get(i).set(1, countInt + "");
+                            //remove if this user exists, unendorse
+                            ArrayList<String> row = endorsedUsers.get(rowCount);
+                            boolean removed = false;
+                            for (int i = 0; i < row.size(); ++i) {
+                                //found
+                                if (row.get(i).equals(ParseUser.getCurrentUser().get("dataId").toString())) {
+                                    row.remove(row.get(i));
+                                    removed = true;
+                                    break;
                                 }
                             }
 
-                            dataRow.put("skills", (new StringParser(parsedSkillsData)).getConcated());
+                            //this user wasn't listed under the endorse list, endorse
+                            if (!removed) {
+                                row.add(ParseUser.getCurrentUser().get("dataId").toString());
+                            }
+
+                            data = updateData(data, endorsedUsers);
+                            updateEndorse(data);
                         }
                     });
                 }
@@ -247,6 +254,74 @@ public class SkillsSection extends ProfileSection {
         }
 
         return endorseEt;
+    }
+
+    //get updated endorsedUsers
+    private ArrayList<ArrayList<String>> getEndorsedUsers(ArrayList<String> skillsData)
+    {
+        //need to fetch data
+        ArrayList<ArrayList<String>> data = (new StringParser(skillsData, false)).getParsed();
+        ArrayList<ArrayList<String>> endorsedUsers = new ArrayList<>();
+
+        for(int i = 0; i < data.size(); ++i) {
+            ArrayList<String> row = data.get(i);
+
+            //check if it has endorsement
+            if(row.size() > 1) {
+                ArrayList<String> newList = new ArrayList<>(row.subList(1, row.size()));
+                endorsedUsers.add(newList);
+            }
+            //add new list if this skill has no endorsement
+            else {
+                endorsedUsers.add(new ArrayList<String>());
+            }
+        }
+        return endorsedUsers;
+    }
+
+    private ArrayList<String> updateData(ArrayList<String> data, ArrayList<ArrayList<String>> endorserList)
+    {
+        //parse out skill name from data and push it to front of endorserList
+        ArrayList<ArrayList<String>> parsedData = (new StringParser(data, false)).getParsed();
+        for(int i = 0; i < endorserList.size(); ++i) {
+            ArrayList<String> row = endorserList.get(i);
+            ArrayList<String> dataRow = parsedData.get(i);
+            row.add(0, dataRow.get(0)); //push front skill name
+        }
+        ArrayList<String> toReturn = (new StringParser(endorserList)).getConcated();
+        return toReturn;
+    }
+
+    //updates the endorse change to database
+    private void updateEndorse(final ArrayList<String> data)
+    {
+        ArrayList<ArrayList<String>> parsedData = (new StringParser(data, false)).getParsed();
+
+        if(parsedData.size() != list.size()) {
+            Log.d(TAG, "updateEndorse: size different");
+        }
+
+        //first update all the textviews
+        for(int i = 0; i < parsedData.size(); ++i) {
+            ArrayList<String> row = parsedData.get(i);
+
+            //get skill's layout to get textview for endorse
+            RelativeLayout rowLayout = list.get(i);
+
+            //endorse textview is 3rd child
+            TextView tv = (TextView) rowLayout.getChildAt(2);
+            tv.setText((row.size()-1) + ""); //size should be 1 + size of list of endorsers
+        }
+
+        //update Parse
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        q.getInBackground(dataId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject dataRow, ParseException e) {
+                dataRow.put("skills", data);
+                dataRow.saveInBackground();
+            }
+        });
     }
     //[END] ----------------------------------------------------------------------------------------
 }

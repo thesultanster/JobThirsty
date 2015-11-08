@@ -1,15 +1,24 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.DeleteCallback;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.StringParser;
 
 
@@ -34,21 +43,35 @@ public class JobsSection extends ProfileSection {
 
 
     //UTILITY FUNCTIONS [START] --------------------------------------------------------------------
-    public void addElement(String educationText, boolean enabled)
+    public void addElement(String jobText, String objectId, boolean enabled)
     {
         //create a row layout
         RelativeLayout rl = new RelativeLayout(context);
         rl.setLayoutParams(blockLayoutParams);
 
         //add job to row
-        rl.addView(createJobView(educationText));
+        rl.addView(createJobView(jobText));
 
         //add delete button to row
-        rl.addView(createMinusButton(list.size() + 1000, enabled));
+        rl.addView(createMinusButton(objectId, enabled));
 
         //add the row
         this.addView(rl);
         list.add(rl);
+    }
+
+    public void enableEdit()
+    {
+        for(int i = 0; i < list.size(); ++i) {
+            list.get(i).getChildAt(1).setVisibility(VISIBLE); //show minus button
+        }
+    }
+
+    public void disableEdit()
+    {
+        for(int i = 0; i < list.size(); ++i) {
+            list.get(i).getChildAt(1).setVisibility(INVISIBLE); //hide minus button
+        }
     }
 
     //fetches data from activity
@@ -68,14 +91,17 @@ public class JobsSection extends ProfileSection {
 
 
     //loads the data to activity
-    public void setData(ArrayList<String> data)
+    public void setData(ArrayList<ArrayList<String>> data)
     {
         for(int i = 0; i < data.size(); ++i) {
+            ArrayList<String> row = data.get(i);
+
             //parse out each field
-            String jobText = data.get(i);
+            String jobText = row.get(0);
+            String objectId = row.get(1);
 
             //set data
-            addElement(jobText, false);
+            addElement(jobText, objectId, false);
         }
     }
     //[END] ----------------------------------------------------------------------------------------
@@ -110,6 +136,51 @@ public class JobsSection extends ProfileSection {
         tv.requestLayout(); //update
 
         return tv;
+    }
+
+    protected ImageButton createMinusButton(final String objectId, boolean enabled)
+    {
+        RelativeLayout.LayoutParams ivLayoutParams =  new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        ivLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        //create remove button
+        ImageButton iv = new ImageButton(context);
+        iv.setContentDescription(objectId);//use this as description
+        ivLayoutParams.setMarginEnd((int) (displayMetrics.widthPixels * (0.015)));
+        iv.setLayoutParams(ivLayoutParams);
+        iv.setBackgroundResource(R.drawable.minus);
+        iv.getLayoutParams().height = 80;
+        iv.getLayoutParams().width = 80;
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //remove from database
+                ParseQuery<ParseObject> q = ParseQuery.getQuery("Position");
+                q.whereEqualTo("objectId", objectId);
+
+                q.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> list, ParseException e) {
+                        if(list.size()!=0) {
+                            list.get(0).deleteInBackground();
+                        }
+                    }
+                });
+                removeRow(v);
+                RelativeLayout toRemove = (RelativeLayout) v.getParent();
+                list.remove(toRemove);
+            }
+        });
+
+        if(!enabled) {
+            iv.setVisibility(INVISIBLE);
+        }
+
+        return iv;
     }
     //[END] ----------------------------------------------------------------------------------------
 }

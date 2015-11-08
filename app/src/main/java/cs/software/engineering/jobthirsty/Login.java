@@ -65,6 +65,7 @@ public class Login extends AppCompatActivity {
                                     e.toString(),
                                     Toast.LENGTH_SHORT).show();
                         }
+                        finish();
                     }
                 });
 
@@ -77,6 +78,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUp.class);
                 startActivity(intent);
+                finish();
             }
         });
 
