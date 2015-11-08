@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".profile.EmployeeProfileActivity"
             android:label="Profile"
@@ -22,14 +22,19 @@
         </activity>
         <activity android:name=".mail.Mail" >
         </activity>
-        <activity android:name=".Login" >
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUp" >
+        <activity android:name=".SignUp"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".connections.Connections">
         </activity>
         <activity android:name=".ComposeMail" >
         </activity>

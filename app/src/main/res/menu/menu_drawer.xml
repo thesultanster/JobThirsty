@@ -31,6 +31,10 @@
             android:icon="@drawable/fab_background"
             android:title="Mail"/>
         <item
+            android:id="@+id/connections"
+            android:icon="@drawable/fab_background"
+            android:title="Connections"/>
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/fab_background"
             android:title="Log Out"/>
