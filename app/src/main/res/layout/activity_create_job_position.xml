@@ -55,22 +55,6 @@
                         />
 
                     <EditText
-                        android:id="@+id/positionTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:hint="Job Title "
-                        />
-
-                    <EditText
-                        android:id="@+id/positionDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:hint="Job Description"
-                        />
-
-                    <EditText
                         android:id="@+id/location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -78,17 +62,34 @@
                         android:hint="Location"
                         />
 
+                    <EditText
+                        android:id="@+id/companyTagLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:hint="Job Title "
+                        />
+
+                    <EditText
+                        android:id="@+id/commpanyDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:hint="Job Description"
+                        />
+
+
 
                 </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
         <Button
-            android:id="@+id/postPosition"
+            android:id="@+id/postCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Post Job"/>
+            android:text="Post Company"/>
 
 
 

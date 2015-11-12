@@ -22,38 +22,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="392dce77-93ea-4644-9322-a12bf6a3ced2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/company_page/CreateCompanyPage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_company_page.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/bolts_android_1_3_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/bolts_applinks_1_3_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/bolts_tasks_1_3_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/CreateJobPosition.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/job_position/CreateJobPosition.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/JobPosition.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/ViewJobPosition.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/find/FindPositionRecyclerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/job_position/FindPositionRecyclerAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/find/FindPositionRecyclerInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/job_position/FindPositionRecyclerInfo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/find/FindPositions.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/job_position/FindPositions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/applied_workers/AppliedWorkers.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/applied_workers/AppliedWorkers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/applied_workers/AppliedWorkersRecyclerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/applied_workers/AppliedWorkersRecyclerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/connections/Connections.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/connections/Connections.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/connections/ConnectionsRecyclerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/connections/ConnectionsRecyclerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/util/NavigationDrawerFramework.java" afterPath="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/util/NavigationDrawerFramework.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_job_position.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_job_position.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_find_positions.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_find_positions.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_job_position.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_job_position.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/design_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/design_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_job_position.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_job_position.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="job-thirsty.iws" />
@@ -114,8 +83,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41044775">
-              <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+            <state vertical-scroll-proportion="1.4154229">
+              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1454,6 +1423,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/ViewJobPosition.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/cs/software/engineering/jobthirsty/company_page/CreateCompanyPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_create_company_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_create_job_position.xml" />
       </list>
     </option>
   </component>
@@ -1879,6 +1849,13 @@
       <option name="number" value="Default" />
       <updated>1444892035094</updated>
     </task>
+    <task id="LOCAL-00001" summary="Created CrateCompanyPage activity and xml&#10;">
+      <created>1447358294671</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1447358294671</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1887,7 +1864,7 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942432" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32904148" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34051725" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1955,6 +1932,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Created CrateCompanyPage activity and xml&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created CrateCompanyPage activity and xml&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -2392,8 +2373,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41044775">
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        <state vertical-scroll-proportion="1.4154229">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding />
         </state>
       </provider>
