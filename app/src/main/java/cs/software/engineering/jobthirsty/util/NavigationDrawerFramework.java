@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.parse.ParseUser;
 
+import cs.software.engineering.jobthirsty.SettingsActivity;
 import cs.software.engineering.jobthirsty.company_page.CreateCompanyPage;
 import cs.software.engineering.jobthirsty.company_page.FindCompany;
 import cs.software.engineering.jobthirsty.job_position.CreateJobPosition;
@@ -221,6 +222,9 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 break;
             case R.id.find_company:
                 intent = new Intent(this, FindCompany.class);
+                break;
+            case R.id.settings:
+                intent = new Intent(this, SettingsActivity.class);
                 break;
             case R.id.logout:
                 ParseUser.logOut();

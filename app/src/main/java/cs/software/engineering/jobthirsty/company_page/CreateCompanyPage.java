@@ -23,7 +23,7 @@ public class CreateCompanyPage extends AppCompatActivity {
     EditText companyDescription;
     EditText companyLocation;
 
-    Button postPosition;
+    Button postCompany;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class CreateCompanyPage extends AppCompatActivity {
         companyTagline = (EditText) findViewById(R.id.companyTagline);
         companyDescription = (EditText) findViewById(R.id.companyDescription);
         companyLocation = (EditText) findViewById(R.id.companyLocation);
-        postPosition = (Button) findViewById(R.id.postPosition);
+        postCompany = (Button) findViewById(R.id.postCompany);
 
-        postPosition.setOnClickListener(new View.OnClickListener() {
+        postCompany.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseObject position = new ParseObject("Company");

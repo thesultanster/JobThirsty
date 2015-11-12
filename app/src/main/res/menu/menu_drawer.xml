@@ -43,6 +43,10 @@
             android:icon="@drawable/fab_background"
             android:title="Find Company"/>
         <item
+            android:id="@+id/settings"
+            android:icon="@drawable/fab_background"
+            android:title="Settings"/>
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/fab_background"
             android:title="Log Out"/>

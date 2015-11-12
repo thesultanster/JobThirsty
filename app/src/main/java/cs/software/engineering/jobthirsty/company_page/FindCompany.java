@@ -27,7 +27,7 @@ public class FindCompany extends NavigationDrawerFramework {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.row_find_company);
+        setContentView(R.layout.activity_find_company);
 
         // RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
