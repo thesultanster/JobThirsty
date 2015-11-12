@@ -79,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     void ChangeEmail(){
         ParseUser user = ParseUser.getCurrentUser();
-        user.setEmail(email.getText().toString());
+        user.put("email",email.getText().toString());
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
