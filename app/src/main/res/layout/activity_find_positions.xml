@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="cs.software.engineering.jobthirsty.find.FindPositions">
+    tools:context="cs.software.engineering.jobthirsty.job_position.FindPositions">
 
 
     <!-- Your Scrollable View -->

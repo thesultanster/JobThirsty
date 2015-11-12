@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.List;
 
-import cs.software.engineering.jobthirsty.JobPosition;
+import cs.software.engineering.jobthirsty.ViewJobPosition;
 import cs.software.engineering.jobthirsty.R;
 
 /**
@@ -50,7 +49,7 @@ import cs.software.engineering.jobthirsty.R;
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
 
-                    Intent intent = new Intent(context, JobPosition.class);
+                    Intent intent = new Intent(context, ViewJobPosition.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());
                     view.getContext().startActivity(intent);
 

@@ -17,14 +17,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.parse.Parse;
 import com.parse.ParseUser;
 
-import cs.software.engineering.jobthirsty.CreateJobPosition;
+import cs.software.engineering.jobthirsty.job_position.CreateJobPosition;
 import cs.software.engineering.jobthirsty.Login;
 import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
 import cs.software.engineering.jobthirsty.connections.Connections;
-import cs.software.engineering.jobthirsty.find.FindPositions;
+import cs.software.engineering.jobthirsty.job_position.FindPositions;
 import cs.software.engineering.jobthirsty.find_workers.FindWorker;
 import cs.software.engineering.jobthirsty.mail.Mail;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
