@@ -19,9 +19,9 @@ public class CreateCompanyPage extends AppCompatActivity {
 
 
     EditText companyTitle;
-    EditText positionTitle;
-    EditText positionDescription;
-    EditText location;
+    EditText companyTagline;
+    EditText companyDescription;
+    EditText companyLocation;
 
     Button postPosition;
 
@@ -36,19 +36,19 @@ public class CreateCompanyPage extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         companyTitle = (EditText) findViewById(R.id.companyTitle);
-        positionTitle = (EditText) findViewById(R.id.positionTitle);
-        positionDescription = (EditText) findViewById(R.id.positionDescription);
-        location = (EditText) findViewById(R.id.location);
+        companyTagline = (EditText) findViewById(R.id.companyTagline);
+        companyDescription = (EditText) findViewById(R.id.companyDescription);
+        companyLocation = (EditText) findViewById(R.id.companyLocation);
         postPosition = (Button) findViewById(R.id.postPosition);
 
         postPosition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseObject position = new ParseObject("Position");
+                ParseObject position = new ParseObject("Company");
                 position.put("companyTitle", companyTitle.getText().toString());
-                position.put("positionTitle",positionTitle.getText().toString());
-                position.put("description",positionDescription.getText().toString());
-                position.put("location", location.getText().toString());
+                position.put("companyTagline",companyTagline.getText().toString());
+                position.put("companyDescription",companyDescription.getText().toString());
+                position.put("companyLocation", companyLocation.getText().toString());
                 position.put("bossId", ParseUser.getCurrentUser().getObjectId().toString());
                 position.saveInBackground(new SaveCallback() {
                     @Override

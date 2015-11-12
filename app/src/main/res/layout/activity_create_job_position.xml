@@ -55,15 +55,7 @@
                         />
 
                     <EditText
-                        android:id="@+id/location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:hint="Location"
-                        />
-
-                    <EditText
-                        android:id="@+id/companyTagLine"
+                        android:id="@+id/positionTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
@@ -71,13 +63,20 @@
                         />
 
                     <EditText
-                        android:id="@+id/commpanyDescription"
+                        android:id="@+id/positionDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:hint="Job Description"
                         />
 
+                    <EditText
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:hint="Location"
+                        />
 
 
                 </LinearLayout>
@@ -85,11 +84,11 @@
         </android.support.v4.widget.NestedScrollView>
 
         <Button
-            android:id="@+id/postCompany"
+            android:id="@+id/postPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Post Company"/>
+            android:text="Post Job"/>
 
 
 

@@ -55,28 +55,29 @@
                     />
 
                 <EditText
-                    android:id="@+id/positionTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:hint="Job Title "
-                    />
-
-                <EditText
-                    android:id="@+id/positionDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:hint="Job Description"
-                    />
-
-                <EditText
-                    android:id="@+id/location"
+                    android:id="@+id/companyLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:hint="Location"
                     />
+
+                <EditText
+                    android:id="@+id/companyTagline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:hint="Company Tagline "
+                    />
+
+                <EditText
+                    android:id="@+id/companyDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:hint="Company Description"
+                    />
+
 
 
             </LinearLayout>
@@ -84,11 +85,11 @@
         </android.support.v4.widget.NestedScrollView>
 
         <Button
-            android:id="@+id/postPosition"
+            android:id="@+id/postCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Post Job"/>
+            android:text="Post Company"/>
 
 
 
