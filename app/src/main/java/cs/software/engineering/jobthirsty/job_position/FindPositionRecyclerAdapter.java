@@ -15,7 +15,6 @@ import com.parse.ParseUser;
 import java.util.Collections;
 import java.util.List;
 
-import cs.software.engineering.jobthirsty.ViewJobPosition;
 import cs.software.engineering.jobthirsty.R;
 
 /**

@@ -45,7 +45,7 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".ViewJobPosition"
+            android:name=".job_position.ViewJobPosition"
             android:label="@string/title_activity_job_position"
             android:theme="@style/AppTheme" >
         </activity>
@@ -73,6 +73,8 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".company_page.CreateCompanyPage" >
+        </activity>
+        <activity android:name=".SettingsActivity" >
         </activity>
     </application>
 

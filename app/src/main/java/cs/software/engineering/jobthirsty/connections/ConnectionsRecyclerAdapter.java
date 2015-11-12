@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
-import cs.software.engineering.jobthirsty.ViewJobPosition;
+import cs.software.engineering.jobthirsty.job_position.ViewJobPosition;
 import cs.software.engineering.jobthirsty.R;
 
 /**

@@ -1,22 +1,16 @@
 package cs.software.engineering.jobthirsty.company_page;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-
-import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 import java.util.Collections;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.ViewJobPosition;
 
 /**
  * Created by sultankhan on 10/14/15.
