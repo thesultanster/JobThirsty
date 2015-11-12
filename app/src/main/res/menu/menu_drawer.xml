@@ -35,6 +35,14 @@
             android:icon="@drawable/fab_background"
             android:title="Connections"/>
         <item
+            android:id="@+id/create_company"
+            android:icon="@drawable/fab_background"
+            android:title="Create Company"/>
+        <item
+            android:id="@+id/find_company"
+            android:icon="@drawable/fab_background"
+            android:title="Find Company"/>
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/fab_background"
             android:title="Log Out"/>

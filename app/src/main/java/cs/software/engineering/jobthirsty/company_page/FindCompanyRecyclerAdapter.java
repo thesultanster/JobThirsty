@@ -49,37 +49,18 @@ import cs.software.engineering.jobthirsty.ViewJobPosition;
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            final View view = inflator.inflate(R.layout.row_find_position_recycler_view, parent, false);
+            final View view = inflator.inflate(R.layout.row_find_company, parent, false);
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
-
-                    Intent intent = new Intent(context, ViewJobPosition.class);
+                    /*
+                    Intent intent = new Intent(context, ViewCompanyPage.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());
-                    intent.putExtra("positionTitle", data.get(position).getPositionTitle());
+                    intent.putExtra("companyName", data.get(position).getCompanyTitle());
                     view.getContext().startActivity(intent);
+                    */
 
                 }
 
-                public void Apply(int position){
-
-                    ParseUser user = ParseUser.getCurrentUser();
-
-                    ParseObject applicant = new ParseObject("AppliedWorkers");
-                    applicant.put("name", user.get("firstName").toString() + user.get("lastName").toString());
-                    //applicant.put("location",user.get("location").toString());
-                    applicant.put("degree", user.get("degree").toString());
-                    applicant.put("quote",user.get("quote"));
-                    applicant.put("position", data.get(position).getPositionTitle());
-                    applicant.put("applicantId", user.getObjectId().toString());
-                    applicant.put("positionId", data.get(position).getParseObjectId());
-                    applicant.saveInBackground();
-
-                    ParseObject news = new ParseObject("Newsfeed");
-                    news.put("title", ParseUser.getCurrentUser().get("firstName") );
-                    news.put("update", ParseUser.getCurrentUser().get("firstName") + " Applied for " + data.get(position).getPositionTitle() );
-                    news.saveInBackground();
-
-                }
 
             });
 
@@ -93,9 +74,9 @@ import cs.software.engineering.jobthirsty.ViewJobPosition;
             // This gives us current information list object
             FindCompanyRecyclerInfo current = data.get(position);
 
-            holder.sender.setText(current.getPositionTitle());
-            holder.subject.setText(current.getSubject());
-            holder.body.setText(current.getBody());
+            holder.name.setText(current.getCompanyTitle());
+            holder.tagline.setText(current.getCompanyTagline());
+            //holder.body.setText(current.getBody());
         }
 
         @Override
@@ -106,11 +87,9 @@ import cs.software.engineering.jobthirsty.ViewJobPosition;
         // Created my custom view holder
         public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            TextView sender;
-            TextView subject;
-            TextView body;
-
-            Button apply;
+            TextView name;
+            TextView tagline;
+            //TextView body;
 
             public MyViewHolderClicks mListener;
 
@@ -120,21 +99,16 @@ import cs.software.engineering.jobthirsty.ViewJobPosition;
 
                 mListener = listener;
                 //Link the objects
-                sender = (TextView) itemView.findViewById(R.id.sender);
-                subject = (TextView) itemView.findViewById(R.id.subject);
-                body = (TextView) itemView.findViewById(R.id.body);
-                apply = (Button) itemView.findViewById(R.id.apply);
+                name = (TextView) itemView.findViewById(R.id.companyName);
+                tagline = (TextView) itemView.findViewById(R.id.companyTagline);
+                //body = (TextView) itemView.findViewById(R.id.body);
 
                 itemView.setOnClickListener(this);
-                apply.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
-                    case R.id.apply:
-                        mListener.Apply(getAdapterPosition());
-                        break;
                     default:
                         mListener.RowClick(v, getAdapterPosition());
                         break;
@@ -143,7 +117,6 @@ import cs.software.engineering.jobthirsty.ViewJobPosition;
 
             public  interface MyViewHolderClicks {
                 void RowClick(View caller, int position);
-                void Apply(int position);
             }
         }
     }

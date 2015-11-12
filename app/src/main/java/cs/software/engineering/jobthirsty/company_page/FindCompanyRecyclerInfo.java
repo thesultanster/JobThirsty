@@ -7,30 +7,24 @@ import com.parse.ParseObject;
  */
 public class FindCompanyRecyclerInfo {
 
-    ParseObject position;
+    ParseObject company;
 
-    public FindCompanyRecyclerInfo() {
+    public FindCompanyRecyclerInfo(ParseObject company) {
         super();
-
+        this.company = company;
     }
 
-    public FindCompanyRecyclerInfo(ParseObject position) {
-        super();
-        this.position = position;
+    public String getCompanyTitle(){
+        return company.get("companyTitle").toString();
     }
-
-    public String getPositionTitle(){
-        return position.get("positionTitle").toString();
+    public String getCompanyTagline(){
+        return company.get("companyTagline").toString();
     }
-    public String getSubject(){
-        return position.get("companyTitle").toString();
+    public String getLocation(){
+        return company.get("location").toString();
     }
-    public String getBody(){
-        return position.get("location").toString();
-    }
-
     public String getParseObjectId() {
-        return position.getObjectId();
+        return company.getObjectId();
     }
 
 }

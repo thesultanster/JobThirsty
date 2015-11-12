@@ -27,7 +27,7 @@ public class FindCompany extends NavigationDrawerFramework {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_positions);
+        setContentView(R.layout.row_find_company);
 
         // RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -36,7 +36,7 @@ public class FindCompany extends NavigationDrawerFramework {
         recyclerView.setLayoutManager(new LinearLayoutManager(FindCompany.this));
 
         // Parse Query
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Company");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> positions, ParseException e) {
                 if (e == null) {
