@@ -85,7 +85,6 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
 
         //Tool bar
         toolbar = getToolbar();
-        toolbar.getBackground().setAlpha(100);
 
         firstName = ParseUser.getCurrentUser().get("firstName").toString();
         lastName = ParseUser.getCurrentUser().get("lastName").toString();

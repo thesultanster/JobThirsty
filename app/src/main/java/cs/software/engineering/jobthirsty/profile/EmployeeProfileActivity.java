@@ -121,7 +121,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         //Toolbar
         toolbar = getToolbar();
-        toolbar.getBackground().setAlpha(100);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
