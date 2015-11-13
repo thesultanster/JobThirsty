@@ -12,7 +12,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-public class SettingsActivity extends AppCompatActivity {
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
+
+public class SettingsActivity extends NavigationDrawerFramework {
 
     EditText password;
     Button passwordButton;
