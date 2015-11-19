@@ -45,7 +45,7 @@ import cs.software.engineering.jobthirsty.R;
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            final View view = inflator.inflate(R.layout.row_applied_workers_recycler_view, parent, false);
+            final View view = inflator.inflate(R.layout.row_connection_recycler_view, parent, false);
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
 
@@ -54,8 +54,6 @@ import cs.software.engineering.jobthirsty.R;
                     view.getContext().startActivity(intent);
 
                 }
-
-
             });
 
             return holder;
@@ -69,9 +67,6 @@ import cs.software.engineering.jobthirsty.R;
             ConnectionsRecyclerInfo current = data.get(position);
 
             holder.name.setText(current.getName());
-            holder.position.setText(current.getPosition());
-            holder.degree.setText(current.getDegree());
-            holder.quote.setText(current.getQuote());
         }
 
         @Override
@@ -83,9 +78,6 @@ import cs.software.engineering.jobthirsty.R;
         public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             TextView name;
-            TextView position;
-            TextView degree;
-            TextView quote;
 
             public MyViewHolderClicks mListener;
 
@@ -96,9 +88,6 @@ import cs.software.engineering.jobthirsty.R;
                 mListener = listener;
                 //Link the objects
                 name = (TextView) itemView.findViewById(R.id.name);
-                degree = (TextView) itemView.findViewById(R.id.degree);
-                position = (TextView) itemView.findViewById(R.id.position);
-                quote = (TextView) itemView.findViewById(R.id.quote);
 
                 itemView.setOnClickListener(this);
             }

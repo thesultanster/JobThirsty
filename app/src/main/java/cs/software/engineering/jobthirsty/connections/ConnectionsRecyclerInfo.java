@@ -1,35 +1,33 @@
 package cs.software.engineering.jobthirsty.connections;
 
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 /**
  * Created by sultankhan on 10/14/15.
  */
 public class ConnectionsRecyclerInfo {
 
-    ParseObject position;
+    ParseObject connection;
 
     public ConnectionsRecyclerInfo() {
         super();
 
     }
 
-    public ConnectionsRecyclerInfo(ParseObject position) {
+    public ConnectionsRecyclerInfo(ParseObject connection) {
         super();
-        this.position = position;
+        this.connection = connection;
     }
 
-    public String getName(){ return position.get("name").toString();}
-    public String getPosition(){
-        return position.get("position").toString();
-    }
-    public String getDegree(){return position.get("degree").toString();}
-    public String getQuote(){
-        return position.get("quote").toString();
+    public String getName(){
+        String intenderName = connection.get("intenderName").toString();
+        String recievername = connection.get("recieverName").toString();
+        return ParseUser.getCurrentUser().getUsername() == intenderName ? intenderName : recievername;
     }
 
     public String getParseObjectId() {
-        return position.getObjectId();
+        return connection.getObjectId();
     }
 
 }
