@@ -36,7 +36,8 @@
                 android:backgroundTint="@color/primaryColor"
                 android:textColor="@color/cloud"
                 android:textSize="12sp"
-                android:text="Designer"/>
+                android:text="Designer"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/law"
