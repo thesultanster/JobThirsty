@@ -190,9 +190,10 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 intent = isBoss ? new Intent(this, EmployerProfileActivity.class)
                                 : new Intent(this, EmployeeProfileActivity.class);
 
-                intent.putExtra("firstName", ParseUser.getCurrentUser().get("firstName").toString());
-                intent.putExtra("lastName", ParseUser.getCurrentUser().get("lastName").toString());
-                intent.putExtra("dataId", ParseUser.getCurrentUser().get("dataId").toString());
+
+                intent.putExtra("userId", ParseUser.getCurrentUser().getObjectId());
+                intent.putExtra("isYourself", true);
+
                 break;
             case R.id.find_position:
                 intent = new Intent(this, FindPositions.class);

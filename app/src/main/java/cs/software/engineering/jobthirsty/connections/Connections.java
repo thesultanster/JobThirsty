@@ -62,6 +62,7 @@ public class Connections extends AppCompatActivity {
                         String recievername = c.get("recieverName").toString();
 
                         if (!map.containsKey(intenderName) && !map.containsKey(recievername)) {
+                            //add new row for each connection found
                             adapter.addRow(new ConnectionsRecyclerInfo(c));
                             if (!map.containsKey(intenderName)) {
                                 map.put(intenderName, " ");

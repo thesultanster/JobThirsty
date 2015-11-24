@@ -23,8 +23,6 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
 
 public class SignUp extends AppCompatActivity {
-
-
     EditText username;
     EditText password;
     EditText firstName;

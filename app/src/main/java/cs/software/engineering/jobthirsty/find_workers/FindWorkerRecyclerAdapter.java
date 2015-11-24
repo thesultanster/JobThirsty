@@ -66,9 +66,8 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
                 android.util.Log.d("rowClick", "rowClicks");
 
                 Intent intent = new Intent(context, EmployeeProfileActivity.class);
-                intent.putExtra("firstName", data.get(position).getFirstName());
-                intent.putExtra("lastName", data.get(position).getLastName());
-                intent.putExtra("dataId", data.get(position).getDataId());
+                intent.putExtra("isYourself",false);
+                intent.putExtra("userId",data.get(position).getParseObjectId());
                 view.getContext().startActivity(intent);
             }
 

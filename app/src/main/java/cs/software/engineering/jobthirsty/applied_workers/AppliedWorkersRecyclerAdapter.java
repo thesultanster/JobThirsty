@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 import java.util.Collections;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.job_position.ViewJobPosition;
 import cs.software.engineering.jobthirsty.R;
+import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 
 /**
  * Created by sultankhan on 10/14/15.
@@ -49,8 +52,9 @@ import cs.software.engineering.jobthirsty.R;
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
 
-                    Intent intent = new Intent(context, ViewJobPosition.class);
-                    intent.putExtra("selectedId", data.get(position).getParseObjectId());
+                    Intent intent = new Intent(context, EmployeeProfileActivity.class);
+                    intent.putExtra("isYourself",false);
+                    intent.putExtra("userId",data.get(position).getParseObjectId());
                     view.getContext().startActivity(intent);
 
                 }

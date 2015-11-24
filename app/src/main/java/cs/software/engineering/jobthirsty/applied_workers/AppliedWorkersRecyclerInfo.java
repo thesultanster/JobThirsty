@@ -1,6 +1,10 @@
 package cs.software.engineering.jobthirsty.applied_workers;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 /**
  * Created by sultankhan on 10/14/15.
@@ -8,6 +12,7 @@ import com.parse.ParseObject;
 public class AppliedWorkersRecyclerInfo {
 
     ParseObject position;
+    ParseUser user;
 
     public AppliedWorkersRecyclerInfo() {
         super();
@@ -17,6 +22,7 @@ public class AppliedWorkersRecyclerInfo {
     public AppliedWorkersRecyclerInfo(ParseObject position) {
         super();
         this.position = position;
+
     }
 
     public String getName(){ return position.get("name").toString();}
@@ -32,4 +38,10 @@ public class AppliedWorkersRecyclerInfo {
         return position.getObjectId();
     }
 
+
+
+    public String getUserId()
+    {
+        return position.get("applicantId").toString();
+    }
 }
