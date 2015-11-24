@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -35,7 +36,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
-    private ImageButton editProfileBtn;
+    private TextView editProfileBtn;
     private boolean editable;
 
     //UI Variables
@@ -91,12 +92,11 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
-        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
         collapsingToolbarLayout.setExpandedTitleColor(0xFFffffff);
 
 
         //Edit button
-        editProfileBtn = (ImageButton) findViewById(R.id.editProfileBtn);
+        editProfileBtn = (TextView) findViewById(R.id.editProfileBtn);
         editable = false;
 
         //Editable views
@@ -202,7 +202,6 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 location.setEnabled(false);
                 biography.setText(biographyData);
                 biography.setEnabled(false);
-
             }
         });
     }

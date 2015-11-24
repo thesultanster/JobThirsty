@@ -48,6 +48,7 @@ import cs.software.engineering.jobthirsty.R;
             final View view = inflator.inflate(R.layout.row_connection_recycler_view, parent, false);
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
+                    ConnectionsRecyclerInfo info = data.get(position);
 
                     Intent intent = new Intent(context, ViewJobPosition.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());

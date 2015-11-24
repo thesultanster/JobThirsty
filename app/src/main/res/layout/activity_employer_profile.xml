@@ -8,10 +8,14 @@
 
     <!-- Scrollable View -->
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_margin="15sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="#FFffffff">
 
         <LinearLayout
@@ -131,12 +135,6 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 
-            <ImageButton
-                android:id="@+id/editProfileBtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom|end"/>
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -145,6 +143,17 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/AppTheme.Dark"
                 app:layout_collapseMode="pin" />
+
+            <TextView
+                android:id="@+id/editProfileBtn"
+                android:layout_width="100sp"
+                android:layout_height="50sp"
+                android:layout_marginRight="45sp"
+                android:layout_marginBottom="5sp"
+                android:text="Edit Profile"
+                android:gravity="center"
+                android:textColor="@color/cloud"
+                android:layout_gravity="bottom|right"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
