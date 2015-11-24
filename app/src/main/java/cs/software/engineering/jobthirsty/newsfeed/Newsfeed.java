@@ -35,6 +35,7 @@ public class Newsfeed extends NavigationDrawerFramework {
 
         //ToDo: Need to load the page according to the user (worker or boss)
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Newsfeed");
+        query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> newsfeed, ParseException e) {
                 if (e == null) {
