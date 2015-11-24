@@ -54,7 +54,7 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 
                     Intent intent = new Intent(context, EmployeeProfileActivity.class);
                     intent.putExtra("isYourself",false);
-                    intent.putExtra("userId",data.get(position).getParseObjectId());
+                    intent.putExtra("userId",data.get(position).getUserId());
                     view.getContext().startActivity(intent);
 
                 }

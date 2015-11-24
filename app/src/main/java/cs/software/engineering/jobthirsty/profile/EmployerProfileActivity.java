@@ -50,6 +50,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     private JobsSection jobsSection;
 
     //Employer Data Variables
+    private String userId;
     private String firstName;
     private String lastName;
 
@@ -67,8 +68,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
 
 
     //HELPER FUNCTIONS[START] ----------------------------------------------------------------------
-    private void initialize()
-    {
+    private void initialize() {
         //set minimum height for bottom half to enable scrolling
         DisplayMetrics displaymetrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -110,8 +110,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         jobsSection = new JobsSection(getApplicationContext());
     }
 
-    private void setListeners()
-    {
+    private void setListeners() {
         //Overall edit button
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,8 +139,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         });
     }
 
-    private void sendDataToParse()
-    {
+    private void sendDataToParse() {
         final String locationData = location.getText().toString();
         final String biographyData = biography.getText().toString();
 
@@ -161,8 +159,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     }
 
     //dataId need to be passed in to distinguish who's profile to load up
-    private void retrieveDataFromParse(String dataId)
-    {
+    private void retrieveDataFromParse(String dataId) {
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployerData");
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
             @Override
@@ -207,17 +204,26 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     }
 
     //Load profile page
-    private void loadProfilePage()
-    {
+    private void loadProfilePage() {
         Bundle extras = getIntent().getExtras();
-        firstName = extras.getString("firstName");
-        lastName = extras.getString("lastName");
-        String dataId = extras.getString("dataId");
+        userId = extras.getString("userId");
 
-        //display profile's name
-        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+        //fetch all user variables with userId
+        ParseQuery<ParseUser> q = ParseUser.getQuery();
+        q.getInBackground(userId, new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e)
+            {
+                firstName = parseUser.get("firstName").toString();
+                lastName = parseUser.get("lastName").toString();
+                String dataId = parseUser.get("dataId").toString();
 
-        retrieveDataFromParse(dataId);
+                //display profile's name
+                collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+
+                retrieveDataFromParse(dataId);
+            }
+        });
+        //[END] ----------------------------------------------------------------------------------------
     }
-    //[END] ----------------------------------------------------------------------------------------
 }
