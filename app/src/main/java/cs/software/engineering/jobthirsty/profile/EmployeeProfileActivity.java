@@ -372,7 +372,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                             //add newsfeed row
                                             ParseObject newsfeed = new ParseObject("Newsfeed");
                                             newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-                                            newsfeed.put("update", firstName + " and " + ParseUser.getCurrentUser().get("firstName") + " is now connected");
+                                            newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
                                             newsfeed.saveInBackground();
                                             return;
                                         }
