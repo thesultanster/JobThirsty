@@ -111,7 +111,7 @@ public class SignUp extends AppCompatActivity {
                             //add new row
                             //ParseObject row = new ParseObject("")
                             ParseUser.logIn(username.getText().toString(), password.getText().toString());
-                            data.put("userId", ParseUser.getCurrentUser().getObjectId().toString());
+                            data.put("userId", ParseUser.getCurrentUser().getObjectId());
 
                             // Go to Main Page when successfully logged in
                             Intent intent;
@@ -120,9 +120,7 @@ public class SignUp extends AppCompatActivity {
                             } else {
                                 intent = new Intent(SignUp.this, EmployeeProfileActivity.class);
                             }
-                            intent.putExtra("firstName", firstName.getText().toString());
-                            intent.putExtra("lastName", lastName.getText().toString());
-                            intent.putExtra("dataId", ParseUser.getCurrentUser().get("dataId").toString());
+                            intent.putExtra("userId", ParseUser.getCurrentUser().getObjectId());
 
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Signed Up", Toast.LENGTH_SHORT).show();
@@ -147,7 +145,5 @@ public class SignUp extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 }
