@@ -22,7 +22,7 @@ public class ConnectionsRecyclerInfo {
 
     public String getName(){
         String intenderName = connection.get("intenderName").toString();
-        String recievername = connection.get("recieverName").toString();
+        String recievername = connection.get("receiverName").toString();
         return ParseUser.getCurrentUser().getUsername() == intenderName ? intenderName : recievername;
     }
 

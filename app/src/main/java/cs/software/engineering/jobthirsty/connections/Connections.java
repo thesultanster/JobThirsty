@@ -38,12 +38,12 @@ public class Connections extends AppCompatActivity {
 
         // Parse Query
         ParseQuery<ParseObject> intenderQuery = ParseQuery.getQuery("Connections");
-        //intenderQuery.whereEqualTo("handshake", true);
+        intenderQuery.whereEqualTo("handshake", true);
         intenderQuery.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
 
         ParseQuery<ParseObject> recieverQuery = ParseQuery.getQuery("Connections");
-        //recieverQuery.whereEqualTo("handshake", true);
-        recieverQuery.whereContains("recieverName", ParseUser.getCurrentUser().getUsername());
+        recieverQuery.whereEqualTo("handshake", true);
+        recieverQuery.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
 
         List<ParseQuery<ParseObject>> mainQuery = new ArrayList<ParseQuery<ParseObject>>();
         mainQuery.add(intenderQuery);
@@ -59,16 +59,16 @@ public class Connections extends AppCompatActivity {
 
                     for (ParseObject c : connections) {
                         String intenderName = c.get("intenderName").toString();
-                        String recievername = c.get("recieverName").toString();
+                        String receivername = c.get("receiverName").toString();
 
-                        if (!map.containsKey(intenderName) && !map.containsKey(recievername)) {
+                        if (!map.containsKey(intenderName) && !map.containsKey(receivername)) {
                             //add new row for each connection found
                             adapter.addRow(new ConnectionsRecyclerInfo(c));
                             if (!map.containsKey(intenderName)) {
                                 map.put(intenderName, " ");
                             }
-                            if (!map.containsKey(recievername)) {
-                                map.put(recievername, "");
+                            if (!map.containsKey(receivername)) {
+                                map.put(receivername, "");
                             }
                         }
                     }

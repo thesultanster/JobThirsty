@@ -284,15 +284,15 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     public void done(final List<ParseObject> connections, ParseException e) {
                         if (e == null) {
                             //find current profile's username (receiver)
-                            ParseQuery<ParseObject> tmpQ = ParseQuery.getQuery("User");
-                            tmpQ.getInBackground(dataId, new GetCallback<ParseObject>() {
+                            ParseQuery<ParseUser> tmpQ = ParseUser.getQuery();
+                            tmpQ.getInBackground(userId, new GetCallback<ParseUser>() {
                                 @Override
-                                public void done(ParseObject dataRow, ParseException e) {
-                                    String currentUserReceiver = dataRow.get("username").toString();
+                                public void done(ParseUser parseUser, ParseException e) {
+                                    String currentUserReceiver = parseUser.get("username").toString();
 
                                     //iterate through each connection found
                                     for (ParseObject c : connections) {
-                                        String receiverName = c.get("recieverName").toString();
+                                        String receiverName = c.get("receiverName").toString();
 
                                         //found (you already added them)
                                         if (receiverName.equals(currentUserReceiver)) {
@@ -307,7 +307,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                     ParseObject connection = new ParseObject("Connections");
                                     connection.put("handshake", false);
                                     connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-                                    connection.put("recieverName", currentUserReceiver);
+                                    connection.put("receiverName", currentUserReceiver);
                                     connection.saveInBackground();
                                 }
                             });
@@ -324,22 +324,25 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 q1.findInBackground(new FindCallback<ParseObject>() {
                     public void done(final List<ParseObject> connections, ParseException e) {
                         if (e == null) {
-
+                            //that person did not add you
+                            if(connections.size() == 0)
+                                return;
 
                             //find current profile's username (receiver)
-                            ParseQuery<ParseObject> tmpQ = ParseQuery.getQuery("User");
-                            tmpQ.getInBackground(dataId, new GetCallback<ParseObject>() {
+                            ParseQuery<ParseUser> tmpQ = ParseUser.getQuery();
+                            tmpQ.getInBackground(userId, new GetCallback<ParseUser>() {
                                 @Override
-                                public void done(ParseObject dataRow, ParseException e) {
-                                    String currentUserReceiver = dataRow.get("username").toString();
+                                public void done(ParseUser parseUser, ParseException e) {
+                                    String currentUserReceiver = parseUser.get("username").toString();
 
                                     //iterate through each connection found
                                     for (ParseObject c : connections) {
                                         String receiverName = c.get("intenderName").toString();
 
-                                        //found (accepting the request
+                                        //found (accepting the request)
                                         if (receiverName.equals(currentUserReceiver)) {
                                             c.put("handshake", true);
+                                            c.saveInBackground();
 
                                             //add newsfeed row
                                             ParseObject newsfeed = new ParseObject("Newsfeed");
@@ -357,7 +360,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                     ParseObject connection = new ParseObject("Connections");
                                     connection.put("handshake", false);
                                     connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-                                    connection.put("recieverName", currentUserReceiver);
+                                    connection.put("receiverName", currentUserReceiver);
                                     connection.saveInBackground();
                                 }
                             });
