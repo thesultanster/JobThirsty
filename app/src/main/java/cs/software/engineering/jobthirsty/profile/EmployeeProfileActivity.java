@@ -485,31 +485,35 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         //fetch all user variables with userId
         ParseQuery<ParseUser> q = ParseUser.getQuery();
-        q.getInBackground("userId", );
+        q.getInBackground(userId, new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                firstName = parseUser.get("firstName").toString();
+                lastName = parseUser.get("lastName").toString();
+                dataId = parseUser.get("dataId").toString();
 
-        firstName = extras.getString("firstName");
-        lastName = extras.getString("lastName");
-        dataId = extras.getString("dataId");
-
-        //set profile owner's data id
-        skillsSection.setDataId(dataId);
-
-        boolean isOwnerUser = ParseUser.getCurrentUser().get("dataId").equals(dataId);
-
-        // if user is seeing their own profile then hide connection fab
-        if(isOwnerUser){
-            fab.setVisibility(View.INVISIBLE);
-        }
-        // else if user is seeing someone else's profile, hide editProfile button
-        else {
-            editProfileBtn.setVisibility(View.INVISIBLE);
-        }
+                //set profile owner's data id
+                skillsSection.setDataId(dataId);
 
 
-        //display profile's name
-        collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+                boolean isOwnerUser = ParseUser.getCurrentUser().get("dataId").equals(dataId);
 
-        retrieveDataFromParse(dataId, isOwnerUser);
+                // if user is seeing their own profile then hide connection fab
+                if (isOwnerUser) {
+                    fab.setVisibility(View.INVISIBLE);
+                }
+                // else if user is seeing someone else's profile, hide editProfile button
+                else {
+                    editProfileBtn.setVisibility(View.INVISIBLE);
+                }
+
+
+                //display profile's name
+                collapsingToolbarLayout.setTitle(firstName + " " + lastName);
+
+                retrieveDataFromParse(dataId, isOwnerUser);
+            }
+        });
     }
     //[END] ----------------------------------------------------------------------------------------
 }
