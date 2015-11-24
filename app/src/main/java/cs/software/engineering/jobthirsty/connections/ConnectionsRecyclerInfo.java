@@ -21,9 +21,10 @@ public class ConnectionsRecyclerInfo {
     }
 
     public String getName(){
-        String intenderName = connection.get("intenderName").toString();
-        String recievername = connection.get("receiverName").toString();
-        return ParseUser.getCurrentUser().getUsername() == intenderName ? intenderName : recievername;
+        String intenderName = connection.get("intenderFullName").toString();
+        String receiverName = connection.get("receiverFullName").toString();
+
+        return ParseUser.getCurrentUser().getUsername() == intenderName ? intenderName : receiverName;
     }
 
     public String getParseObjectId() {

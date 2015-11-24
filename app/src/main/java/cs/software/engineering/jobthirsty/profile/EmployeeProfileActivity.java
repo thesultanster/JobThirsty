@@ -84,6 +84,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private String dataId;
 
 
+    private String intenderFullName;
+    private String receiverFullName;
+
+
     //Debug Variables
     String TAG = "datacheck";
 
@@ -276,6 +280,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //get first and last name for both intender and receiver
+                final ParseQuery<ParseObject> nameQuery = ParseQuery.getQuery("User");
+
+
                 //check if the connection row already exists (presser is intender)
                 ParseQuery<ParseObject> q = ParseQuery.getQuery("Connections");
                 q.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
@@ -283,6 +291,13 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 q.findInBackground(new FindCallback<ParseObject>() {
                     public void done(final List<ParseObject> connections, ParseException e) {
                         if (e == null) {
+                            //get full name
+                            // intender
+                            intenderFullName = ParseUser.getCurrentUser().get("firstName").toString() + " " + ParseUser.getCurrentUser().get("lastName").toString();
+
+                            // receiver
+                            receiverFullName = firstName + " " + lastName;
+
                             //find current profile's username (receiver)
                             ParseQuery<ParseUser> tmpQ = ParseUser.getQuery();
                             tmpQ.getInBackground(userId, new GetCallback<ParseUser>() {
@@ -308,6 +323,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                     connection.put("handshake", false);
                                     connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
                                     connection.put("receiverName", currentUserReceiver);
+                                    connection.put("intenderFullName", intenderFullName);
+                                    connection.put("receiverFullName", receiverFullName);
                                     connection.saveInBackground();
                                 }
                             });
@@ -325,8 +342,16 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     public void done(final List<ParseObject> connections, ParseException e) {
                         if (e == null) {
                             //that person did not add you
-                            if(connections.size() == 0)
+                            if (connections.size() == 0)
                                 return;
+
+
+                            //get full name
+                            // intender
+                            intenderFullName = firstName + " " + lastName;
+
+                            // receiver
+                            receiverFullName = ParseUser.getCurrentUser().get("firstName").toString() + " " + ParseUser.getCurrentUser().get("lastName").toString();
 
                             //find current profile's username (receiver)
                             ParseQuery<ParseUser> tmpQ = ParseUser.getQuery();
@@ -347,7 +372,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                             //add newsfeed row
                                             ParseObject newsfeed = new ParseObject("Newsfeed");
                                             newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-                                            newsfeed.put("update", firstName + " and " + ParseUser.getCurrentUser().get("firstName") + "is now connected");
+                                            newsfeed.put("update", firstName + " and " + ParseUser.getCurrentUser().get("firstName") + " is now connected");
                                             newsfeed.saveInBackground();
                                             return;
                                         }
@@ -361,6 +386,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                     connection.put("handshake", false);
                                     connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
                                     connection.put("receiverName", currentUserReceiver);
+                                    connection.put("intenderFullName", intenderFullName);
+                                    connection.put("receiverFullName", receiverFullName);
                                     connection.saveInBackground();
                                 }
                             });
@@ -369,13 +396,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                         }
                     }
                 });
-
-                /*
-                ParseObject newsfeed = new ParseObject("Newsfeed");
-                newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-                newsfeed.put("update", firstName + " was connected by " + ParseUser.getCurrentUser().get("firstName"));
-                newsfeed.saveInBackground();
-                */
             }
         });
     }
