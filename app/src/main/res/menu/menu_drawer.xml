@@ -2,53 +2,88 @@
     <!-- group with single selected item so only one item is highlighted in the nav menu -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/newsfeed"
-            android:icon="@drawable/fab_background"
-            android:title="Newsfeed"/>
-        <item
             android:id="@+id/profile"
             android:icon="@drawable/fab_background"
-            android:title="Profile"/>
+            android:title="Profile" />
         <item
-            android:id="@+id/find_position"
+            android:id="@+id/newsfeed"
             android:icon="@drawable/fab_background"
-            android:title="Find Positions"/>
-        <item
-            android:id="@+id/find_worker"
-            android:icon="@drawable/fab_background"
-            android:title="Find Workers"/>
-
-        <item
-            android:id="@+id/applied_workers"
-            android:icon="@drawable/fab_background"
-            android:title="Applied Workers"/>
-        <item
-            android:id="@+id/createPosition"
-            android:icon="@drawable/fab_background"
-            android:title="Post Position"/>
-        <item
-            android:id="@+id/mail"
-            android:icon="@drawable/fab_background"
-            android:title="Mail"/>
+            android:title="Newsfeed" />
         <item
             android:id="@+id/connections"
             android:icon="@drawable/fab_background"
-            android:title="Connections"/>
+            android:title="Connections" />
+
         <item
-            android:id="@+id/create_company"
+            android:id="@+id/find_worker"
             android:icon="@drawable/fab_background"
-            android:title="Create Company"/>
+            android:title="Find Workers" />
+
         <item
-            android:id="@+id/find_company"
-            android:icon="@drawable/fab_background"
-            android:title="Find Company"/>
+            android:id="@+id/bossPosition"
+            android:layout_gravity="bottom"
+            android:title="Position"
+            >
+
+            <menu
+                >
+
+                <item
+                    android:id="@+id/createPosition"
+                    android:icon="@drawable/fab_background"
+                    android:title="Post Position" />
+
+                <item
+                    android:id="@+id/applied_workers"
+                    android:icon="@drawable/fab_background"
+                    android:title="Applied Workers" />
+            </menu>
+        </item>
+
         <item
-            android:id="@+id/settings"
-            android:icon="@drawable/fab_background"
-            android:title="Settings"/>
+            android:id="@+id/workerPosition"
+            android:layout_gravity="bottom"
+            android:title="Position"
+            >
+
+            <menu
+                >
+                <item
+                    android:id="@+id/find_position"
+                    android:icon="@drawable/fab_background"
+                    android:title="Find Positions" />
+
+            </menu>
+        </item>
+
         <item
-            android:id="@+id/logout"
-            android:icon="@drawable/fab_background"
-            android:title="Log Out"/>
+            android:layout_gravity="bottom"
+            android:title="Company">
+            <menu>
+                <item
+                    android:id="@+id/create_company"
+                    android:icon="@drawable/fab_background"
+                    android:title="Create Company" />
+                <item
+                    android:id="@+id/find_company"
+                    android:icon="@drawable/fab_background"
+                    android:title="Find Company" />
+            </menu>
+        </item>
+
+        <item
+            android:layout_gravity="bottom"
+            android:title="Account">
+            <menu>
+                <item
+                    android:id="@+id/settings"
+                    android:icon="@drawable/fab_background"
+                    android:title="Settings" />
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/fab_background"
+                    android:title="Log Out" />
+            </menu>
+        </item>
     </group>
 </menu>

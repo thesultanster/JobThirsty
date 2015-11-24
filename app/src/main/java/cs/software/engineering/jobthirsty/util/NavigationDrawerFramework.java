@@ -103,16 +103,14 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
 
         if(ParseUser.getCurrentUser().get("isBoss").equals(true)) {
 
-            menuItem = menuNav.findItem(R.id.find_position);
+            menuItem = menuNav.findItem(R.id.workerPosition);
             menuItem.setVisible(false);
 
         } else {
 
-            menuItem = menuNav.findItem(R.id.createPosition);
+            menuItem = menuNav.findItem(R.id.bossPosition);
             menuItem.setVisible(false);
 
-            menuItem = menuNav.findItem(R.id.applied_workers);
-            menuItem.setVisible(false);
 
         }
 
@@ -204,9 +202,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 break;
             case R.id.createPosition:
                 intent = new Intent(this, CreateJobPosition.class);
-                break;
-            case R.id.mail:
-                intent = new Intent(this, Mail.class);
                 break;
             case R.id.newsfeed:
                 intent = new Intent(this, Newsfeed.class);
