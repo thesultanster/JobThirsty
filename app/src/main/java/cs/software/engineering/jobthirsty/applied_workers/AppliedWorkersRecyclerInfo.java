@@ -38,8 +38,6 @@ public class AppliedWorkersRecyclerInfo {
         return position.getObjectId();
     }
 
-
-
     public String getUserId()
     {
         return position.get("applicantId").toString();
