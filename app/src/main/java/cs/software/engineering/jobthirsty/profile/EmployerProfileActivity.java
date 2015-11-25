@@ -70,6 +70,8 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     private String userId;
     private String firstName;
     private String lastName;
+    private ParseUser user;
+    private ParseObject dataObject;
 
     //OVERRIDE [START] -----------------------------------------------------------------------------
     @Override
@@ -104,13 +106,9 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         //Tool bar
         toolbar = getToolbar();
 
-        firstName = ParseUser.getCurrentUser().get("firstName").toString();
-        lastName = ParseUser.getCurrentUser().get("lastName").toString();
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
         collapsingToolbarLayout.setExpandedTitleColor(0xFFffffff);
-
 
         //Edit button
         editProfileBtn = (TextView) findViewById(R.id.editProfileBtn);
@@ -197,39 +195,24 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 profileImage.loadInBackground(new GetDataCallback() {
                     public void done(byte[] data, ParseException e) {
                         // The image is loaded and displayed!
-                    }
-                });
-
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                String dataId = (String) currentUser.get("dataId");
-
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("EmployerData");
-                query.getInBackground(dataId, new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (e == null) {
-                            try {
-                                //
-                                object.put("profileImage", parseFile);
-                                object.save();
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
+                        dataObject.put("profileImage", parseFile);
+                        dataObject.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                // upload all images (for testing)
+                                final ParseObject imageUpload = new ParseObject("ImageUpload");
+                                imageUpload.put("ImageName", "Test Image");
+                                imageUpload.put("ImageFile", parseFile);
+                                imageUpload.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                    }
+                                });
                             }
-                        } else {
-                            // something went wrong
-                        }
+                        });
                     }
                 });
 
-                // upload all images (for testing)
-                final ParseObject imageUpload = new ParseObject("ImageUpload");
-                imageUpload.put("ImageName", "Test Image");
-                imageUpload.put("ImageFile", parseFile);
-                imageUpload.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-//                        imageUploadId = imageUpload.getObjectId();
-                    }
-                });
             }
         }
     }
@@ -245,20 +228,14 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     private void sendDataToParse() {
         final String locationData = location.getText().toString();
         final String biographyData = biography.getText().toString();
-
         final ArrayList<String> jobsData = jobsSection.getData();
 
-        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployerData");
-        q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject dataRow, ParseException e) {
-                dataRow.put("location", locationData);
-                dataRow.put("biography", biographyData);
+        dataObject.put("location", locationData);
+        dataObject.put("biography", biographyData);
+        dataObject.put("jobPostings", jobsData);
 
-                dataRow.put("jobPostings", jobsData);
-                dataRow.saveInBackground();
-            }
-        });
+        dataObject.saveInBackground();
+
     }
 
     //dataId need to be passed in to distinguish who's profile to load up
@@ -267,13 +244,15 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject dataRow, ParseException e) {
+                dataObject = dataRow;
+
                 String locationData = dataRow.get("location") == null ? "" : dataRow.get("location").toString();
                 String biographyData = dataRow.get("biography") == null ? "" : dataRow.get("biography").toString();
 
                 final ArrayList<ArrayList<String>> jobsData = new ArrayList<>();
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
-                query.whereEqualTo("bossId", ParseUser.getCurrentUser().getObjectId());
+                query.whereEqualTo("bossId", user.getObjectId());
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> rows, ParseException e) {
                         if (e == null) {
@@ -297,16 +276,13 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                     }
                 });
 
+                //download and display profile image
                 parseFile = dataRow.getParseFile("profileImage");
                 if (parseFile != null) {
                     profileImage.setParseFile(parseFile);
                     profileImage.loadInBackground(new GetDataCallback() {
                         public void done(byte[] data, ParseException e) {
-                            // The image is loaded and displayed!
-                            int oldHeight = profileImage.getHeight();
-                            int oldWidth = profileImage.getWidth();
-                            Log.v("LOG!!!!!!", "imageView height = " + oldHeight);      // DISPLAYS 90 px
-                            Log.v("LOG!!!!!!", "imageView width = " + oldWidth);        // DISPLAYS 90 px
+                            // The image is downloaded and displayed
                         }
                     });
                 } else {
@@ -323,8 +299,8 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
 
     //Load profile page
     private void loadProfilePage() {
-        Bundle extras = getIntent().getExtras();
-        userId = extras.getString("userId");
+
+        userId = getIntent().getExtras().getString("userId");
 
         //fetch all user variables with userId
         ParseQuery<ParseUser> q = ParseUser.getQuery();
@@ -332,6 +308,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
             @Override
             public void done(ParseUser parseUser, ParseException e)
             {
+                user = parseUser;
                 firstName = parseUser.get("firstName").toString();
                 lastName = parseUser.get("lastName").toString();
                 String dataId = parseUser.get("dataId").toString();
