@@ -1,8 +1,8 @@
 package cs.software.engineering.jobthirsty;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +14,7 @@ import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
-import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
-import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
+import cs.software.engineering.jobthirsty.util.MainTabMenu;
 
 public class Login extends AppCompatActivity {
 
@@ -54,7 +53,7 @@ public class Login extends AppCompatActivity {
                             installation.put("userId", ParseUser.getCurrentUser().getObjectId());
                             installation.saveInBackground();
 
-                            Intent intent = new Intent(Login.this, Newsfeed.class);
+                            Intent intent = new Intent(Login.this, MainTabMenu.class);
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
 

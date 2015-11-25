@@ -18,7 +18,7 @@
         android:name="cs.software.engineering.jobthirsty.permission.C2D_MESSAGE" />
     <uses-permission android:name="cs.software.engineering.jobthirsty.permission.C2D_MESSAGE" />
 
-    <application
+    <activity
         android:name=".util.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -56,6 +56,9 @@
             android:name=".job_position.FindPositions"
             android:label="@string/title_activity_find_positions"
             android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".util.MainTabMenu">
         </activity>
         <activity
             android:name=".job_position.ViewJobPosition"
@@ -118,6 +121,6 @@
                 <category android:name="cs.software.engineering.jobthirsty" />
             </intent-filter>
         </receiver>
-    </application>
+    </activity>
 
 </manifest>
