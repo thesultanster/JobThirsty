@@ -1,10 +1,17 @@
 package cs.software.engineering.jobthirsty.profile;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,12 +23,17 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +54,11 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     //UI Variables
     private EditText location;
     private EditText biography;
+
+    // Profile Image Variables
+    private static final int SELECT_PICTURE = 1;
+    private ParseImageView profileImage;
+    static ParseFile parseFile;
 
     // Parent layout
     private RelativeLayout jobsParent;
@@ -102,6 +119,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         //Editable views
         location = (EditText) findViewById(R.id.location);
         biography = (EditText) findViewById(R.id.biography);
+        profileImage = (ParseImageView) findViewById(R.id.profileImage);
 
         //Parent layouts
         jobsParent = (RelativeLayout) findViewById(R.id.jobsParent);
@@ -137,6 +155,91 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                 }
             }
         });
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editable) {
+//                    edit profile image
+                    selectProfileImage();
+                }
+            }
+        });
+    }
+
+    private void selectProfileImage() {
+        Log.d("<selectImage>", "Select image");
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = (Uri) data.getData();
+                String selectedImagePath = getPath(selectedImageUri);
+                System.out.println("Image Path : " + selectedImagePath);
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
+
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+                bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+
+                parseFile = new ParseFile("test_photo.jpg", image);
+                profileImage.setParseFile(parseFile);
+                profileImage.loadInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        // The image is loaded and displayed!
+                    }
+                });
+
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                String dataId = (String) currentUser.get("dataId");
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("EmployerData");
+                query.getInBackground(dataId, new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (e == null) {
+                            try {
+                                //
+                                object.put("profileImage", parseFile);
+                                object.save();
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
+                            }
+                        } else {
+                            // something went wrong
+                        }
+                    }
+                });
+
+                // upload all images (for testing)
+                final ParseObject imageUpload = new ParseObject("ImageUpload");
+                imageUpload.put("ImageName", "Test Image");
+                imageUpload.put("ImageFile", parseFile);
+                imageUpload.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+//                        imageUploadId = imageUpload.getObjectId();
+                    }
+                });
+            }
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     private void sendDataToParse() {
@@ -185,7 +288,6 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                                 jobsData.add(row);
                             }
 
-
                             jobsParent.removeView(jobsSection);
                             jobsSection.setData(jobsData);
                             jobsParent.addView(jobsSection);
@@ -194,6 +296,22 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                         }
                     }
                 });
+
+                parseFile = dataRow.getParseFile("profileImage");
+                if (parseFile != null) {
+                    profileImage.setParseFile(parseFile);
+                    profileImage.loadInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            // The image is loaded and displayed!
+                            int oldHeight = profileImage.getHeight();
+                            int oldWidth = profileImage.getWidth();
+                            Log.v("LOG!!!!!!", "imageView height = " + oldHeight);      // DISPLAYS 90 px
+                            Log.v("LOG!!!!!!", "imageView width = " + oldWidth);        // DISPLAYS 90 px
+                        }
+                    });
+                } else {
+                    profileImage.setImageResource(R.drawable.profile_placeholder);
+                }
 
                 location.setText(locationData);
                 location.setEnabled(false);
