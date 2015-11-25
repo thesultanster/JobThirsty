@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.company_page;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,12 +47,12 @@ import cs.software.engineering.jobthirsty.R;
             final View view = inflator.inflate(R.layout.row_find_company, parent, false);
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
-                    /*
+
                     Intent intent = new Intent(context, ViewCompanyPage.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());
                     intent.putExtra("companyName", data.get(position).getCompanyTitle());
                     view.getContext().startActivity(intent);
-                    */
+
 
                 }
 

@@ -61,6 +61,11 @@
             android:label="@string/title_activity_job_position"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name=".company_page.ViewCompanyPage"
+            android:label="CompanyPage"
+            android:theme="@style/AppTheme" >
+        </activity>
         <activity android:name=".job_position.CreateJobPosition" >
         </activity>
         <activity
