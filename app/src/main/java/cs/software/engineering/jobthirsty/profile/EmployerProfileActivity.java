@@ -58,7 +58,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
     // Profile Image Variables
     private static final int SELECT_PICTURE = 1;
     private ParseImageView profileImage;
-    static ParseFile parseFile;
+    private static ParseFile parseFile;
 
     // Parent layout
     private RelativeLayout jobsParent;
@@ -237,6 +237,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         dataObject.saveInBackground();
 
     }
+
 
     //dataId need to be passed in to distinguish who's profile to load up
     private void retrieveDataFromParse(String dataId) {
