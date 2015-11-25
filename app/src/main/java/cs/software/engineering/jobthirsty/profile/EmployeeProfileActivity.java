@@ -80,12 +80,12 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private String lastName;
     private EditText location;
     private EditText biography;
-
     private String dataId;
 
 
     private String intenderFullName;
     private String receiverFullName;
+    private boolean newsFeedFound;
 
 
     //Debug Variables
@@ -280,10 +280,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //get first and last name for both intender and receiver
-                final ParseQuery<ParseObject> nameQuery = ParseQuery.getQuery("User");
-
-
                 //check if the connection row already exists (presser is intender)
                 ParseQuery<ParseObject> q = ParseQuery.getQuery("Connections");
                 q.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
@@ -298,12 +294,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                             // receiver
                             receiverFullName = firstName + " " + lastName;
 
+
+                            //first, check if you added him already
                             //find current profile's username (receiver)
-                            ParseQuery<ParseUser> tmpQ = ParseUser.getQuery();
-                            tmpQ.getInBackground(userId, new GetCallback<ParseUser>() {
+                            ParseQuery<ParseUser> userQ = ParseUser.getQuery();
+                            userQ.getInBackground(userId, new GetCallback<ParseUser>() {
                                 @Override
                                 public void done(ParseUser parseUser, ParseException e) {
-                                    String currentUserReceiver = parseUser.get("username").toString();
+                                    final String currentUserReceiver = parseUser.get("username").toString();
 
                                     //iterate through each connection found
                                     for (ParseObject c : connections) {
@@ -315,82 +313,48 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                         }
                                     }
 
-                                    //if found, it should be returned out already
-                                    // not found yet
+                                    //if you added him already, you would've returned out
+                                    // second, check if he added you (checking otherway around)
+                                    // (presser is the receiver)
+                                    ParseQuery<ParseObject> intenderQ = ParseQuery.getQuery("Connections");
+                                    intenderQ.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
 
-                                    //create new connection row
-                                    ParseObject connection = new ParseObject("Connections");
-                                    connection.put("handshake", false);
-                                    connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-                                    connection.put("receiverName", currentUserReceiver);
-                                    connection.put("intenderFullName", intenderFullName);
-                                    connection.put("receiverFullName", receiverFullName);
-                                    connection.saveInBackground();
-                                }
-                            });
-                        } else {
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                                    intenderQ.findInBackground(new FindCallback<ParseObject>() {
+                                        @Override
+                                        public void done(List<ParseObject> list, ParseException e) {
+                                            //iterate through each connection found
+                                            for (ParseObject c : list) {
+                                                String receiverName = c.get("intenderName").toString();
 
-                //check if the connection row already exists (presser is the receiver)
-                ParseQuery<ParseObject> q1 = ParseQuery.getQuery("Connections");
-                q1.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
+                                                //found (accepting the request)
+                                                if (receiverName.equals(currentUserReceiver)) {
+                                                    c.put("handshake", true);
+                                                    c.saveInBackground();
 
-                q1.findInBackground(new FindCallback<ParseObject>() {
-                    public void done(final List<ParseObject> connections, ParseException e) {
-                        if (e == null) {
-                            //that person did not add you
-                            if (connections.size() == 0)
-                                return;
+                                                    //add newsfeed row
+                                                    ParseObject newsfeed = new ParseObject("Newsfeed");
+                                                    newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
+                                                    newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
+                                                    newsfeed.saveInBackground();
+                                                    return;
+                                                }
+                                            }
 
-
-                            //get full name
-                            // intender
-                            intenderFullName = firstName + " " + lastName;
-
-                            // receiver
-                            receiverFullName = ParseUser.getCurrentUser().get("firstName").toString() + " " + ParseUser.getCurrentUser().get("lastName").toString();
-
-                            //find current profile's username (receiver)
-                            ParseQuery<ParseUser> tmpQ = ParseUser.getQuery();
-                            tmpQ.getInBackground(userId, new GetCallback<ParseUser>() {
-                                @Override
-                                public void done(ParseUser parseUser, ParseException e) {
-                                    String currentUserReceiver = parseUser.get("username").toString();
-
-                                    //iterate through each connection found
-                                    for (ParseObject c : connections) {
-                                        String receiverName = c.get("intenderName").toString();
-
-                                        //found (accepting the request)
-                                        if (receiverName.equals(currentUserReceiver)) {
-                                            c.put("handshake", true);
-                                            c.saveInBackground();
-
-                                            //add newsfeed row
-                                            ParseObject newsfeed = new ParseObject("Newsfeed");
-                                            newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-                                            newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
-                                            newsfeed.saveInBackground();
-                                            return;
+                                            //no one found, add him
+                                            //  so send him friend request
+                                            //  create new connection row
+                                            ParseObject connection = new ParseObject("Connections");
+                                            connection.put("handshake", false);
+                                            connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
+                                            connection.put("receiverName", currentUserReceiver);
+                                            connection.put("intenderFullName", intenderFullName);
+                                            connection.put("receiverFullName", receiverFullName);
+                                            connection.saveInBackground();
                                         }
                                     }
-
-                                    //if found, it should be returned out already
-                                    // not found yet
-
-                                    //create new connection row
-                                    ParseObject connection = new ParseObject("Connections");
-                                    connection.put("handshake", false);
-                                    connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-                                    connection.put("receiverName", currentUserReceiver);
-                                    connection.put("intenderFullName", intenderFullName);
-                                    connection.put("receiverFullName", receiverFullName);
-                                    connection.saveInBackground();
-                                }
-                            });
+                                );
+                            }
+                        });
                         } else {
                             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                         }
