@@ -33,47 +33,73 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/navigation_icon"
-                        android:layout_width="39.5dp"
-                        android:layout_height="39.5dp"
-                        android:padding="10dp"
-                        android:src="@mipmap/navigation_icon_green" />
-
                     <EditText
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/navigation_icon"
                         android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="20dp"
                         android:paddingTop="10dp"
+                        android:layout_toRightOf="@+id/navigation_icon"
+                        android:layout_marginBottom="10dp"
                         android:background="#FFffffff"
                         android:hint="[Location]"
                         android:textColor="@color/primaryText"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:editable="false"
-                        android:ems="18"/>
+                        />
+
+                    <ImageView
+                        android:id="@+id/navigation_icon"
+                        android:layout_width="39.5dp"
+                        android:layout_height="39.5dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:padding="10dp"
+                        android:src="@mipmap/navigation_icon_green" />
+
+                    <TextView
+                        android:id="@+id/aboutTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/location"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="ABOUT"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/biography"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/location"
+                        android:layout_below="@+id/aboutTitle"
                         android:paddingBottom="10dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingTop="5dp"
                         android:background="#FFffffff"
-                        android:hint="[Biography]"
+                        android:hint="[About me]"
                         android:textColor="@color/primaryText"
                         android:textSize="15sp"
                         android:editable="false"
+                        android:lineSpacingMultiplier="1.5"
                         android:inputType="textMultiLine"/>
-
                 </RelativeLayout>
             </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/divider"/>
 
             <!-- Beginning of sections -->
             <LinearLayout
@@ -86,28 +112,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:id="@+id/skillsIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_alignParentStart="true"
-                        android:src="@mipmap/skills"/>
-
                     <TextView
                         android:id="@+id/skillsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_below="@+id/location"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/skillsIcon"
-                        android:text="Skills"
-                        android:textColor="@color/primaryText"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="10dp"
+                        android:text="SKILLS"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <ImageButton
                         android:id="@+id/skillsEditBtn"
@@ -118,11 +134,6 @@
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
 
-                    <!-- Filler -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="5dp"
-                        android:layout_below="@+id/skillsIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -131,27 +142,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:id="@+id/experienceIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_alignParentStart="true"
-                        android:src="@mipmap/experience" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/experienceIcon"
-                        android:text="Experience"
-                        android:textColor="@color/primaryText"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="10dp"
+                        android:text="EXPERIENCE"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <ImageButton
                         android:id="@+id/experienceEditBtn"
@@ -162,11 +162,6 @@
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
 
-                    <!-- Filler -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="5dp"
-                        android:layout_below="@+id/experienceIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -175,28 +170,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:id="@+id/projectsIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_alignParentStart="true"
-                        android:src="@mipmap/projects" />
-
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/projectsIcon"
-                        android:text="Projects"
-                        android:textColor="@color/primaryText"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="10dp"
+                        android:text="PROJECTS"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <ImageButton
                         android:id="@+id/projectsEditBtn"
@@ -207,11 +190,6 @@
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
 
-                    <!-- Filler -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="5dp"
-                        android:layout_below="@+id/projectsIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -220,26 +198,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:id="@+id/educationIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@mipmap/education" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/educationIcon"
-                        android:text="Education"
-                        android:textColor="@color/primaryText"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="10dp"
+                        android:text="EDUCATION"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <ImageButton
                         android:id="@+id/educationEditBtn"
@@ -250,12 +218,8 @@
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
 
-                    <!-- Filler -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="5dp"
-                        android:layout_below="@+id/educationIcon"/>
                 </RelativeLayout>
+
 
                 <RelativeLayout
                     android:id="@+id/activitiesParent"
@@ -263,26 +227,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:id="@+id/activitiesIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@mipmap/activities" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/activitiesIcon"
-                        android:text="Activities"
-                        android:textColor="@color/primaryText"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="10dp"
+                        android:text="ACTIVITIES"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <ImageButton
                         android:id="@+id/activitiesEditBtn"
@@ -292,12 +246,6 @@
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
-
-                    <!-- Filler -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="5dp"
-                        android:layout_below="@+id/activitiesIcon"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -306,26 +254,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:id="@+id/awardsIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@mipmap/awards" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/awardsIcon"
-                        android:text="Awards"
-                        android:textColor="@color/primaryText"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="10dp"
+                        android:text="AWARDS"
+                        android:textColor="@color/titleText"
+                        android:textSize="16sp" />
 
                     <ImageButton
                         android:id="@+id/awardsEditBtn"
@@ -336,11 +274,6 @@
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
 
-                    <!-- Filler -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="5dp"
-                        android:layout_below="@+id/awardsIcon"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -379,11 +312,11 @@
 
             <TextView
                 android:id="@+id/editProfileBtn"
-                android:layout_width="100sp"
+                android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:layout_marginRight="45sp"
-                android:layout_marginBottom="5sp"
-                android:text="Edit Profile"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="15dp"
+                android:text="Edit"
                 android:gravity="center"
                 android:textColor="@color/cloud"
                 android:layout_gravity="bottom|right"/>
@@ -403,3 +336,4 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
+<!-- From: file:/Users/jon/jobthirsty/app/src/main/res/layout/activity_employee_profile.xml -->

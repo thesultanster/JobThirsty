@@ -1,7 +1,9 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -16,14 +18,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Queue;
 
-import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.StringParser;
 
 
@@ -218,6 +215,7 @@ public class SkillsSection extends ProfileSection {
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        etLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
         etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
@@ -226,10 +224,13 @@ public class SkillsSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
+        et.setPadding(0, 0, 0, 0);
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
         et.setEnabled(enabled);
         et.setHint("[Skill]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+
 
         if(enabled) {
             et.requestFocus(); //put on cursor
@@ -249,16 +250,22 @@ public class SkillsSection extends ProfileSection {
         RelativeLayout.LayoutParams endorseCountLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
+        endorseCountLayoutParams.setMargins(0, 10, 0, 10);
         endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, list.size() + 1000);
+        endorseCountLayoutParams.addRule(RelativeLayout.LEFT_OF, list.size() + 1000);
+
 
         final TextView endorseEt = new TextView(context);
         endorseEt.setLayoutParams(endorseCountLayoutParams);
         endorseEt.setEms(1);
+        endorseEt.setBackgroundColor(0xFF53DED1);
         endorseEt.setWidth(100);
         endorseEt.setHeight(100);
-        endorseEt.setTextColor(0xFF000000);
+        endorseEt.setTextColor(0xffffffff);
         endorseEt.setText("0");
+        endorseEt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         endorseEt.setGravity(Gravity.CENTER);
+        endorseEt.setTypeface(Typeface.DEFAULT_BOLD);
 
         if(enabled) {
             endorseEt.setVisibility(INVISIBLE); //initially invisible
