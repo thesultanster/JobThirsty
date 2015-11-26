@@ -13,7 +13,6 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
-import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 import cs.software.engineering.jobthirsty.util.MainTabMenu;
 
 public class Login extends AppCompatActivity {
@@ -30,7 +29,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if (ParseUser.getCurrentUser() != null) {
-            Intent intent = new Intent(this, Newsfeed.class);
+            Intent intent = new Intent(this, MainTabMenu.class);
             startActivity(intent);
             finish();
         }
