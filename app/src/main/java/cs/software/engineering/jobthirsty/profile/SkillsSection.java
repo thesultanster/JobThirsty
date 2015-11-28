@@ -124,26 +124,22 @@ public class SkillsSection extends ProfileSection {
             }
             //need to fetch from db if there are any endorsements
             else {
-                ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+//                ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
                 //q.whereEqualTo("dataId", dataId);
-                try {
-                    ParseObject dataRow = q.get(dataId);
-                    //TODO: continue
-                    ArrayList<String> skills = (ArrayList<String>) dataRow.get("skills");
-                    ArrayList<ArrayList<String>> skillsList = (new StringParser(skills, false)).getParsed();
-                    for(int j = 0; j < skillsList.size(); ++j) {
-                        ArrayList<String> skillRow = skillsList.get(j);
-                        String cmpName = skillRow.get(0).toString();
-                        if (skillName.equals(cmpName)) {
-                            data.add(skills.get(i));
-                            break;
-                        }
+//                    ParseObject dataRow = q.get(dataId);
+
+                //TODO: continue
+                ArrayList<String> skills = (ArrayList<String>) dataObject.get("skills");
+                ArrayList<ArrayList<String>> skillsList = (new StringParser(skills, false)).getParsed();
+                for(int j = 0; j < skillsList.size(); ++j) {
+                    ArrayList<String> skillRow = skillsList.get(j);
+                    String cmpName = skillRow.get(0).toString();
+                    if (skillName.equals(cmpName)) {
+                        data.add(skills.get(i));
+                        break;
                     }
-
                 }
-                catch (ParseException e) {
 
-                }
 /*
                 q.getInBackground(dataId, new GetCallback<ParseObject>() {
                     @Override
@@ -183,19 +179,24 @@ public class SkillsSection extends ProfileSection {
             addElement(skillText, isOwnerUser, false);
         }
 
-        //update the endorses
-        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
-        q.getInBackground(dataId, new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject dataRow, ParseException e) {
-                ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
-                updateEndorse(data);
-            }
-        });
+//        //update the endorses
+//        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+//        q.getInBackground(dataId, new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject dataRow, ParseException e) {
+//                ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
+//                updateEndorse(data);
+//            }
+//        });
+        ArrayList<String> dataList = (ArrayList<String>) dataObject.get("skills");
+        updateEndorse(dataList);
     }
 
     //setter for dataId
     public void setDataId(String dataId) { this.dataId = dataId; }
+
+    //setter for dataId
+    public void setDataObject(ParseObject dataObject) { this.dataObject = dataObject; }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -292,35 +293,59 @@ public class SkillsSection extends ProfileSection {
                     //final to put it in getInBackground
                     final int rowCount = foundIndex;
 
-                    //get dataRow
-                    ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
-                    q.getInBackground(dataId, new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(ParseObject dataRow, ParseException e) {
-                            ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
-                            ArrayList<ArrayList<String>> endorsedUsers = getEndorsedUsers(data);
 
-                            //remove if this user exists, unendorse
-                            ArrayList<String> row = endorsedUsers.get(rowCount);
-                            boolean removed = false;
-                            for (int i = 0; i < row.size(); ++i) {
-                                //found
-                                if (row.get(i).equals(ParseUser.getCurrentUser().get("dataId").toString())) {
-                                    row.remove(row.get(i));
-                                    removed = true;
-                                    break;
-                                }
-                            }
+                    ArrayList<String> data = (ArrayList<String>) dataObject.get("skills");
+                    ArrayList<ArrayList<String>> endorsedUsers = getEndorsedUsers(data);
 
-                            //this user wasn't listed under the endorse list, endorse
-                            if (!removed) {
-                                row.add(ParseUser.getCurrentUser().get("dataId").toString());
-                            }
-
-                            data = updateData(data, endorsedUsers);
-                            updateEndorse(data);
+                    //remove if this user exists, unendorse
+                    ArrayList<String> row = endorsedUsers.get(rowCount);
+                    boolean removed = false;
+                    for (int i = 0; i < row.size(); ++i) {
+                        //found
+                        if (row.get(i).equals(ParseUser.getCurrentUser().get("dataId").toString())) {
+                            row.remove(row.get(i));
+                            removed = true;
+                            break;
                         }
-                    });
+                    }
+
+                    //this user wasn't listed under the endorse list, endorse
+                    if (!removed) {
+                        row.add(ParseUser.getCurrentUser().get("dataId").toString());
+                    }
+
+                    data = updateData(data, endorsedUsers);
+                    updateEndorse(data);
+
+//                    //get dataRow
+//                    ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+//                    q.getInBackground(dataId, new GetCallback<ParseObject>() {
+//                        @Override
+//                        public void done(ParseObject dataRow, ParseException e) {
+//                            ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
+//                            ArrayList<ArrayList<String>> endorsedUsers = getEndorsedUsers(data);
+//
+//                            //remove if this user exists, unendorse
+//                            ArrayList<String> row = endorsedUsers.get(rowCount);
+//                            boolean removed = false;
+//                            for (int i = 0; i < row.size(); ++i) {
+//                                //found
+//                                if (row.get(i).equals(ParseUser.getCurrentUser().get("dataId").toString())) {
+//                                    row.remove(row.get(i));
+//                                    removed = true;
+//                                    break;
+//                                }
+//                            }
+//
+//                            //this user wasn't listed under the endorse list, endorse
+//                            if (!removed) {
+//                                row.add(ParseUser.getCurrentUser().get("dataId").toString());
+//                            }
+//
+//                            data = updateData(data, endorsedUsers);
+//                            updateEndorse(data);
+//                        }
+//                    });
                 }
             });
         }

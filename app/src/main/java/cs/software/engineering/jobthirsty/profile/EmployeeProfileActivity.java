@@ -1,11 +1,18 @@
 package cs.software.engineering.jobthirsty.profile;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,12 +26,17 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +56,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //FAB
     private FloatingActionButton fab;
 
-
     //Parent layout
     private RelativeLayout skillsParent;
     private RelativeLayout experienceParent;
@@ -61,6 +72,11 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ActivitiesSection activitiesSection;
     private AwardSection awardsSection;
 
+    // Profile Image Variables
+    private static final int SELECT_PICTURE = 1;
+    private ParseImageView profileImage;
+    private static ParseFile parseFile;
+
     //Entire Edit button
     private TextView editProfileBtn;
     private boolean editable;
@@ -73,7 +89,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ImageButton activitiesEditBtn;
     private ImageButton awardsEditBtn;
 
-
     //Employee Data Variables
     private String userId;
     private String firstName;
@@ -81,11 +96,13 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private EditText location;
     private EditText biography;
     private String dataId;
-
+    private ParseUser user;
+    private ParseObject dataObject;
 
     private String intenderFullName;
     private String receiverFullName;
     private boolean newsFeedFound;
+    private boolean isOwnerUser;
 
 
     //Debug Variables
@@ -135,6 +152,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
         collapsingToolbarLayout.setExpandedTitleColor(0xFFffffff);
 
+        profileImage = (ParseImageView) findViewById(R.id.profileImage);
 
         //Edit button
         editProfileBtn = (TextView) findViewById(R.id.editProfileBtn);
@@ -319,47 +337,60 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                                     ParseQuery<ParseObject> intenderQ = ParseQuery.getQuery("Connections");
                                     intenderQ.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
 
-                                    intenderQ.findInBackground(new FindCallback<ParseObject>() {
-                                        @Override
-                                        public void done(List<ParseObject> list, ParseException e) {
-                                            //iterate through each connection found
-                                            for (ParseObject c : list) {
-                                                String receiverName = c.get("intenderName").toString();
+                                    intenderQ.findInBackground(
+                                        new FindCallback<ParseObject>() {
+                                            @Override
+                                            public void done(List<ParseObject> list, ParseException e) {
 
-                                                //found (accepting the request)
-                                                if (receiverName.equals(currentUserReceiver)) {
-                                                    c.put("handshake", true);
-                                                    c.saveInBackground();
+                                                //iterate through each connection found
+                                                for (ParseObject c : list) {
+                                                    String receiverName = c.get("intenderName").toString();
 
-                                                    //add newsfeed row
-                                                    ParseObject newsfeed = new ParseObject("Newsfeed");
-                                                    newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-                                                    newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
-                                                    newsfeed.saveInBackground();
-                                                    return;
+                                                    //found (accepting the request)
+                                                    if (receiverName.equals(currentUserReceiver)) {
+                                                        c.put("handshake", true);
+                                                        c.saveInBackground();
+
+                                                        //add newsfeed row
+                                                        ParseObject newsfeed = new ParseObject("Newsfeed");
+                                                        newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
+                                                        newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
+                                                        newsfeed.saveInBackground();
+                                                        return;
+                                                    }
                                                 }
-                                            }
 
-                                            //no one found, add him
-                                            //  so send him friend request
-                                            //  create new connection row
-                                            ParseObject connection = new ParseObject("Connections");
-                                            connection.put("handshake", false);
-                                            connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-                                            connection.put("receiverName", currentUserReceiver);
-                                            connection.put("intenderFullName", intenderFullName);
-                                            connection.put("receiverFullName", receiverFullName);
-                                            connection.saveInBackground();
+                                                //no one found, add him
+                                                //  so send him friend request
+                                                //  create new connection row
+                                                ParseObject connection = new ParseObject("Connections");
+                                                connection.put("handshake", false);
+                                                connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
+                                                connection.put("receiverName", currentUserReceiver);
+                                                connection.put("intenderFullName", intenderFullName);
+                                                connection.put("receiverFullName", receiverFullName);
+                                                connection.saveInBackground();
+                                            }
                                         }
-                                    }
-                                );
-                            }
-                        });
+                                    );
+                                }
+                            });
                         } else {
                             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+            }
+        });
+
+        //profile image upload
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editable) {
+                    //edit profile image
+                    selectProfileImage();
+                }
             }
         });
     }
@@ -384,6 +415,66 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsEditBtn.setVisibility(View.INVISIBLE);
     }
 
+    private void selectProfileImage() {
+        Log.d("<selectImage>", "Select image");
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = (Uri) data.getData();
+                String selectedImagePath = getPath(selectedImageUri);
+                System.out.println("Image Path : " + selectedImagePath);
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
+
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+                bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+
+                parseFile = new ParseFile("test_photo.jpg", image);
+                profileImage.setParseFile(parseFile);
+                profileImage.loadInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        // The image is loaded and displayed!
+                        dataObject.put("profileImage", parseFile);
+                        dataObject.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                // upload all images (for testing)
+                                final ParseObject imageUpload = new ParseObject("ImageUpload");
+                                imageUpload.put("ImageName", "Test Image");
+                                imageUpload.put("ImageFile", parseFile);
+                                imageUpload.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+            }
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
     private void sendDataToParse()
     {
         final String locationData = location.getText().toString();
@@ -396,32 +487,44 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         final ArrayList<String> activitiesData = activitiesSection.getData();
         final ArrayList<String> awardsData = awardsSection.getData();
 
+        dataObject.put("location", locationData);
+        dataObject.put("biography", biographyData);
 
-        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
-        q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject dataRow, ParseException e) {
-                dataRow.put("location", locationData);
-                dataRow.put("biography", biographyData);
+        dataObject.put("skills", skillsData);
+        dataObject.put("experience", experienceData);
+        dataObject.put("projects", projectData);
+        dataObject.put("education", educationData);
+        dataObject.put("activities", activitiesData);
+        dataObject.put("awards", awardsData);
+        dataObject.saveInBackground();
 
-                dataRow.put("skills", skillsData);
-                dataRow.put("experience", experienceData);
-                dataRow.put("projects", projectData);
-                dataRow.put("education", educationData);
-                dataRow.put("activities", activitiesData);
-                dataRow.put("awards", awardsData);
-                dataRow.saveInBackground();
-            }
-        });
+//        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+//        q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject dataRow, ParseException e) {
+//                dataRow.put("location", locationData);
+//                dataRow.put("biography", biographyData);
+//
+//                dataRow.put("skills", skillsData);
+//                dataRow.put("experience", experienceData);
+//                dataRow.put("projects", projectData);
+//                dataRow.put("education", educationData);
+//                dataRow.put("activities", activitiesData);
+//                dataRow.put("awards", awardsData);
+//                dataRow.saveInBackground();
+//            }
+//        });
     }
 
     //dataId need to be passed in to distinguish who's profile to load up
-    private void retrieveDataFromParse(final String dataId, final boolean isOwnerUser)
+    private void retrieveDataFromParse(final String dataId)
     {
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject dataRow, ParseException e) {
+                dataObject = dataRow;
+
                 String locationData = dataRow.get("location").toString();
                 String biographyData = dataRow.get("biography").toString();
 
@@ -438,6 +541,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 biography.setEnabled(false);
 
                 skillsParent.removeView(skillsSection);
+                //only enabled when viewing someone else's profile
+                skillsSection.setDataObject(dataRow);
                 skillsSection.setData(skillsData, isOwnerUser);
                 skillsParent.addView(skillsSection);
 
@@ -460,6 +565,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 awardsParent.removeView(awardsSection);
                 awardsSection.setData(awardsData);
                 awardsParent.addView(awardsSection);
+
+                //download and display profile image
+                parseFile = dataRow.getParseFile("profileImage");
+                if (parseFile != null) {
+                    profileImage.setParseFile(parseFile);
+                    profileImage.loadInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            // The image is downloaded and displayed
+                        }
+                    });
+                } else {
+                    profileImage.setImageResource(R.drawable.profile_placeholder);
+                }
             }
         });
     }
@@ -467,8 +585,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     //Load profile page
     private void loadProfilePage()
     {
-        Bundle extras = getIntent().getExtras();
-        userId = extras.getString("userId");
+//        Bundle extras = getIntent().getExtras();
+//        userId = extras.getString("userId");
+        userId = getIntent().getExtras().getString("userId");
 
         //fetch all user variables with userId
         ParseQuery<ParseUser> q = ParseUser.getQuery();
@@ -482,8 +601,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 //set profile owner's data id
                 skillsSection.setDataId(dataId);
 
-
-                boolean isOwnerUser = ParseUser.getCurrentUser().get("dataId").equals(dataId);
+                isOwnerUser = ParseUser.getCurrentUser().getObjectId().equals(userId);
+//                boolean isOwnerUser = ParseUser.getCurrentUser().get("dataId").equals(dataId);
 
                 // if user is seeing their own profile then hide connection fab
                 if (isOwnerUser) {
@@ -498,7 +617,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 //display profile's name
                 collapsingToolbarLayout.setTitle(firstName + " " + lastName);
 
-                retrieveDataFromParse(dataId, isOwnerUser);
+                retrieveDataFromParse(dataId);
             }
         });
     }

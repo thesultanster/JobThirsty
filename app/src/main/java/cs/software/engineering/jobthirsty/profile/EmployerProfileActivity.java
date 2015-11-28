@@ -158,7 +158,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View view) {
                 if (editable) {
-//                    edit profile image
+                    //edit profile image
                     selectProfileImage();
                 }
             }

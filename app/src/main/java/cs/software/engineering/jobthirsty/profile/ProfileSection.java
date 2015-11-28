@@ -7,6 +7,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import java.util.ArrayList;
 
 import cs.software.engineering.jobthirsty.R;
@@ -25,6 +28,7 @@ public class ProfileSection extends LinearLayout {
     //List for holding elements
     protected ArrayList<RelativeLayout> list;
     protected String dataId;
+    protected ParseObject dataObject;
 
     //CONSTRUCTORS [START] -------------------------------------------------------------------------
     public ProfileSection(Context context){
