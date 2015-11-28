@@ -1,12 +1,9 @@
 package cs.software.engineering.jobthirsty.newsfeed;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 import cs.software.engineering.jobthirsty.util.PageFragment.PageFragment;
 
 public class Newsfeed extends Fragment {
@@ -56,7 +52,8 @@ public class Newsfeed extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        View v = new View(getContext());
+        super.onActivityCreated(savedInstanceState);
+        View v = getView();
 
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         adapter = new NewsfeedRecyclerAdapter(getContext(), new ArrayList<NewsfeedRecyclerInfo>());

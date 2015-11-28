@@ -3,9 +3,6 @@ package cs.software.engineering.jobthirsty.connections;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-/**
- * Created by sultankhan on 10/14/15.
- */
 public class ConnectionsRecyclerInfo {
 
     ParseObject connection;
@@ -21,10 +18,13 @@ public class ConnectionsRecyclerInfo {
     }
 
     public String getName(){
-        String intenderName = connection.get("intenderFullName").toString();
-        String receiverName = connection.get("receiverFullName").toString();
+        String intenderFullName = connection.get("intenderFullName").toString();
+        String receiverFullName = connection.get("receiverFullName").toString();
 
-        return ParseUser.getCurrentUser().getUsername() == intenderName ? intenderName : receiverName;
+        //compare username
+        String intenderName = connection.get("intenderName").toString();
+
+        return ParseUser.getCurrentUser().getUsername().equals(intenderName) ? receiverFullName : intenderFullName;
     }
 
     public String getParseObjectId() {
