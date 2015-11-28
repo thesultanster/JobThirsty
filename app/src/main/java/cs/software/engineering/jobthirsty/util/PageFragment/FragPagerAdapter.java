@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-import cs.software.engineering.jobthirsty.connections.Connections;
 import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 
 /** FragmentPagerAdapter
@@ -30,17 +29,7 @@ public class FragPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        Newsfeed tab1 = new Newsfeed();
-        switch (position) {
-            case 0:
-                return tab1;
-            case 1:
-                return tab1;
-            case 2:
-                return new Connections();
-            default:
-                return null;
-        }
+        return Newsfeed.newInstance(position + 1);
     }
 
     @Override

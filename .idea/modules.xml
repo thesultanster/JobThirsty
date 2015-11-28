@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JobThirsty.iml" filepath="$PROJECT_DIR$/JobThirsty.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleBasic/ParseLoginSampleBasic.iml" filepath="$PROJECT_DIR$/ParseLoginSampleBasic/ParseLoginSampleBasic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleCodeCustomization/ParseLoginSampleCodeCustomization.iml" filepath="$PROJECT_DIR$/ParseLoginSampleCodeCustomization/ParseLoginSampleCodeCustomization.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleLayoutOverride/ParseLoginSampleLayoutOverride.iml" filepath="$PROJECT_DIR$/ParseLoginSampleLayoutOverride/ParseLoginSampleLayoutOverride.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseLoginSampleWithDispatchActivity/ParseLoginSampleWithDispatchActivity.iml" filepath="$PROJECT_DIR$/ParseLoginSampleWithDispatchActivity/ParseLoginSampleWithDispatchActivity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseUI-Login/ParseUI-Login.iml" filepath="$PROJECT_DIR$/ParseUI-Login/ParseUI-Login.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ParseUI-Widget/ParseUI-Widget.iml" filepath="$PROJECT_DIR$/ParseUI-Widget/ParseUI-Widget.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/job-thirsty.iml" filepath="$PROJECT_DIR$/job-thirsty.iml" />
     </modules>
   </component>
 </project>
