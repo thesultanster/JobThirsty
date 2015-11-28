@@ -1,9 +1,13 @@
 package cs.software.engineering.jobthirsty.connections;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -19,22 +23,50 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cs.software.engineering.jobthirsty.R;
+import cs.software.engineering.jobthirsty.util.PageFragment.PageFragment;
 
-public class Connections extends AppCompatActivity {
+public class Connections extends Fragment {
 
     private RecyclerView recyclerView;
     private ConnectionsRecyclerAdapter adapter;
+    private static final String ARG_PAGE = "ARG_PAGE";
+    private Map<String, String> connObjectIDs;
+    int page;
+
+    public static PageFragment newInstance(int page) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        PageFragment fragment = new PageFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connections);
+        if (getArguments() != null) {
+            page = getArguments().getInt(ARG_PAGE);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        return inflater.inflate(R.layout.activity_connections, container, false);
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        View v = getView();
 
         // RecyclerView
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new ConnectionsRecyclerAdapter(Connections.this, new ArrayList<ConnectionsRecyclerInfo>());
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        adapter = new ConnectionsRecyclerAdapter(getContext(), new ArrayList<ConnectionsRecyclerInfo>());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(Connections.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Parse Query
         ParseQuery<ParseObject> intenderQuery = ParseQuery.getQuery("Connections");
@@ -53,33 +85,24 @@ public class Connections extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> connections, ParseException e) {
                 if (e == null) {
-
-                    Toast.makeText(getApplicationContext(), String.valueOf(connections.size()), Toast.LENGTH_SHORT).show();
-                    Map<String, String> map = new HashMap<String, String>();
+                    Toast.makeText(getActivity(), String.valueOf(connections.size()), Toast.LENGTH_SHORT).show();
 
                     for (ParseObject c : connections) {
-                        String intenderName = c.get("intenderName").toString();
-                        String receivername = c.get("receiverName").toString();
-
-                        if (!map.containsKey(intenderName) && !map.containsKey(receivername)) {
-                            //add new row for each connection found
+                        //duplication check (only add if it doesn't exists
+                        if(!connObjectIDs.containsKey(c.getObjectId())) {
                             adapter.addRow(new ConnectionsRecyclerInfo(c));
-                            if (!map.containsKey(intenderName)) {
-                                map.put(intenderName, " ");
-                            }
-                            if (!map.containsKey(receivername)) {
-                                map.put(receivername, "");
-                            }
+                            connObjectIDs.put(c.getObjectId(), "");
                         }
                     }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
+        connObjectIDs = new HashMap<>();
     }
 
 }
