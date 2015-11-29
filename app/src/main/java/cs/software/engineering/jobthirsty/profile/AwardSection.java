@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -141,6 +142,8 @@ public class AwardSection extends ProfileSection {
         et.setEnabled(enabled);
         et.setHint("[Award]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+
 
         if(enabled) {
             et.requestFocus(); //put on cursor

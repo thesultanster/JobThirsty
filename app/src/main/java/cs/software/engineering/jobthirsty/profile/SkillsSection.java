@@ -217,6 +217,7 @@ public class SkillsSection extends ProfileSection {
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+//        etLayoutParams.setMargins(0, 0, 0, 0);
         etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
 
         //set up EditText
@@ -225,7 +226,7 @@ public class SkillsSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setPadding(0, 0, 0, 0);
+        et.setPadding(10, 0, 0, 0);
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
         et.setEnabled(enabled);
         et.setHint("[Skill]");

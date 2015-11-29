@@ -1,7 +1,9 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -179,10 +181,13 @@ public class EducationSection extends ProfileSection {
         et.setBackground(null);
         et.setTextColor(0xFF000000);
         et.setSingleLine();
-        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.27)));
+        et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
         et.setEnabled(enabled);
         et.setHint("[School]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        et.setTypeface(Typeface.DEFAULT_BOLD);
+
 
         if(enabled) {
             et.requestFocus(); //put on cursor
@@ -218,6 +223,7 @@ public class EducationSection extends ProfileSection {
         et.setEnabled(enabled);
         et.setHint("[Major]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
         if(!educationMajor.equals("")) {
             et.setText(educationMajor);
@@ -242,13 +248,13 @@ public class EducationSection extends ProfileSection {
         et.setLayoutParams(etLayoutParams);
         et.setBackground(null);
         et.setTextColor(0xFF000000);
-        et.setEms(2);
+        et.setEms(4);
         et.setSingleLine();
         et.setEnabled(enabled);
         et.setHint("[GPA]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
         if(!educationGPA.equals("")) {
             et.setText(educationGPA);
             et.setVisibility(VISIBLE); //set visible when loaded

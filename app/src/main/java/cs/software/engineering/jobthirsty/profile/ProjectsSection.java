@@ -1,6 +1,8 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -159,6 +161,8 @@ public class ProjectsSection extends ProfileSection {
         et.setEnabled(enabled);
         et.setHint("[Project]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        et.setTypeface(Typeface.DEFAULT_BOLD);
 
         if(enabled) {
             et.requestFocus(); //put on cursor
@@ -179,7 +183,7 @@ public class ProjectsSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
-        tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*(0.05)), 0, 0, 0);
+        tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 10);
 
         //set up EditText
         final EditText et = new EditText(context);
@@ -190,6 +194,8 @@ public class ProjectsSection extends ProfileSection {
         et.setEnabled(enabled);
         et.setHint("[Description]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        et.setLineSpacing(0, 1.5f);
 
         if(!projectDeescription.equals("")) {
             et.setText(projectDeescription);

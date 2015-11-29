@@ -1,6 +1,8 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -150,6 +152,7 @@ public class ExperienceSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//        etLayoutParams.setMargins(0, 0, 0, 0);
         etLayoutParams.setMargins((int) (displayMetrics.widthPixels * 0.025), 0, 0, 0);
 
         //set up EditText
@@ -162,6 +165,8 @@ public class ExperienceSection extends ProfileSection {
         et.setEnabled(enabled);
         et.setHint("[Experience]");
         et.setHintTextColor(0xFF808080);
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        et.setTypeface(Typeface.DEFAULT_BOLD);
 
         if(enabled) {
             et.requestFocus(); //put on cursor
@@ -182,7 +187,7 @@ public class ExperienceSection extends ProfileSection {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         tmpLayoutParams.addRule(RelativeLayout.BELOW, list.size() + 1000);
-        tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*(0.05)), 0, 0, 0);
+        tmpLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 10);
 
         //set up EditText
         final EditText et = new EditText(context);
@@ -192,6 +197,8 @@ public class ExperienceSection extends ProfileSection {
         et.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.35)));
         et.setEnabled(enabled);
         et.setHint("[Description]");
+        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        et.setLineSpacing(0, 1.5f);
         et.setHintTextColor(0xFF808080);
 
         if(!experienceDescription.equals("")) {

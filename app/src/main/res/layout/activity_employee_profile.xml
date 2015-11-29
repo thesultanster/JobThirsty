@@ -70,7 +70,7 @@
                         android:layout_marginBottom="10dp"
                         android:text="ABOUT"
                         android:textColor="@color/titleText"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/biography"
@@ -123,7 +123,7 @@
                         android:layout_marginBottom="10dp"
                         android:text="SKILLS"
                         android:textColor="@color/titleText"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/skillsEditBtn"
@@ -135,6 +135,16 @@
                         android:background="@drawable/plus"/>
 
                 </RelativeLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/divider"/>
 
                 <RelativeLayout
                     android:id="@+id/experienceParent"
@@ -151,7 +161,7 @@
                         android:layout_marginBottom="10dp"
                         android:text="EXPERIENCE"
                         android:textColor="@color/titleText"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/experienceEditBtn"
@@ -163,6 +173,16 @@
                         android:background="@drawable/plus"/>
 
                 </RelativeLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/divider"/>
 
                 <RelativeLayout
                     android:id="@+id/projectsParent"
@@ -192,6 +212,16 @@
 
                 </RelativeLayout>
 
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/divider"/>
+
                 <RelativeLayout
                     android:id="@+id/educationParent"
                     android:layout_width="match_parent"
@@ -207,7 +237,7 @@
                         android:layout_marginBottom="10dp"
                         android:text="EDUCATION"
                         android:textColor="@color/titleText"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/educationEditBtn"
@@ -220,6 +250,15 @@
 
                 </RelativeLayout>
 
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/divider"/>
 
                 <RelativeLayout
                     android:id="@+id/activitiesParent"
@@ -236,7 +275,7 @@
                         android:layout_marginBottom="10dp"
                         android:text="ACTIVITIES"
                         android:textColor="@color/titleText"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/activitiesEditBtn"
@@ -247,6 +286,16 @@
                         android:visibility="invisible"
                         android:background="@drawable/plus"/>
                 </RelativeLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/divider"/>
 
                 <RelativeLayout
                     android:id="@+id/awardsParent"
@@ -263,7 +312,7 @@
                         android:layout_marginBottom="10dp"
                         android:text="AWARDS"
                         android:textColor="@color/titleText"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/awardsEditBtn"
@@ -313,8 +362,8 @@
                 android:id="@+id/editProfileBtn"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="3dp"
                 android:text="Edit"
                 android:gravity="center"
                 android:textColor="@color/cloud"
