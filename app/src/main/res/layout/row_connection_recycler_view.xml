@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageview"
+        <com.parse.ParseImageView
+            android:id="@+id/profileImage"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:padding="15dp"
@@ -23,7 +23,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_toRightOf="@id/imageview"
+            android:layout_toRightOf="@id/profileImage"
             android:gravity="center_vertical"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/imageview"
+            android:layout_below="@+id/profileImage"
             android:layout_marginLeft="15dp">
         </LinearLayout>
     </RelativeLayout>

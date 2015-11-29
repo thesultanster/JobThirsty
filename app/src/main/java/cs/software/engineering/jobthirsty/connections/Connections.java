@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,9 @@ public class Connections extends Fragment {
     private Map<String, String> connObjectIDs;
     int page;
 
+    ParseUser currentUser;
+    String currentUserId;
+
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -47,6 +51,7 @@ public class Connections extends Fragment {
         if (getArguments() != null) {
             page = getArguments().getInt(ARG_PAGE);
         }
+        connObjectIDs = new HashMap<>();
     }
 
     @Override
@@ -61,6 +66,8 @@ public class Connections extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         View v = getView();
+        currentUser = ParseUser.getCurrentUser();
+        currentUserId = currentUser.getObjectId();
 
         // RecyclerView
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
@@ -68,41 +75,37 @@ public class Connections extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Parse Query
-        ParseQuery<ParseObject> intenderQuery = ParseQuery.getQuery("Connections");
-        intenderQuery.whereEqualTo("handshake", true);
-        intenderQuery.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
 
-        ParseQuery<ParseObject> recieverQuery = ParseQuery.getQuery("Connections");
-        recieverQuery.whereEqualTo("handshake", true);
-        recieverQuery.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
+        ParseQuery<ParseObject> queryIntender = ParseQuery.getQuery("Connections");
+        queryIntender.whereEqualTo("intenderId", currentUserId);
 
-        List<ParseQuery<ParseObject>> mainQuery = new ArrayList<ParseQuery<ParseObject>>();
-        mainQuery.add(intenderQuery);
-        mainQuery.add(recieverQuery);
+        ParseQuery<ParseObject> queryReceiver = ParseQuery.getQuery("Connections");
+        queryReceiver.whereEqualTo("receiverId", currentUserId);
 
-        ParseQuery<ParseObject> query = ParseQuery.or(mainQuery);
-        query.findInBackground(new FindCallback<ParseObject>() {
+        List<ParseQuery<ParseObject>> queryList = new ArrayList<ParseQuery<ParseObject>>();
+        queryList.add(queryIntender);
+        queryList.add(queryReceiver);
+
+        final ParseQuery<ParseObject> queryConnections = ParseQuery.or(queryList);
+        queryConnections.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> connections, ParseException e) {
                 if (e == null) {
                     Toast.makeText(getActivity(), String.valueOf(connections.size()), Toast.LENGTH_SHORT).show();
-
                     for (ParseObject c : connections) {
-                        //duplication check (only add if it doesn't exists
-                        if(!connObjectIDs.containsKey(c.getObjectId())) {
-                            adapter.addRow(new ConnectionsRecyclerInfo(c));
-                            connObjectIDs.put(c.getObjectId(), "");
+                        if (c.getBoolean("handshake")) {
+                            String connectionId = (c.getString("intenderId").equals(currentUserId))
+                                    ? (c.getString("receiverId")) : (c.getString("intenderId"));
+                            Log.d("<CONNECTION>", "objectId: " + connectionId);
+                            if(!connObjectIDs.containsKey(connectionId)) {
+                                adapter.addRow(new ConnectionsRecyclerInfo(connectionId));
+                                connObjectIDs.put(connectionId, "");
+                            }
                         }
                     }
+                    connObjectIDs.clear();
                 }
-                else {
-                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-                }
-
             }
         });
-
-        connObjectIDs = new HashMap<>();
     }
 
 }

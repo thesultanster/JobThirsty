@@ -97,13 +97,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private EditText biography;
     private String dataId;
     private ParseUser user;
+    private ParseUser currentUser;
+    private String currentUserId;
     private ParseObject dataObject;
+    private boolean isOwnerUser;
 
     private String intenderFullName;
     private String receiverFullName;
     private boolean newsFeedFound;
-    private boolean isOwnerUser;
-
 
     //Debug Variables
     String TAG = "datacheck";
@@ -142,22 +143,14 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.mainLinear);
         mainLinearLayout.setMinimumHeight(screenHeight - actionBarHeight);
 
-        // Floating Action Bar
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
         //Toolbar
         toolbar = getToolbar();
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(0xFFffffff);
         collapsingToolbarLayout.setExpandedTitleColor(0xFFffffff);
 
-        profileImage = (ParseImageView) findViewById(R.id.profileImage);
-
-        //Edit button
-        editProfileBtn = (TextView) findViewById(R.id.editProfileBtn);
-        editable = false;
-
+        // Floating Action Bar
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         //Parent layouts
         skillsParent = (RelativeLayout) findViewById(R.id.skillsParent);
@@ -167,14 +160,19 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         activitiesParent = (RelativeLayout) findViewById(R.id.activitiesParent);
         awardsParent = (RelativeLayout) findViewById(R.id.awardsParent);
 
-
-        //Section layouts
+        //Child/Section layouts
         skillsSection = new SkillsSection(getApplicationContext());
         experienceSection = new ExperienceSection(getApplicationContext());
         projectsSection = new ProjectsSection(getApplicationContext());
         educationSection = new EducationSection(getApplicationContext());
         activitiesSection = new ActivitiesSection(getApplicationContext());
         awardsSection = new AwardSection(getApplicationContext());
+
+        profileImage = (ParseImageView) findViewById(R.id.profileImage);
+
+        //Edit button
+        editProfileBtn = (TextView) findViewById(R.id.editProfileBtn);
+        editable = false;
 
         //Section edit buttons
         skillsEditBtn = (ImageButton) findViewById(R.id.skillsEditBtn);
@@ -184,10 +182,24 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         activitiesEditBtn = (ImageButton) findViewById(R.id.activitiesEditBtn);
         awardsEditBtn = (ImageButton) findViewById(R.id.awardsEditBtn);
 
-
+        //Employee data variables
         //Editable views
         location = (EditText) findViewById(R.id.location);
         biography = (EditText) findViewById(R.id.biography);
+        userId = getIntent().getExtras().getString("userId");
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        query.whereEqualTo("objectId", userId);
+        query.getFirstInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser object, ParseException e) {
+                if (e == null) {
+                    user = object;
+                }
+            }
+        });
+        currentUser = ParseUser.getCurrentUser();
+        currentUserId = currentUser.getObjectId();
+
     }
 
     private void setListeners()
@@ -298,88 +310,140 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check if the connection row already exists (presser is intender)
-                ParseQuery<ParseObject> q = ParseQuery.getQuery("Connections");
-                q.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
 
-                q.findInBackground(new FindCallback<ParseObject>() {
-                    public void done(final List<ParseObject> connections, ParseException e) {
+                ParseQuery<ParseObject> queryIntender = ParseQuery.getQuery("Connections");
+                queryIntender.whereEqualTo("intenderId", currentUserId);
+                queryIntender.whereEqualTo("receiverId", userId);
+
+                ParseQuery<ParseObject> queryReceiver = ParseQuery.getQuery("Connections");
+                queryReceiver.whereEqualTo("intenderId", userId);
+                queryReceiver.whereEqualTo("receiverId", currentUserId);
+
+                List<ParseQuery<ParseObject>> queryList = new ArrayList<ParseQuery<ParseObject>>();
+                queryList.add(queryIntender);
+                queryList.add(queryReceiver);
+
+                final ParseQuery<ParseObject> queryConnections = ParseQuery.or(queryList);
+                queryConnections.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> connections, ParseException e) {
                         if (e == null) {
-                            //get full name
-                            // intender
-                            intenderFullName = ParseUser.getCurrentUser().get("firstName").toString() + " " + ParseUser.getCurrentUser().get("lastName").toString();
-
-                            // receiver
-                            receiverFullName = firstName + " " + lastName;
-
-
-                            //first, check if you added him already
-                            //find current profile's username (receiver)
-                            ParseQuery<ParseUser> userQ = ParseUser.getQuery();
-                            userQ.getInBackground(userId, new GetCallback<ParseUser>() {
-                                @Override
-                                public void done(ParseUser parseUser, ParseException e) {
-                                    final String currentUserReceiver = parseUser.get("username").toString();
-
-                                    //iterate through each connection found
-                                    for (ParseObject c : connections) {
-                                        String receiverName = c.get("receiverName").toString();
-
-                                        //found (you already added them)
-                                        if (receiverName.equals(currentUserReceiver)) {
-                                            return;
-                                        }
+                            boolean has_connection = false;
+                            for (ParseObject c : connections) {
+                                if (!c.getBoolean("handshake")) {
+                                    if (c.get("intenderId") == currentUserId) {
+                                        //do nothing
+                                    } else if (c.get("receiverId") == currentUserId) {
+                                        //accept request
+                                        c.put("handshake", true);
+                                        c.saveInBackground();
                                     }
-
-                                    //if you added him already, you would've returned out
-                                    // second, check if he added you (checking otherway around)
-                                    // (presser is the receiver)
-                                    ParseQuery<ParseObject> intenderQ = ParseQuery.getQuery("Connections");
-                                    intenderQ.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
-
-                                    intenderQ.findInBackground(
-                                        new FindCallback<ParseObject>() {
-                                            @Override
-                                            public void done(List<ParseObject> list, ParseException e) {
-
-                                                //iterate through each connection found
-                                                for (ParseObject c : list) {
-                                                    String receiverName = c.get("intenderName").toString();
-
-                                                    //found (accepting the request)
-                                                    if (receiverName.equals(currentUserReceiver)) {
-                                                        c.put("handshake", true);
-                                                        c.saveInBackground();
-
-                                                        //add newsfeed row
-                                                        ParseObject newsfeed = new ParseObject("Newsfeed");
-                                                        newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-                                                        newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
-                                                        newsfeed.saveInBackground();
-                                                        return;
-                                                    }
-                                                }
-
-                                                //no one found, add him
-                                                //  so send him friend request
-                                                //  create new connection row
-                                                ParseObject connection = new ParseObject("Connections");
-                                                connection.put("handshake", false);
-                                                connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-                                                connection.put("receiverName", currentUserReceiver);
-                                                connection.put("intenderFullName", intenderFullName);
-                                                connection.put("receiverFullName", receiverFullName);
-                                                connection.saveInBackground();
-                                            }
-                                        }
-                                    );
                                 }
-                            });
-                        } else {
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                                has_connection = true;
+                                break;
+                            }
+
+                            if (!has_connection) {
+                                ParseObject newConnection = new ParseObject("Connections");
+                                newConnection.put("intenderId", currentUserId);
+                                newConnection.put("receiverId", userId);
+                                newConnection.put("handshake", false);
+                                newConnection.saveInBackground();
+                            }
                         }
                     }
                 });
+
+
+
+//                //check if the connection row already exists (presser is intender)
+//                ParseQuery<ParseObject> q = ParseQuery.getQuery("Connections");
+//                q.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
+//
+//                q.findInBackground(new FindCallback<ParseObject>() {
+//                    public void done(final List<ParseObject> connections, ParseException e) {
+//                        if (e == null) {
+//                            //get full name
+//                            // intender
+//                            intenderFullName = currentUser.get("firstName").toString() + " " + currentUser.get("lastName").toString();
+//
+//                            // receiver
+//                            receiverFullName = firstName + " " + lastName;
+//
+//
+//                            //first, check if you added him already
+//                            //find current profile's username (receiver)
+//                            ParseQuery<ParseUser> userQ = ParseUser.getQuery();
+//                            userQ.getInBackground(userId, new GetCallback<ParseUser>() {
+//                                @Override
+//                                public void done(ParseUser parseUser, ParseException e) {
+//                                    final String currentUserReceiver = parseUser.get("username").toString();
+//
+//                                    //iterate through each connection found
+//                                    for (ParseObject c : connections) {
+//                                        String receiverName = c.get("receiverName").toString();
+//
+//                                        //found (you already added them)
+//                                        if (receiverName.equals(currentUserReceiver)) {
+//                                            return;
+//                                        }
+//                                    }
+//
+//                                    //if you added him already, you would've returned out
+//                                    // second, check if he added you (checking otherway around)
+//                                    // (presser is the receiver)
+//                                    ParseQuery<ParseObject> intenderQ = ParseQuery.getQuery("Connections");
+//                                    intenderQ.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
+//
+//                                    intenderQ.findInBackground(
+//                                        new FindCallback<ParseObject>() {
+//                                            @Override
+//                                            public void done(List<ParseObject> list, ParseException e) {
+//
+//                                                boolean is_found = false;
+//                                                //iterate through each connection found
+//                                                for (ParseObject c : list) {
+//                                                    String receiverName = c.get("intenderName").toString();
+//
+//                                                    //found (accepting the request)
+//                                                    if (receiverName.equals(currentUserReceiver)) {
+//                                                        c.put("handshake", true);
+//                                                        c.saveInBackground();
+//
+//                                                        //add newsfeed row
+//                                                        ParseObject newsfeed = new ParseObject("Newsfeed");
+//                                                        newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
+//                                                        newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
+//                                                        newsfeed.saveInBackground();
+//                                                        is_found = true;
+//                                                        break;
+//                                                    }
+//                                                }
+//
+//                                                if (is_found) {
+//                                                    //no one found, add him
+//                                                    //  so send him friend request
+//                                                    //  create new connection row
+//                                                    ParseObject connection = new ParseObject("Connections");
+//                                                    connection.put("handshake", false);
+//                                                    connection.put("intenderId", currentUserId);
+//                                                    connection.put("receiverId", userId);
+//
+//                                                    connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
+//                                                    connection.put("receiverName", currentUserReceiver);
+//                                                    connection.put("intenderFullName", intenderFullName);
+//                                                    connection.put("receiverFullName", receiverFullName);
+//                                                    connection.saveInBackground();
+//                                                }
+//                                            }
+//                                        }
+//                                    );
+//                                }
+//                            });
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
             }
         });
 

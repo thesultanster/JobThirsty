@@ -1,34 +1,66 @@
 package cs.software.engineering.jobthirsty.connections;
 
+import android.util.Log;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import cs.software.engineering.jobthirsty.R;
 
 public class ConnectionsRecyclerInfo {
 
-    ParseObject connection;
+    ParseUser parseUser;
+    ParseObject dataObject;
+    ParseFile parseFile;
 
     public ConnectionsRecyclerInfo() {
         super();
-
     }
 
-    public ConnectionsRecyclerInfo(ParseObject connection) {
+    public ConnectionsRecyclerInfo(String parseUserId) {
         super();
-        this.connection = connection;
+
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        query.whereEqualTo("objectId", parseUserId);
+        try {
+            parseUser = query.getFirst();
+        } catch (Exception e) {
+        }
     }
 
     public String getName(){
-        String intenderFullName = connection.get("intenderFullName").toString();
-        String receiverFullName = connection.get("receiverFullName").toString();
+        String fullName = parseUser.getString("firstName") + " " + parseUser.getString("lastName");
+        return fullName;
+    }
 
-        //compare username
-        String intenderName = connection.get("intenderName").toString();
+    public ParseFile getProfileImage() {
+        ParseQuery<ParseObject> queryData;
 
-        return ParseUser.getCurrentUser().getUsername().equals(intenderName) ? receiverFullName : intenderFullName;
+        if (parseUser.getBoolean("isBoss")) {
+            Log.d("<CONNECTION IMAGE>", getName() + " >> BOSS");
+            queryData = new ParseQuery<ParseObject>("EmployerData");
+        } else {
+            Log.d("<CONNECTION IMAGE>", getName() + " >> WORKER");
+            queryData = new ParseQuery<ParseObject>("EmployeeData");
+        }
+        queryData.whereEqualTo("objectId", parseUser.getString("dataId"));
+        try {
+            dataObject = queryData.getFirst();
+            parseFile = dataObject.getParseFile("profileImage");
+        } catch (Exception e) {
+        }
+
+        return parseFile;
     }
 
     public String getParseObjectId() {
-        return connection.getObjectId();
+        return parseUser.getObjectId();
     }
 
 }
