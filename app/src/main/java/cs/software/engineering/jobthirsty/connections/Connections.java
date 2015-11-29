@@ -95,7 +95,6 @@ public class Connections extends Fragment {
                         if (c.getBoolean("handshake")) {
                             String connectionId = (c.getString("intenderId").equals(currentUserId))
                                     ? (c.getString("receiverId")) : (c.getString("intenderId"));
-                            Log.d("<CONNECTION>", "objectId: " + connectionId);
                             if(!connObjectIDs.containsKey(connectionId)) {
                                 adapter.addRow(new ConnectionsRecyclerInfo(connectionId));
                                 connObjectIDs.put(connectionId, "");

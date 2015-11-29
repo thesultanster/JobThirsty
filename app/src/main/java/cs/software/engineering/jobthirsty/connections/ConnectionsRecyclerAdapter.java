@@ -31,7 +31,7 @@ public class ConnectionsRecyclerAdapter extends RecyclerView.Adapter<Connections
     List<ConnectionsRecyclerInfo> data = Collections.emptyList();
     LayoutInflater inflator;
     Context context;
-//    ParseFile parseFile;
+    //ParseFile parseFile;
 
     public ConnectionsRecyclerAdapter(Context context, List<ConnectionsRecyclerInfo> data) {
         this.context = context;
@@ -78,7 +78,6 @@ public class ConnectionsRecyclerAdapter extends RecyclerView.Adapter<Connections
         holder.name.setText(current.getName());
         ParseFile parseFile = current.getProfileImage();
         if (parseFile != null) {
-            Log.d("<CONNECTION IMAGE>", "got profile image 2");
             holder.profileImage.setParseFile(parseFile);
             holder.profileImage.loadInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {

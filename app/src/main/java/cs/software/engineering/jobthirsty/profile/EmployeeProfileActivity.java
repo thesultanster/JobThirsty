@@ -126,8 +126,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
 
     //HELPER FUNCTIONS[START] ----------------------------------------------------------------------
-    private void initialize()
-    {
+    private void initialize() {
         //set minimum height for bottom half to enable scrolling
         DisplayMetrics displaymetrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -202,8 +201,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     }
 
-    private void setListeners()
-    {
+    private void setListeners() {
         //Overall edit button
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,8 +210,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 editable = !editable;
 
                 //if editable
-                if(editable)
-                {
+                if(editable) {
                     //enable edits for EditTexts
                     location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -229,9 +226,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     educationSection.enableEdit();
                     awardsSection.enableEdit();
                     activitiesSection.enableEdit();
-                }
-                else
-                {
+
+                } else {
+
                     //disable edits for EditTexts
                     location.setEnabled(false);
                     biography.setEnabled(false);
@@ -330,9 +327,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                             boolean has_connection = false;
                             for (ParseObject c : connections) {
                                 if (!c.getBoolean("handshake")) {
-                                    if (c.get("intenderId") == currentUserId) {
+                                    if (c.get("intenderId").equals(currentUserId)) {
                                         //do nothing
-                                    } else if (c.get("receiverId") == currentUserId) {
+                                    } else if (c.get("receiverId").equals(currentUserId)) {
                                         //accept request
                                         c.put("handshake", true);
                                         c.saveInBackground();
@@ -352,98 +349,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                         }
                     }
                 });
-
-
-
-//                //check if the connection row already exists (presser is intender)
-//                ParseQuery<ParseObject> q = ParseQuery.getQuery("Connections");
-//                q.whereContains("intenderName", ParseUser.getCurrentUser().getUsername());
-//
-//                q.findInBackground(new FindCallback<ParseObject>() {
-//                    public void done(final List<ParseObject> connections, ParseException e) {
-//                        if (e == null) {
-//                            //get full name
-//                            // intender
-//                            intenderFullName = currentUser.get("firstName").toString() + " " + currentUser.get("lastName").toString();
-//
-//                            // receiver
-//                            receiverFullName = firstName + " " + lastName;
-//
-//
-//                            //first, check if you added him already
-//                            //find current profile's username (receiver)
-//                            ParseQuery<ParseUser> userQ = ParseUser.getQuery();
-//                            userQ.getInBackground(userId, new GetCallback<ParseUser>() {
-//                                @Override
-//                                public void done(ParseUser parseUser, ParseException e) {
-//                                    final String currentUserReceiver = parseUser.get("username").toString();
-//
-//                                    //iterate through each connection found
-//                                    for (ParseObject c : connections) {
-//                                        String receiverName = c.get("receiverName").toString();
-//
-//                                        //found (you already added them)
-//                                        if (receiverName.equals(currentUserReceiver)) {
-//                                            return;
-//                                        }
-//                                    }
-//
-//                                    //if you added him already, you would've returned out
-//                                    // second, check if he added you (checking otherway around)
-//                                    // (presser is the receiver)
-//                                    ParseQuery<ParseObject> intenderQ = ParseQuery.getQuery("Connections");
-//                                    intenderQ.whereContains("receiverName", ParseUser.getCurrentUser().getUsername());
-//
-//                                    intenderQ.findInBackground(
-//                                        new FindCallback<ParseObject>() {
-//                                            @Override
-//                                            public void done(List<ParseObject> list, ParseException e) {
-//
-//                                                boolean is_found = false;
-//                                                //iterate through each connection found
-//                                                for (ParseObject c : list) {
-//                                                    String receiverName = c.get("intenderName").toString();
-//
-//                                                    //found (accepting the request)
-//                                                    if (receiverName.equals(currentUserReceiver)) {
-//                                                        c.put("handshake", true);
-//                                                        c.saveInBackground();
-//
-//                                                        //add newsfeed row
-//                                                        ParseObject newsfeed = new ParseObject("Newsfeed");
-//                                                        newsfeed.put("title", ParseUser.getCurrentUser().get("firstName"));
-//                                                        newsfeed.put("update", intenderFullName + " and " + receiverFullName + " is now connected");
-//                                                        newsfeed.saveInBackground();
-//                                                        is_found = true;
-//                                                        break;
-//                                                    }
-//                                                }
-//
-//                                                if (is_found) {
-//                                                    //no one found, add him
-//                                                    //  so send him friend request
-//                                                    //  create new connection row
-//                                                    ParseObject connection = new ParseObject("Connections");
-//                                                    connection.put("handshake", false);
-//                                                    connection.put("intenderId", currentUserId);
-//                                                    connection.put("receiverId", userId);
-//
-//                                                    connection.put("intenderName", ParseUser.getCurrentUser().getUsername());
-//                                                    connection.put("receiverName", currentUserReceiver);
-//                                                    connection.put("intenderFullName", intenderFullName);
-//                                                    connection.put("receiverFullName", receiverFullName);
-//                                                    connection.saveInBackground();
-//                                                }
-//                                            }
-//                                        }
-//                                    );
-//                                }
-//                            });
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
             }
         });
 
@@ -459,8 +364,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         });
     }
 
-    private void showEditButtons()
-    {
+    private void showEditButtons() {
         skillsEditBtn.setVisibility(View.VISIBLE);
         experienceEditBtn.setVisibility(View.VISIBLE);
         projectsEditBtn.setVisibility(View.VISIBLE);
@@ -469,8 +373,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         awardsEditBtn.setVisibility(View.VISIBLE);
     }
 
-    private void hideEditButtons()
-    {
+    private void hideEditButtons() {
         skillsEditBtn.setVisibility(View.INVISIBLE);
         experienceEditBtn.setVisibility(View.INVISIBLE);
         projectsEditBtn.setVisibility(View.INVISIBLE);
@@ -539,8 +442,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         return cursor.getString(column_index);
     }
 
-    private void sendDataToParse()
-    {
+    private void sendDataToParse() {
         final String locationData = location.getText().toString();
         final String biographyData = biography.getText().toString();
 
@@ -561,28 +463,10 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         dataObject.put("activities", activitiesData);
         dataObject.put("awards", awardsData);
         dataObject.saveInBackground();
-
-//        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
-//        q.getInBackground(ParseUser.getCurrentUser().get("dataId").toString(), new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject dataRow, ParseException e) {
-//                dataRow.put("location", locationData);
-//                dataRow.put("biography", biographyData);
-//
-//                dataRow.put("skills", skillsData);
-//                dataRow.put("experience", experienceData);
-//                dataRow.put("projects", projectData);
-//                dataRow.put("education", educationData);
-//                dataRow.put("activities", activitiesData);
-//                dataRow.put("awards", awardsData);
-//                dataRow.saveInBackground();
-//            }
-//        });
     }
 
     //dataId need to be passed in to distinguish who's profile to load up
-    private void retrieveDataFromParse(final String dataId)
-    {
+    private void retrieveDataFromParse(final String dataId) {
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
             @Override
@@ -647,8 +531,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     }
 
     //Load profile page
-    private void loadProfilePage()
-    {
+    private void loadProfilePage() {
 //        Bundle extras = getIntent().getExtras();
 //        userId = extras.getString("userId");
         userId = getIntent().getExtras().getString("userId");
@@ -665,8 +548,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 //set profile owner's data id
                 skillsSection.setDataId(dataId);
 
-                isOwnerUser = ParseUser.getCurrentUser().getObjectId().equals(userId);
-//                boolean isOwnerUser = ParseUser.getCurrentUser().get("dataId").equals(dataId);
+                isOwnerUser = currentUserId.equals(userId);
 
                 // if user is seeing their own profile then hide connection fab
                 if (isOwnerUser) {
@@ -676,7 +558,6 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 else {
                     editProfileBtn.setVisibility(View.INVISIBLE);
                 }
-
 
                 //display profile's name
                 collapsingToolbarLayout.setTitle(firstName + " " + lastName);

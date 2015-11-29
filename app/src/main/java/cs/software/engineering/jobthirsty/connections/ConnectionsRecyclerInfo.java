@@ -43,10 +43,8 @@ public class ConnectionsRecyclerInfo {
         ParseQuery<ParseObject> queryData;
 
         if (parseUser.getBoolean("isBoss")) {
-            Log.d("<CONNECTION IMAGE>", getName() + " >> BOSS");
             queryData = new ParseQuery<ParseObject>("EmployerData");
         } else {
-            Log.d("<CONNECTION IMAGE>", getName() + " >> WORKER");
             queryData = new ParseQuery<ParseObject>("EmployeeData");
         }
         queryData.whereEqualTo("objectId", parseUser.getString("dataId"));
