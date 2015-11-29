@@ -44,36 +44,60 @@
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/navigation_icon"
                         android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="20dp"
                         android:paddingTop="10dp"
+                        android:layout_toRightOf="@+id/navigation_icon"
+                        android:layout_marginBottom="10dp"
                         android:background="#FFffffff"
                         android:hint="[Location]"
                         android:textColor="@color/primaryText"
-                        android:textSize="18sp"
-                        android:editable="false"
-                        android:ems="18"/>
+                        android:textSize="15sp"
+                        android:editable="false"/>
+
+                    <TextView
+                        android:id="@+id/aboutTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/location"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="ABOUT"
+                        android:textColor="@color/titleText"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/biography"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/location"
+                        android:layout_below="@+id/aboutTitle"
                         android:paddingBottom="10dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:paddingTop="5dp"
                         android:background="#FFffffff"
-                        android:hint="[Biography]"
+                        android:hint="[About me]"
                         android:textColor="@color/primaryText"
                         android:textSize="15sp"
                         android:editable="false"
+                        android:lineSpacingMultiplier="1.5"
                         android:inputType="textMultiLine"/>
 
                 </RelativeLayout>
             </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/divider"/>
 
             <RelativeLayout
                 android:id="@+id/jobsParent"
@@ -81,28 +105,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp">
 
-                <ImageView
-                    android:id="@+id/skillsIcon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@mipmap/skills"/>
-
                 <TextView
-                    android:id="@+id/jobsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_below="@+id/location"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/skillsIcon"
-                    android:text="Job Postings"
-                    android:textColor="@color/primaryText"
-                    android:textSize="20sp" />
+                    android:layout_marginBottom="10dp"
+                    android:text="JOB POSTINGS"
+                    android:textColor="@color/titleText"
+                    android:textSize="18sp" />
 
                 <!-- Filler -->
                 <View
@@ -145,11 +158,11 @@
 
             <TextView
                 android:id="@+id/editProfileBtn"
-                android:layout_width="100sp"
+                android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:layout_marginRight="45sp"
-                android:layout_marginBottom="5sp"
-                android:text="Edit Profile"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="3dp"
+                android:text="Edit"
                 android:gravity="center"
                 android:textColor="@color/cloud"
                 android:layout_gravity="bottom|right"/>

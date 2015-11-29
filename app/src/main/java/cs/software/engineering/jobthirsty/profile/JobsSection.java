@@ -1,6 +1,7 @@
 package cs.software.engineering.jobthirsty.profile;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -8,18 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.util.StringParser;
 
 
 /**
@@ -132,6 +130,7 @@ public class JobsSection extends ProfileSection {
         tv.setTextColor(0xFF000000);
         tv.setWidth(displayMetrics.widthPixels - (int) (displayMetrics.widthPixels * (0.27)));
         tv.setText(jobText);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         tv.setEnabled(false);
         tv.requestLayout(); //update
 
