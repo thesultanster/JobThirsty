@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,6 +172,17 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra("crop", true);
+        intent.putExtra("aspectX", 600);
+        intent.putExtra("aspectY", 834);
+        intent.putExtra("outputX", 600);
+        intent.putExtra("outputY", 834);
+        intent.putExtra("scale", true);
+        intent.putExtra("return-data", true);
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                ,"uploadPicture.jpg");
+        intent.putExtra("output", Uri.fromFile(file));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
 
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
@@ -179,7 +192,7 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = (Uri) data.getData();
-                String selectedImagePath = getPath(selectedImageUri);
+                String selectedImagePath = selectedImageUri.getPath();
                 System.out.println("Image Path : " + selectedImagePath);
                 Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
 
