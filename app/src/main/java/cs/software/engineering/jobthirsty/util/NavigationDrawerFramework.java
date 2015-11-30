@@ -204,9 +204,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
             case R.id.createPosition:
                 intent = new Intent(this, CreateJobPosition.class);
                 break;
-            case R.id.newsfeed:
-                intent = new Intent(this, Newsfeed.class);
-                break;
             case R.id.applied_workers:
                 intent = new Intent(this, AppliedWorkers.class);
                 break;
