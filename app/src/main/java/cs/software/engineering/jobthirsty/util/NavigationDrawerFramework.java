@@ -181,7 +181,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
 
         switch(itemId){
             case R.id.profile:
-                //TODO: Find if employer or employee and go to respective activity. Ex: if( parseUser != Employee)
+
 
                 // If user exist and authenticated, send user to Welcome.class
                 //  Need to check flag to send user to appropriate activty (worker or boss)
@@ -209,9 +209,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
                 break;
             case R.id.applied_workers:
                 intent = new Intent(this, AppliedWorkers.class);
-                break;
-            case R.id.connections:
-                intent = new Intent(this, Connections.class);
                 break;
             case R.id.create_company:
                 intent = new Intent(this, CreateCompanyPage.class);
