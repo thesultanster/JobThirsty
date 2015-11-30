@@ -6,15 +6,6 @@
             android:icon="@drawable/fab_background"
             android:title="Profile" />
         <item
-            android:id="@+id/newsfeed"
-            android:icon="@drawable/fab_background"
-            android:title="Newsfeed" />
-        <item
-            android:id="@+id/connections"
-            android:icon="@drawable/fab_background"
-            android:title="Connections" />
-
-        <item
             android:id="@+id/find_worker"
             android:icon="@drawable/fab_background"
             android:title="Find Workers" />
