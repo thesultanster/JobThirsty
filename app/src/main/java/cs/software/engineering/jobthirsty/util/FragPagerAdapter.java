@@ -1,4 +1,4 @@
-package cs.software.engineering.jobthirsty.util.PageFragment;
+package cs.software.engineering.jobthirsty.util;
 
 
 import android.support.v4.app.FragmentManager;

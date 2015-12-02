@@ -3,12 +3,9 @@ package cs.software.engineering.jobthirsty.util;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.util.PageFragment.FragPagerAdapter;
-
 
 
 public class MainTabMenu extends NavigationDrawerFramework {

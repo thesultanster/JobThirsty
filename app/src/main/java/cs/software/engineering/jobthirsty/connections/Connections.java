@@ -2,17 +2,14 @@ package cs.software.engineering.jobthirsty.connections;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -24,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.util.PageFragment.PageFragment;
 
 public class Connections extends Fragment {
 
@@ -36,14 +32,6 @@ public class Connections extends Fragment {
 
     ParseUser currentUser;
     String currentUserId;
-
-    public static PageFragment newInstance(int page) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, page);
-        PageFragment fragment = new PageFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

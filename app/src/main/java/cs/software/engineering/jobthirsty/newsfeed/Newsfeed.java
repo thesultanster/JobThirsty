@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.util.PageFragment.PageFragment;
 
 public class Newsfeed extends Fragment {
 
@@ -27,14 +26,6 @@ public class Newsfeed extends Fragment {
     List<ParseObject> feed;
     private static final String ARG_PAGE = "ARG_PAGE";
     int page;
-
-    public static PageFragment newInstance(int page) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, page);
-        PageFragment fragment = new PageFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
