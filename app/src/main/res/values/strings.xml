@@ -10,4 +10,5 @@
     <string name="title_activity_find_positions">FindPositions</string>
     <string name="title_activity_job_position">JobPosition</string>
     <string name="title_activity_applied_workers">AppliedWorkers</string>
+    <string name="title_activity_connection_request">ConnectionRequest</string>
 </resources>

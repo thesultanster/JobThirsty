@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cs.software.engineering.jobthirsty" >
+    package="cs.software.engineering.jobthirsty">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,8 +14,10 @@
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
     -->
-    <permission android:protectionLevel="signature"
-        android:name="cs.software.engineering.jobthirsty.permission.C2D_MESSAGE" />
+    <permission
+        android:name="cs.software.engineering.jobthirsty.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="cs.software.engineering.jobthirsty.permission.C2D_MESSAGE" />
 
     <application
@@ -23,21 +25,17 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".profile.EmployeeProfileActivity"
             android:label="Profile"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".util.NavigationDrawerFramework" >
-        </activity>
-        <activity android:name=".newsfeed.Newsfeed" >
-        </activity>
-        <activity android:name=".mail.Mail" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".util.NavigationDrawerFramework"></activity>
+        <activity android:name=".newsfeed.Newsfeed"></activity>
+        <activity android:name=".mail.Mail"></activity>
         <activity
             android:name=".Login"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,43 +44,33 @@
         </activity>
         <activity
             android:name=".SignUp"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".connections.Connections" >
-        </activity>
-        <activity android:name=".ComposeMail" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".connections.Connections"></activity>
+        <activity android:name=".ComposeMail"></activity>
         <activity
             android:name=".job_position.FindPositions"
             android:label="@string/title_activity_find_positions"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".util.MainTabMenu"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".job_position.ViewJobPosition"
             android:label="@string/title_activity_job_position"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".company_page.ViewCompanyPage"
             android:label="CompanyPage"
-            android:theme="@style/AppTheme" >
-        </activity>
-        <activity android:name=".job_position.CreateJobPosition" >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".job_position.CreateJobPosition"></activity>
         <activity
             android:name=".applied_workers.AppliedWorkers"
             android:label="@string/title_activity_applied_workers"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".profile.EmployerProfileActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".find_workers.FindWorker" >
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".find_workers.FindWorker">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -94,15 +82,14 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".company_page.CreateCompanyPage" >
-        </activity>
-        <activity android:name=".company_page.FindCompany" >
-        </activity>
-        <activity android:name=".SettingsActivity" >
-        </activity>
+        <activity android:name=".company_page.CreateCompanyPage"></activity>
+        <activity android:name=".company_page.FindCompany"></activity>
+        <activity android:name=".SettingsActivity"></activity>
 
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -110,18 +97,22 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
+                <!--                   IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
                 <category android:name="cs.software.engineering.jobthirsty" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".connections.ConnectionRequest"
+            android:label="@string/title_activity_connection_request"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

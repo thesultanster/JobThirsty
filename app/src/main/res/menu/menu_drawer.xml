@@ -11,6 +11,11 @@
             android:title="Find Workers" />
 
         <item
+            android:id="@+id/connection_request"
+            android:icon="@drawable/fab_background"
+            android:title="Connection Requests" />
+
+        <item
             android:id="@+id/bossPosition"
             android:layout_gravity="bottom"
             android:title="Position"
