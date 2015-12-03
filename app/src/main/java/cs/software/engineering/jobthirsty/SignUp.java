@@ -68,11 +68,13 @@ public class SignUp extends AppCompatActivity {
                 try {
                     if (isEmployer) {
                         data = new ParseObject("EmployerData");
+                        data.put("contact", "");
                         data.put("location", "");
                         data.put("biography", "");
                         data.put("jobPostings", new ArrayList<String>());
                     } else {
                         data = new ParseObject("EmployeeData");
+                        data.put("contact", "");
                         data.put("location", "");
                         data.put("biography", "");
                         data.put("experience", new ArrayList<String>());

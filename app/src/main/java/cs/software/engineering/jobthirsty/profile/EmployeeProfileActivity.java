@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -95,14 +96,22 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private String userId;
     private String firstName;
     private String lastName;
+    private EditText contact;
+    private ImageView contactIcon;
     private EditText location;
     private EditText biography;
     private String dataId;
     private ParseUser user;
     private ParseUser currentUser;
     private String currentUserId;
+    private String currentUserFullName;
     private ParseObject dataObject;
     private boolean isOwnerUser;
+
+    private enum Connection {
+        NONE, SELF, INTENDER, RECEIVER, ESTABLISHED
+    }
+    private Connection connectionStatus;
 
     private String intenderFullName;
     private String receiverFullName;
@@ -185,6 +194,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         //Employee data variables
         //Editable views
+        contact = (EditText) findViewById(R.id.contact);
+        contactIcon = (ImageView) findViewById(R.id.contact_icon);
         location = (EditText) findViewById(R.id.location);
         biography = (EditText) findViewById(R.id.biography);
         userId = getIntent().getExtras().getString("userId");
@@ -200,7 +211,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         });
         currentUser = ParseUser.getCurrentUser();
         currentUserId = currentUser.getObjectId();
+        currentUserFullName = currentUser.getString("firstName") + currentUser.getString("lastName");
 
+        connectionStatus = Connection.NONE;
     }
 
     private void setListeners() {
@@ -214,6 +227,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 //if editable
                 if(editable) {
                     //enable edits for EditTexts
+                    contact.setEnabled(true);
                     location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
                     biography.setEnabled(true);
@@ -232,6 +246,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 } else {
 
                     //disable edits for EditTexts
+                    contact.setEnabled(false);
                     location.setEnabled(false);
                     biography.setEnabled(false);
 
@@ -458,6 +473,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     }
 
     private void sendDataToParse() {
+        final String contactData = contact.getText().toString();
         final String locationData = location.getText().toString();
         final String biographyData = biography.getText().toString();
 
@@ -468,6 +484,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         final ArrayList<String> activitiesData = activitiesSection.getData();
         final ArrayList<String> awardsData = awardsSection.getData();
 
+        dataObject.put("contact", contactData);
         dataObject.put("location", locationData);
         dataObject.put("biography", biographyData);
 
@@ -480,6 +497,60 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         dataObject.saveInBackground();
     }
 
+    private void setConnectionStatus() {
+
+        if (isOwnerUser) {
+            connectionStatus = Connection.SELF;
+            contact.setVisibility(View.VISIBLE);
+            contactIcon.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        ParseQuery<ParseObject> queryIntender = ParseQuery.getQuery("Connections");
+        queryIntender.whereEqualTo("intenderId", currentUserId);
+        queryIntender.whereEqualTo("receiverId", userId);
+
+        ParseQuery<ParseObject> queryReceiver = ParseQuery.getQuery("Connections");
+        queryReceiver.whereEqualTo("intenderId", userId);
+        queryReceiver.whereEqualTo("receiverId", currentUserId);
+
+        List<ParseQuery<ParseObject>> queryList = new ArrayList<ParseQuery<ParseObject>>();
+        queryList.add(queryIntender);
+        queryList.add(queryReceiver);
+
+        final ParseQuery<ParseObject> queryConnections = ParseQuery.or(queryList);
+        queryConnections.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> connections, ParseException e) {
+                if (e == null) {
+                    boolean has_connection = false;
+                    for (ParseObject c : connections) {
+                        if (c.getBoolean("handshake")) {
+                            connectionStatus = Connection.ESTABLISHED;
+                        } else {
+                            if (c.get("intenderId").equals(currentUserId)) {
+                                //do nothing
+                                connectionStatus = Connection.INTENDER;
+                            } else if (c.get("receiverId").equals(currentUserId)) {
+                                //accept request
+                                connectionStatus = Connection.RECEIVER;
+                            }
+                        }
+                        has_connection = true;
+                        break;
+                    }
+
+                    if (!has_connection) {
+                        connectionStatus = Connection.NONE;
+                    }
+                    if (connectionStatus == Connection.SELF || connectionStatus == Connection.ESTABLISHED) {
+                        contact.setVisibility(View.VISIBLE);
+                        contactIcon.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+    }
+
     //dataId need to be passed in to distinguish who's profile to load up
     private void retrieveDataFromParse(final String dataId) {
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
@@ -488,6 +559,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             public void done(ParseObject dataRow, ParseException e) {
                 dataObject = dataRow;
 
+                String contactData = dataRow.get("contact").toString();
                 String locationData = dataRow.get("location").toString();
                 String biographyData = dataRow.get("biography").toString();
 
@@ -498,6 +570,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 ArrayList<String> activitiesData = (ArrayList<String>) dataRow.get("activities");
                 ArrayList<String> awardsData = (ArrayList<String>) dataRow.get("awards");
 
+                contact.setText(contactData);
+                contact.setEnabled(false);
                 location.setText(locationData);
                 location.setEnabled(false);
                 biography.setText(biographyData);
@@ -541,6 +615,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 } else {
                     profileImage.setImageResource(R.drawable.profile_placeholder);
                 }
+
+                setConnectionStatus();
             }
         });
     }

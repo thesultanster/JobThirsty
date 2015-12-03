@@ -34,9 +34,37 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="10dp"
+                        android:layout_toRightOf="@+id/navigation_icon"
+                        android:layout_marginBottom="10dp"
+                        android:background="#FFffffff"
+                        android:hint="[Contact]"
+                        android:textColor="@color/primaryText"
+                        android:textSize="15sp"
+                        android:editable="false"
+                        android:visibility="gone"
+                        />
+
+                    <ImageView
+                        android:id="@+id/contact_icon"
+                        android:layout_width="39.5dp"
+                        android:layout_height="39.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_contact"
+                        android:visibility="gone"/>
+
+                    <EditText
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/contact"
                         android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="20dp"
@@ -55,7 +83,7 @@
                         android:layout_width="39.5dp"
                         android:layout_height="39.5dp"
                         android:layout_marginLeft="10dp"
-
+                        android:layout_below="@+id/contact_icon"
                         android:padding="10dp"
                         android:src="@mipmap/navigation_icon_green" />
 
