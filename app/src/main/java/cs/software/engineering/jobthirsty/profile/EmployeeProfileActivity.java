@@ -113,6 +113,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         NONE, SELF, INTENDER, RECEIVER, ESTABLISHED
     }
     private Connection connectionStatus;
+    private ParseObject connectionObject;
 
     private String intenderFullName;
     private String receiverFullName;
@@ -326,60 +327,26 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             @Override
             public void onClick(View v) {
 
-                ParseQuery<ParseObject> queryIntender = ParseQuery.getQuery("Connections");
-                queryIntender.whereEqualTo("intenderId", currentUserId);
-                queryIntender.whereEqualTo("receiverId", userId);
+                if (connectionStatus == Connection.NONE) {
+                    //send connection request
+                    ParseObject newConnection = new ParseObject("Connections");
+                    newConnection.put("intenderId", currentUserId);
+                    newConnection.put("intenderFullName", currentUserFullName);
+                    newConnection.put("receiverId", userId);
+                    newConnection.put("handshake", false);
+                    newConnection.saveInBackground();
+                } else if (connectionStatus == Connection.RECEIVER) {
+                    //accept request
+                    connectionObject.put("handshake", true);
+                    connectionObject.saveInBackground();
 
-                ParseQuery<ParseObject> queryReceiver = ParseQuery.getQuery("Connections");
-                queryReceiver.whereEqualTo("intenderId", userId);
-                queryReceiver.whereEqualTo("receiverId", currentUserId);
+                    dataObject.addUnique("connections", currentUserId);
+                    dataObject.saveInBackground();
+                    currentUserDataObject.addUnique("connections", userId);
+                    currentUserDataObject.saveInBackground();
 
-                List<ParseQuery<ParseObject>> queryList = new ArrayList<ParseQuery<ParseObject>>();
-                queryList.add(queryIntender);
-                queryList.add(queryReceiver);
-
-                final ParseQuery<ParseObject> queryConnections = ParseQuery.or(queryList);
-                queryConnections.findInBackground(new FindCallback<ParseObject>() {
-                    public void done(List<ParseObject> connections, ParseException e) {
-                        if (e == null) {
-                            boolean has_connection = false;
-                            for (ParseObject c : connections) {
-                                if (!c.getBoolean("handshake")) {
-                                    if (c.get("intenderId").equals(currentUserId)) {
-                                        //request already sent... do nothing
-                                    } else if (c.get("receiverId").equals(currentUserId)) {
-                                        //accept request
-                                        c.put("handshake", true);
-                                        c.saveInBackground();
-
-                                        dataObject.addUnique("connections", currentUserId);
-                                        dataObject.saveInBackground();
-                                        currentUserDataObject.addUnique("connections", userId);
-                                        currentUserDataObject.saveInBackground();
-
-//                                        user.addUnique("connections", currentUserId);
-//                                        user.saveInBackground();
-//                                        currentUser.addUnique("connections", userId);
-//                                        currentUser.saveInBackground();
-
-                                        viewContactInfo();
-                                    }
-                                }
-                                has_connection = true;
-                                break;
-                            }
-
-                            if (!has_connection) {
-                                ParseObject newConnection = new ParseObject("Connections");
-                                newConnection.put("intenderId", currentUserId);
-                                newConnection.put("intenderFullName", currentUserFullName);
-                                newConnection.put("receiverId", userId);
-                                newConnection.put("handshake", false);
-                                newConnection.saveInBackground();
-                            }
-                        }
-                    }
-                });
+                    viewContactInfo();
+                }
             }
         });
 
@@ -521,6 +488,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         if (isOwnerUser) {
             connectionStatus = Connection.SELF;
             viewContactInfo();
+            connectionObject = null;
             return;
         }
 
@@ -542,6 +510,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 if (e == null) {
                     boolean has_connection = false;
                     for (ParseObject c : connections) {
+                        connectionObject = c;
                         if (c.getBoolean("handshake")) {
                             connectionStatus = Connection.ESTABLISHED;
                         } else {
