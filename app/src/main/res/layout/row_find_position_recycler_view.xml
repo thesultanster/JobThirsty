@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:padding="15dp"
-            android:src="@color/primaryColorLight"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="5sp"
+        android:padding="10sp"
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -27,26 +25,54 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:text="me, Angel, Arvin"/>
+                android:textSize="20sp"
+                android:textStyle="normal"
+                android:text="Engineering Manager"/>
 
-            <TextView
-                android:id="@+id/subject"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:textSize="10dp"
-                android:text="Quick Update"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
-            <TextView
-                android:id="@+id/body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textSize="10dp"
-                android:text="Yo whats going on man hows life and hows everyone"/>
+                <TextView
+                    android:id="@+id/subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="Facebook "/>
+
+                <!-- Vertical Divider -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:text="|"/>
+
+                <ImageView
+                    android:id="@+id/navigation_icon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="3dp"
+                    android:src="@mipmap/navigation_icon_green" />
+
+                <TextView
+                    android:id="@+id/body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14sp"
+                    android:text="San Francisco, CA"/>
+            </LinearLayout>
+
 
 
         </LinearLayout>
@@ -55,25 +81,23 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <Button
                 android:id="@+id/apply"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:padding="0sp"
+                android:background="@color/primaryColor"
+                />
 
 
         </LinearLayout>
 
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dividerColor"
-        android:layout_alignParentBottom="true"/>
-
-
-
 </RelativeLayout>

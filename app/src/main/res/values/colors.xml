@@ -11,6 +11,7 @@
     <color name="divider">#CFCFCF</color>
     <color name="dividerColor">#B6B6B6</color>
     <color name="cloud">#ecf0f1</color>
+    <color name="accent">#3FB5DC</color>
 
 
 </resources>
