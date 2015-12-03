@@ -18,11 +18,9 @@
         <item
             android:id="@+id/bossPosition"
             android:layout_gravity="bottom"
-            android:title="Position"
-            >
+            android:title="Position">
 
-            <menu
-                >
+            <menu>
 
                 <item
                     android:id="@+id/createPosition"
@@ -33,22 +31,6 @@
                     android:id="@+id/applied_workers"
                     android:icon="@drawable/fab_background"
                     android:title="Applied Workers" />
-            </menu>
-        </item>
-
-        <item
-            android:id="@+id/workerPosition"
-            android:layout_gravity="bottom"
-            android:title="Position"
-            >
-
-            <menu
-                >
-                <item
-                    android:id="@+id/find_position"
-                    android:icon="@drawable/fab_background"
-                    android:title="Find Positions" />
-
             </menu>
         </item>
 

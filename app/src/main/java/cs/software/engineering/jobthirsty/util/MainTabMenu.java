@@ -1,5 +1,6 @@
 package cs.software.engineering.jobthirsty.util;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;

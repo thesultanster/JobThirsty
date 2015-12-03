@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primaryColor">#15c9b8</color>
+    <color name="primaryColor">#2C3E50</color>
     <color name="primaryColorDark">#000000</color>
     <color name="primaryColorLight">#8fded7</color>
+    <color name="secondaryColor">#15c9b8</color>
     <color name="colorAccent">#FF5252</color>
     <color name="primaryText">#212121</color>
     <color name="secondaryText">#727272</color>
@@ -12,6 +13,7 @@
     <color name="dividerColor">#B6B6B6</color>
     <color name="cloud">#ecf0f1</color>
     <color name="accent">#3FB5DC</color>
+
 
 
 </resources>

@@ -93,25 +93,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-
-        navigationView = (NavigationView) findViewById(R.id.navigation);
-        Menu menuNav=navigationView.getMenu();
-        MenuItem menuItem;
-
-
-        if(ParseUser.getCurrentUser().get("isBoss").equals(true)) {
-
-            menuItem = menuNav.findItem(R.id.workerPosition);
-            menuItem.setVisible(false);
-
-        } else {
-
-            menuItem = menuNav.findItem(R.id.bossPosition);
-            menuItem.setVisible(false);
-
-
-        }
-
     }
 
     @Override
