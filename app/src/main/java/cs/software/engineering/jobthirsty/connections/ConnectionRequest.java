@@ -40,6 +40,7 @@ public class ConnectionRequest extends NavigationDrawerFramework {
         //ToDo: Need to load the page according to the user (worker or boss)
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Connections");
         query.whereEqualTo("receiverId", ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo("handshake", false);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> newsfeed, ParseException e) {
                 if (e == null) {
