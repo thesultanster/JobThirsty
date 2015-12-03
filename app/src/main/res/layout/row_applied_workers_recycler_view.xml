@@ -72,6 +72,17 @@
                 android:textSize="15dp"
                 android:text="Please Hire Me I Have A Family To Feed"/>
 
+
+            <Button
+                android:id="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept"/>
+            <Button
+                android:id="@+id/decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reject"/>
         </LinearLayout>
 
 
