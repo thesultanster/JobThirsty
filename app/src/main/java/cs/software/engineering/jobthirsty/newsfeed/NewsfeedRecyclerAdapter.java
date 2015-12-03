@@ -65,7 +65,6 @@ import cs.software.engineering.jobthirsty.R;
             // This gives us current information list object
             NewsfeedRecyclerInfo current = data.get(position);
 
-            holder.title.setText(current.getTitle());
             holder.update.setText(current.getUpdate());
         }
 
@@ -77,7 +76,6 @@ import cs.software.engineering.jobthirsty.R;
         // Created my custom view holder
         public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            TextView title;
             TextView update;
             public MyViewHolderClicks mListener;
 
@@ -87,7 +85,6 @@ import cs.software.engineering.jobthirsty.R;
 
                 mListener = listener;
                 //Link the objects
-                title = (TextView) itemView.findViewById(R.id.title);
                 update = (TextView) itemView.findViewById(R.id.update);
                 itemView.setOnClickListener(this);
             }

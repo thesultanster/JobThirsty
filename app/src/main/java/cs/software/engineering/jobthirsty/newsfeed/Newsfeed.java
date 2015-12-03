@@ -13,6 +13,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Newsfeed extends Fragment {
     List<ParseObject> feed;
     private static final String ARG_PAGE = "ARG_PAGE";
     int page;
+    String currentUserId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,11 @@ public class Newsfeed extends Fragment {
         adapter = new NewsfeedRecyclerAdapter(getContext(), new ArrayList<NewsfeedRecyclerInfo>());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        currentUserId = ParseUser.getCurrentUser().getObjectId();
 
         //ToDo: Need to load the page according to the user (worker or boss)
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Newsfeed");
+        query.whereEqualTo("visibleList", currentUserId);
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> newsfeed, ParseException e) {

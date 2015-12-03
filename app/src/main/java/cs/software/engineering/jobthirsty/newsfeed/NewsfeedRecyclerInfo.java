@@ -19,9 +19,6 @@ public class NewsfeedRecyclerInfo {
         this.news = news;
     }
 
-    public String getTitle(){
-        return news.get("title").toString();
-    }
     public String getUpdate(){
         return news.get("update").toString();
     }
