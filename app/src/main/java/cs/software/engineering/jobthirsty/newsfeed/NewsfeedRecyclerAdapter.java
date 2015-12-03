@@ -8,6 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -65,6 +70,35 @@ import cs.software.engineering.jobthirsty.R;
             // This gives us current information list object
             NewsfeedRecyclerInfo current = data.get(position);
 
+            if (current.getNumInvolved() >= 1) {
+                ParseFile parseFile = current.getProfileImage(0);
+                if (parseFile != null) {
+                    holder.involvedProfileImage0.setParseFile(parseFile);
+                    holder.involvedProfileImage0.loadInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            // The image is downloaded and displayed
+                        }
+                    });
+                } else {
+                    holder.involvedProfileImage0.setImageResource(R.drawable.profile_placeholder);
+                }
+                holder.involvedProfileImage0.setVisibility(View.VISIBLE);
+            }
+            if (current.getNumInvolved() >= 2) {
+                ParseFile parseFile = current.getProfileImage(1);
+                if (parseFile != null) {
+                    holder.involvedProfileImage1.setParseFile(parseFile);
+                    holder.involvedProfileImage1.loadInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            // The image is downloaded and displayed
+                        }
+                    });
+                } else {
+                    holder.involvedProfileImage1.setImageResource(R.drawable.profile_placeholder);
+                }
+                holder.involvedProfileImage1.setVisibility(View.VISIBLE);
+            }
+
             holder.update.setText(current.getUpdate());
         }
 
@@ -77,6 +111,8 @@ import cs.software.engineering.jobthirsty.R;
         public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             TextView update;
+            ParseImageView involvedProfileImage0;
+            ParseImageView involvedProfileImage1;
             public MyViewHolderClicks mListener;
 
             // itemView will be my own custom layout View of the row
@@ -86,6 +122,8 @@ import cs.software.engineering.jobthirsty.R;
                 mListener = listener;
                 //Link the objects
                 update = (TextView) itemView.findViewById(R.id.update);
+                involvedProfileImage0 = (ParseImageView) itemView.findViewById(R.id.involvedProfileImage0);
+                involvedProfileImage1 = (ParseImageView) itemView.findViewById(R.id.involvedProfileImage1);
                 itemView.setOnClickListener(this);
             }
 
