@@ -359,6 +359,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                             if (!has_connection) {
                                 ParseObject newConnection = new ParseObject("Connections");
                                 newConnection.put("intenderId", currentUserId);
+                                newConnection.put("intenderFullName", currentUserFullName);
                                 newConnection.put("receiverId", userId);
                                 newConnection.put("handshake", false);
                                 newConnection.saveInBackground();
