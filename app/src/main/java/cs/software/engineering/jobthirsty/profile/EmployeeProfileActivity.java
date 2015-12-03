@@ -41,7 +41,10 @@ import com.parse.SaveCallback;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
@@ -93,20 +96,24 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private ImageButton awardsEditBtn;
 
     //Employee Data Variables
-    private String userId;
     private String firstName;
     private String lastName;
     private EditText contact;
     private ImageView contactIcon;
     private EditText location;
     private EditText biography;
-    private String dataId;
+
     private ParseUser user;
+    private String userId;
+    private String userFullName;
+    private String dataId;
+    private ParseObject dataObject;
+
     private ParseUser currentUser;
     private String currentUserId;
     private String currentUserFullName;
-    private ParseObject dataObject;
-    private ParseObject currentUserDataObject ;
+    private ParseObject currentUserDataObject;
+
     private boolean isOwnerUser;
 
     private enum Connection {
@@ -208,6 +215,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
             public void done(ParseUser object, ParseException e) {
                 if (e == null) {
                     user = object;
+                    userFullName = user.getString("firstName") + " " + user.getString("lastName");
                 }
             }
         });
@@ -335,6 +343,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     newConnection.put("receiverId", userId);
                     newConnection.put("handshake", false);
                     newConnection.saveInBackground();
+
+                    connectionStatus = Connection.INTENDER;
+
                 } else if (connectionStatus == Connection.RECEIVER) {
                     //accept request
                     connectionObject.put("handshake", true);
@@ -345,6 +356,24 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     currentUserDataObject.addUnique("connections", userId);
                     currentUserDataObject.saveInBackground();
 
+                    //push to newsfeed for all connections involved
+                    ArrayList<String> involvedList = new ArrayList<String>();
+                    involvedList.add(userId);
+                    involvedList.add(currentUserId);
+
+                    Set<String> connectionsList = new HashSet<String>();
+                    connectionsList.addAll((ArrayList) dataObject.getList("connections"));
+                    connectionsList.addAll((ArrayList) currentUserDataObject.getList("connections"));
+                    connectionsList.add(userId);
+                    connectionsList.add(currentUserId);
+
+                    ParseObject newNewsfeedPost = new ParseObject("Newsfeed");
+                    newNewsfeedPost.put("update", currentUserFullName + " and " + userFullName + " are now connected");
+                    newNewsfeedPost.put("involvedList", involvedList);
+                    newNewsfeedPost.put("visibleList", new ArrayList<String>(connectionsList));
+                    newNewsfeedPost.saveInBackground();
+
+                    connectionStatus = Connection.ESTABLISHED;
                     viewContactInfo();
                 }
             }

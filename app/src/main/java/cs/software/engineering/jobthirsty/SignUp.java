@@ -83,6 +83,7 @@ public class SignUp extends AppCompatActivity {
                         data.put("activities", new ArrayList<String>());
                         data.put("awards", new ArrayList<String>());
                         data.put("skills", new ArrayList<String>());
+                        data.put("connections", new ArrayList<String>());
 //                        data.put("userId", );
                     }
                     data.save();
