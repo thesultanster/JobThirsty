@@ -487,8 +487,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
         if (isOwnerUser) {
             connectionStatus = Connection.SELF;
-            viewContactInfo();
             connectionObject = null;
+            viewContactInfo();
             return;
         }
 
@@ -608,7 +608,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         });
     }
 
-    private void retreiveCurrentUserDataFromParse(final String dataId) {
+    private void retrieveCurrentUserDataFromParse(final String dataId) {
 
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
@@ -656,7 +656,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         });
 
         String currentUserDataId = currentUser.getString("dataId");
-        retreiveCurrentUserDataFromParse(currentUserDataId);
+        retrieveCurrentUserDataFromParse(currentUserDataId);
     }
     //[END] ----------------------------------------------------------------------------------------
 }
