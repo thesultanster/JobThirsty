@@ -260,7 +260,7 @@ public class SkillsSection extends ProfileSection {
         final TextView endorseEt = new TextView(context);
         endorseEt.setLayoutParams(endorseCountLayoutParams);
         endorseEt.setEms(1);
-        endorseEt.setBackgroundColor(0xFF53DED1);
+        endorseEt.setBackgroundColor(0xFF15c9b8);
         endorseEt.setWidth(100);
         endorseEt.setHeight(100);
         endorseEt.setTextColor(0xffffffff);
