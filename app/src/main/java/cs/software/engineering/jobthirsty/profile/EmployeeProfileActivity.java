@@ -106,6 +106,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
     private String currentUserId;
     private String currentUserFullName;
     private ParseObject dataObject;
+    private ParseObject currentUserDataObject ;
     private boolean isOwnerUser;
 
     private enum Connection {
@@ -211,7 +212,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         });
         currentUser = ParseUser.getCurrentUser();
         currentUserId = currentUser.getObjectId();
-        currentUserFullName = currentUser.getString("firstName") + currentUser.getString("lastName");
+        currentUserFullName = currentUser.getString("firstName") + " " + currentUser.getString("lastName");
 
         connectionStatus = Connection.NONE;
     }
@@ -345,11 +346,23 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                             for (ParseObject c : connections) {
                                 if (!c.getBoolean("handshake")) {
                                     if (c.get("intenderId").equals(currentUserId)) {
-                                        //do nothing
+                                        //request already sent... do nothing
                                     } else if (c.get("receiverId").equals(currentUserId)) {
                                         //accept request
                                         c.put("handshake", true);
                                         c.saveInBackground();
+
+                                        dataObject.addUnique("connections", currentUserId);
+                                        dataObject.saveInBackground();
+                                        currentUserDataObject.addUnique("connections", userId);
+                                        currentUserDataObject.saveInBackground();
+
+//                                        user.addUnique("connections", currentUserId);
+//                                        user.saveInBackground();
+//                                        currentUser.addUnique("connections", userId);
+//                                        currentUser.saveInBackground();
+
+                                        viewContactInfo();
                                     }
                                 }
                                 has_connection = true;
@@ -498,12 +511,16 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         dataObject.saveInBackground();
     }
 
+    private void viewContactInfo() {
+        contact.setVisibility(View.VISIBLE);
+        contactIcon.setVisibility(View.VISIBLE);
+    }
+
     private void setConnectionStatus() {
 
         if (isOwnerUser) {
             connectionStatus = Connection.SELF;
-            contact.setVisibility(View.VISIBLE);
-            contactIcon.setVisibility(View.VISIBLE);
+            viewContactInfo();
             return;
         }
 
@@ -544,8 +561,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                         connectionStatus = Connection.NONE;
                     }
                     if (connectionStatus == Connection.SELF || connectionStatus == Connection.ESTABLISHED) {
-                        contact.setVisibility(View.VISIBLE);
-                        contactIcon.setVisibility(View.VISIBLE);
+                        viewContactInfo();
                     }
                 }
             }
@@ -554,6 +570,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
     //dataId need to be passed in to distinguish who's profile to load up
     private void retrieveDataFromParse(final String dataId) {
+
         ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
         q.getInBackground(dataId, new GetCallback<ParseObject>() {
             @Override
@@ -622,6 +639,17 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
         });
     }
 
+    private void retreiveCurrentUserDataFromParse(final String dataId) {
+
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
+        q.getInBackground(dataId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject dataRow, ParseException e) {
+                currentUserDataObject = dataRow;
+            }
+        });
+    }
+
     //Load profile page
     private void loadProfilePage() {
 //        Bundle extras = getIntent().getExtras();
@@ -657,6 +685,9 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 retrieveDataFromParse(dataId);
             }
         });
+
+        String currentUserDataId = currentUser.getString("dataId");
+        retreiveCurrentUserDataFromParse(currentUserDataId);
     }
     //[END] ----------------------------------------------------------------------------------------
 }
