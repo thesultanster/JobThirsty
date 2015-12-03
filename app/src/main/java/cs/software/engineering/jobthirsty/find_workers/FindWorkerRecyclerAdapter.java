@@ -10,6 +10,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseUser;
 
 import java.util.Collections;
@@ -86,7 +90,17 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
         //holder.userName.setText(current.getUsername());
         holder.firstName.setText(current.getFirstName());
         holder.lastName.setText(current.getLastName());
-
+        ParseFile parseFile = current.getProfileImage();
+        if (parseFile != null) {
+            holder.profileImage.setParseFile(parseFile);
+            holder.profileImage.loadInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    // The image is downloaded and displayed
+                }
+            });
+        } else {
+            holder.profileImage.setImageResource(R.drawable.profile_placeholder);
+        }
     }
 
 
@@ -101,6 +115,7 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
         TextView userName;
         TextView firstName;
         TextView lastName;
+        ParseImageView profileImage;
 
         public MyViewHolderClicks mListener;
 
@@ -113,6 +128,7 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
             //userName = (TextView) itemView.findViewById(R.id.username);
             lastName = (TextView) itemView.findViewById(R.id.lastname);
             firstName = (TextView) itemView.findViewById(R.id.firstname);
+            profileImage = (ParseImageView) itemView.findViewById(R.id.profileImage);
 
             itemView.setOnClickListener(this);
         }
