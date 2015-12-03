@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
@@ -59,6 +60,18 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 
                 }
 
+                @Override
+                public void Accept(int position) {
+                    data.get(position).Accept();
+                    deleteRow(position);
+                }
+
+                @Override
+                public void Decline(int position) {
+                    data.get(position).Decline();
+                    deleteRow(position);
+                }
+
 
             });
 
@@ -91,6 +104,9 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
             TextView degree;
             TextView quote;
 
+            Button accept;
+            Button decline;
+
             public MyViewHolderClicks mListener;
 
             // itemView will be my own custom layout View of the row
@@ -103,21 +119,34 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
                 degree = (TextView) itemView.findViewById(R.id.degree);
                 position = (TextView) itemView.findViewById(R.id.position);
                 quote = (TextView) itemView.findViewById(R.id.quote);
+                accept = (Button) itemView.findViewById(R.id.accept);
+                decline = (Button) itemView.findViewById(R.id.decline);
 
                 itemView.setOnClickListener(this);
+                accept.setOnClickListener(this);
+                decline.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
+                    case R.id.decline:
+                        mListener.Decline(getAdapterPosition());
+                        break;
+                    case R.id.accept:
+                        mListener.Accept(getAdapterPosition());
+                        break;
                     default:
                         mListener.RowClick(v, getAdapterPosition());
                         break;
                 }
             }
 
-            public  interface MyViewHolderClicks {
+            public interface MyViewHolderClicks {
                 void RowClick(View caller, int position);
+                void Accept( int position);
+                void Decline( int position);
+
             }
         }
     }
