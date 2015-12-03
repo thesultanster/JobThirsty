@@ -238,6 +238,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 if(editable) {
                     //enable edits for EditTexts
                     contact.setEnabled(true);
+                    location.setInputType(InputType.TYPE_CLASS_TEXT);
                     location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
                     biography.setEnabled(true);
@@ -253,6 +254,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     awardsSection.enableEdit();
                     activitiesSection.enableEdit();
 
+                    editProfileBtn.setText("Save");
                 } else {
 
                     //disable edits for EditTexts
@@ -271,6 +273,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     awardsSection.disableEdit();
                     activitiesSection.disableEdit();
 
+                    editProfileBtn.setText("Edit");
                     sendDataToParse();
                 }
             }
@@ -670,11 +673,13 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                 // if user is seeing their own profile then hide connection fab
                 if (isOwnerUser) {
+                    editProfileBtn.setVisibility(View.VISIBLE);
                     fab.setVisibility(View.INVISIBLE);
                 }
                 // else if user is seeing someone else's profile, hide editProfile button
                 else {
                     editProfileBtn.setVisibility(View.INVISIBLE);
+                    fab.setVisibility(View.VISIBLE);
                 }
 
                 //display profile's name

@@ -142,8 +142,9 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                     location.setEnabled(true);
                     location.setInputType(InputType.TYPE_CLASS_TEXT);
                     biography.setEnabled(true);
-
                     jobsSection.enableEdit();
+
+                    editProfileBtn.setText("Save");
 
                 } else {
                     //disable edits for EditTexts
@@ -152,6 +153,8 @@ public class EmployerProfileActivity extends NavigationDrawerFramework {
                     sendDataToParse();
 
                     jobsSection.disableEdit();
+
+                    editProfileBtn.setText("Edit");
                 }
             }
         });
