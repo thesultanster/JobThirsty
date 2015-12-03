@@ -21,20 +21,20 @@ import cs.software.engineering.jobthirsty.R;
  * Created by sultankhan on 10/14/15.
  */
 
- public class FindPositionRecyclerAdapter extends RecyclerView.Adapter<FindPositionRecyclerAdapter.MyViewHolder> {
+ public class PositionsRecyclerAdapter extends RecyclerView.Adapter<PositionsRecyclerAdapter.MyViewHolder> {
 
         // emptyList takes care of null pointer exception
-        List<FindPositionRecyclerInfo> data = Collections.emptyList();
+        List<PositionsRecyclerInfo> data = Collections.emptyList();
         LayoutInflater inflator;
         Context context;
 
-        public FindPositionRecyclerAdapter(Context context, List<FindPositionRecyclerInfo> data) {
+        public PositionsRecyclerAdapter(Context context, List<PositionsRecyclerInfo> data) {
             this.context = context;
             inflator = LayoutInflater.from(context);
             this.data = data;
         }
 
-        public void addRow(FindPositionRecyclerInfo row){
+        public void addRow(PositionsRecyclerInfo row){
             data.add(row);
             notifyItemInserted(getItemCount() - 1);
         }
@@ -90,7 +90,7 @@ import cs.software.engineering.jobthirsty.R;
         public void onBindViewHolder(MyViewHolder holder, int position) {
 
             // This gives us current information list object
-            FindPositionRecyclerInfo current = data.get(position);
+            PositionsRecyclerInfo current = data.get(position);
 
             holder.sender.setText(current.getPositionTitle());
             holder.subject.setText(current.getSubject());

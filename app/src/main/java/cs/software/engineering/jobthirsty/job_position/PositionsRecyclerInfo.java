@@ -5,16 +5,16 @@ import com.parse.ParseObject;
 /**
  * Created by sultankhan on 10/14/15.
  */
-public class FindPositionRecyclerInfo {
+public class PositionsRecyclerInfo {
 
     ParseObject position;
 
-    public FindPositionRecyclerInfo() {
+    public PositionsRecyclerInfo() {
         super();
 
     }
 
-    public FindPositionRecyclerInfo(ParseObject position) {
+    public PositionsRecyclerInfo(ParseObject position) {
         super();
         this.position = position;
     }

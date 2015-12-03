@@ -29,10 +29,13 @@
         <activity
             android:name=".profile.EmployeeProfileActivity"
             android:label="Profile"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".util.NavigationDrawerFramework"></activity>
-        <activity android:name=".newsfeed.Newsfeed"></activity>
-        <activity android:name=".mail.Mail"></activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".util.NavigationDrawerFramework"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mail.Mail"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Login"
             android:screenOrientation="portrait">
@@ -44,32 +47,35 @@
         </activity>
         <activity
             android:name=".SignUp"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".connections.Connections"></activity>
-        <activity android:name=".ComposeMail"></activity>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".job_position.FindPositions"
-            android:label="@string/title_activity_find_positions"
-            android:theme="@style/AppTheme"></activity>
+            android:name=".ComposeMail"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".util.MainTabMenu"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".job_position.ViewJobPosition"
             android:label="@string/title_activity_job_position"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".company_page.ViewCompanyPage"
             android:label="CompanyPage"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".job_position.CreateJobPosition"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".job_position.CreateJobPosition"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".applied_workers.AppliedWorkers"
             android:label="@string/title_activity_applied_workers"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".profile.EmployerProfileActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".find_workers.FindWorker">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -82,9 +88,15 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".company_page.CreateCompanyPage"></activity>
-        <activity android:name=".company_page.FindCompany"></activity>
-        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".company_page.CreateCompanyPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".company_page.FindCompany"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait"/>
 
         <service android:name="com.parse.PushService" />
 
@@ -112,7 +124,8 @@
         <activity
             android:name=".connections.ConnectionRequest"
             android:label="@string/title_activity_connection_request"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

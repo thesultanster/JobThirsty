@@ -26,11 +26,8 @@ import cs.software.engineering.jobthirsty.connections.ConnectionRequest;
 import cs.software.engineering.jobthirsty.job_position.CreateJobPosition;
 import cs.software.engineering.jobthirsty.Login;
 import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
-import cs.software.engineering.jobthirsty.connections.Connections;
-import cs.software.engineering.jobthirsty.job_position.FindPositions;
+import cs.software.engineering.jobthirsty.job_position.Positions;
 import cs.software.engineering.jobthirsty.find_workers.FindWorker;
-import cs.software.engineering.jobthirsty.mail.Mail;
-import cs.software.engineering.jobthirsty.newsfeed.Newsfeed;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
@@ -182,8 +179,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
 
         switch(itemId){
             case R.id.profile:
-
-
                 // If user exist and authenticated, send user to Welcome.class
                 //  Need to check flag to send user to appropriate activty (worker or boss)
                 boolean isBoss = (boolean) ParseUser.getCurrentUser().get("isBoss");
@@ -194,10 +189,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
 
                 intent.putExtra("userId", ParseUser.getCurrentUser().getObjectId());
                 intent.putExtra("isYourself", true);
-
-                break;
-            case R.id.find_position:
-                intent = new Intent(this, FindPositions.class);
                 break;
             case R.id.connection_request:
                 intent = new Intent(this, ConnectionRequest.class);
