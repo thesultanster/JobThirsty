@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.GetDataCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseUser;
 
 import java.util.Collections;
@@ -87,6 +92,17 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 
             holder.name.setText(current.getName());
             holder.position.setText(current.getPosition());
+            ParseFile parseFile = current.getProfileImage();
+            if (parseFile != null) {
+                holder.profileImage.setParseFile(parseFile);
+                holder.profileImage.loadInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        // The image is downloaded and displayed
+                    }
+                });
+            } else {
+                holder.profileImage.setImageResource(R.drawable.profile_placeholder);
+            }
         }
 
         @Override
@@ -104,6 +120,8 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
             Button accept;
             Button decline;
 
+            ParseImageView profileImage;
+
             public MyViewHolderClicks mListener;
 
             // itemView will be my own custom layout View of the row
@@ -117,6 +135,7 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
                 quote = (TextView) itemView.findViewById(R.id.quote);
                 accept = (Button) itemView.findViewById(R.id.accept);
                 decline = (Button) itemView.findViewById(R.id.decline);
+                profileImage = (ParseImageView) itemView.findViewById(R.id.profileImage);
 
                 itemView.setOnClickListener(this);
                 accept.setOnClickListener(this);

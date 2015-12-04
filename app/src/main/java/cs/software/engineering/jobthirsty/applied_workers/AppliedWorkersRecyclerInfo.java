@@ -1,5 +1,7 @@
 package cs.software.engineering.jobthirsty.applied_workers;
 
+import com.parse.GetCallback;
+import com.parse.ParseFile;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -12,11 +14,19 @@ import com.parse.ParseUser;
 public class AppliedWorkersRecyclerInfo {
 
     ParseObject position;
+    ParseUser parseUser;
+    ParseObject dataObject;
+    ParseFile parseFile;
 
     public AppliedWorkersRecyclerInfo(ParseObject position) {
         super();
         this.position = position;
-
+        ParseQuery<ParseUser> q = ParseUser.getQuery();
+        q.whereEqualTo("objectId", position.getString("applicantId"));
+        try {
+            parseUser = q.getFirst();
+        } catch (Exception e) {
+        }
     }
 
     public String getName(){ return position.get("name").toString();}
@@ -32,6 +42,25 @@ public class AppliedWorkersRecyclerInfo {
     {
         return position.get("applicantId").toString();
     }
+
+    public ParseFile getProfileImage() {
+        ParseQuery<ParseObject> queryData;
+
+        if (parseUser.getBoolean("isBoss")) {
+            queryData = new ParseQuery<ParseObject>("EmployerData");
+        } else {
+            queryData = new ParseQuery<ParseObject>("EmployeeData");
+        }
+        queryData.whereEqualTo("objectId", parseUser.getString("dataId"));
+        try {
+            dataObject = queryData.getFirst();
+            parseFile = dataObject.getParseFile("profileImage");
+        } catch (Exception e) {
+        }
+
+        return parseFile;
+    }
+
 
     public void Accept(){
         ParseObject connection = new ParseObject("Connections");
