@@ -1,12 +1,15 @@
 package cs.software.engineering.jobthirsty.job_position;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 import cs.software.engineering.jobthirsty.R;
+import cs.software.engineering.jobthirsty.find_workers.FindWorkerRecyclerAdapter;
+import cs.software.engineering.jobthirsty.find_workers.FindWorkerRecyclerInfo;
 
 public class Positions extends Fragment {
 
@@ -35,8 +40,7 @@ public class Positions extends Fragment {
     private Map<String, String> positionObjectIDs;
     int page;
 
-    private SearchView searchView;
-
+    //OVERRIDE FUNCTIONS [START] -------------------------------------------------------------------
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,71 @@ public class Positions extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        queryAll();
+    }
+    //[END] ----------------------------------------------------------------------------------------
+
+
+    //OPERATION FUNCTIONS [START] ------------------------------------------------------------------
+    public void setSearch(String search) {
+        if (adapter != null) {
+            adapter.clearData();
+            positionObjectIDs.clear();
+        }
+
+        // RecyclerView
+        recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
+        adapter = new PositionsRecyclerAdapter(getActivity(), new ArrayList<PositionsRecyclerInfo>());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        if (search.length() != 0) {
+            // Parse Query
+            ParseQuery<ParseObject> companyTitle = ParseQuery.getQuery("Position");
+            companyTitle.whereContains("companyTitle", search);
+            ParseQuery<ParseObject> description = ParseQuery.getQuery("Position");
+            description.whereContains("description", search);
+            ParseQuery<ParseObject> location = ParseQuery.getQuery("Position");
+            location.whereContains("location", search);
+            ParseQuery<ParseObject> positionTitle = ParseQuery.getQuery("Position");
+            positionTitle.whereContains("positionTitle", search);
+
+            List<ParseQuery<ParseObject>> queryList = new ArrayList<ParseQuery<ParseObject>>();
+            queryList.add(companyTitle);
+            queryList.add(description);
+            queryList.add(location);
+            queryList.add(positionTitle);
+
+            ParseQuery<ParseObject> query = ParseQuery.or(queryList);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> positions, ParseException e) {
+                    if (e == null) {
+                        Toast.makeText(getContext(), String.valueOf(positions.size()), Toast.LENGTH_SHORT).show();
+
+                        for (ParseObject position : positions) {
+                            String objectID = position.getObjectId();
+                            if (!positionObjectIDs.containsKey(objectID)) {
+                                adapter.addRow(new PositionsRecyclerInfo(position));
+                                positionObjectIDs.put(objectID, "");
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        }
+    }
+
+    public void queryAll() {
+        if (adapter != null) {
+            adapter.clearData();
+            positionObjectIDs.clear();
+        }
+
         View v = getView();
         final Context c = getContext();
 
@@ -67,8 +136,6 @@ public class Positions extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Parse Query
-        ParseUser currentUser;
-        String currentUserId;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> positions, ParseException e) {
@@ -86,9 +153,9 @@ public class Positions extends Fragment {
                 } else {
                     Toast.makeText(c, e.toString(), Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
+    //[END] ----------------------------------------------------------------------------------------
 }
 

@@ -44,6 +44,15 @@ import cs.software.engineering.jobthirsty.R;
             notifyItemRemoved(position);
         }
 
+
+        public void clearData() {
+            int size = this.data.size();
+
+            data.clear();
+
+            this.notifyItemRangeRemoved(0, size);
+        }
+
         // Called when the recycler view needs to create a new row
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

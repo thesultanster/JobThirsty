@@ -4,6 +4,8 @@ package cs.software.engineering.jobthirsty.util;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.widget.SearchView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,34 @@ public class FragPagerAdapter extends FragmentPagerAdapter
     }
     //[END] ----------------------------------------------------------------------------------------
 
+
+    //OPERATION FUNCTIONS [START] ------------------------------------------------------------------
+    public void setSearchView(final SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                String search = searchView.getQuery().toString();
+                Positions positionFrag = (Positions) frags.get(1);
+                positionFrag.setSearch(search);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                Positions positionFrag = (Positions) frags.get(1);
+                positionFrag.queryAll();
+                return false;
+            }
+        });
+    }
+    //[END] ----------------------------------------------------------------------------------------
 
 
 

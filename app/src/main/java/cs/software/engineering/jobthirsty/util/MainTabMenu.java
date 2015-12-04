@@ -21,9 +21,10 @@ import cs.software.engineering.jobthirsty.job_position.Positions;
 
 
 public class MainTabMenu extends NavigationDrawerFramework {
-    ViewPager viewPager;
-    SearchView searchView;
-    MenuItem searchItem;
+    private ViewPager viewPager;
+    private SearchView searchView;
+    private MenuItem searchItem;
+    private FragPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainTabMenu extends NavigationDrawerFramework {
         setSupportActionBar(toolbar);
 
         FragmentManager fm = getSupportFragmentManager();
-        FragPagerAdapter adapter = new FragPagerAdapter(fm);
+        adapter = new FragPagerAdapter(fm);
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -50,6 +51,7 @@ public class MainTabMenu extends NavigationDrawerFramework {
                     switch (currentPage) {
                         case 0:
                             viewPager.setCurrentItem(0);
+                            searchItem.setVisible(false);
                             break;
                         case 2:
                             viewPager.setCurrentItem(2);
@@ -92,6 +94,7 @@ public class MainTabMenu extends NavigationDrawerFramework {
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(MainTabMenu.this.getComponentName()));
         }
+        adapter.setSearchView(searchView);
 
         return super.onCreateOptionsMenu(menu);
     }
