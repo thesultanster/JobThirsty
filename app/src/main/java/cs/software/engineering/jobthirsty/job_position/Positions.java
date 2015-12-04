@@ -1,6 +1,5 @@
 package cs.software.engineering.jobthirsty.job_position;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,11 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -38,7 +33,8 @@ public class Positions extends Fragment {
     private static final String ARG_PAGE = "ARG_PAGE";
     private Map<String, String> positionObjectIDs;
     int page;
-    SearchView searchView;
+
+    private SearchView searchView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

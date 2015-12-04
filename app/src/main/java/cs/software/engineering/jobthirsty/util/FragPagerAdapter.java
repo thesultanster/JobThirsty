@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.connections.Connections;
@@ -21,6 +22,7 @@ public class FragPagerAdapter extends FragmentPagerAdapter
     // fixed static variables
     final int PAGE_COUNT = 3;
     private String tabTitles[] = {"Newsfeed", "Positions", "Connections"};
+    List<Fragment> frags;
 
 
     //OVERRIDE FUNCTIONS [START] -------------------------------------------------------------------
@@ -30,16 +32,7 @@ public class FragPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        switch (position) {
-            case 0:
-                return new Newsfeed();
-            case 1:
-                return new Positions();
-            case 2:
-                return new Connections();
-            default:
-                return null;
-        }
+        return frags.get(position);
     }
 
     @Override
@@ -54,6 +47,12 @@ public class FragPagerAdapter extends FragmentPagerAdapter
     //CONSTRUCTORS [START] -------------------------------------------------------------------------
     public FragPagerAdapter(FragmentManager fm) {
         super(fm);
+
+        //initialize
+        frags = new ArrayList<>();
+        frags.add(new Newsfeed());
+        frags.add(new Positions());
+        frags.add(new Connections());
     }
     //[END] ----------------------------------------------------------------------------------------
 
