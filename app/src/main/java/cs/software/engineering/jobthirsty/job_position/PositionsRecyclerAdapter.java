@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.Collections;
@@ -80,25 +84,39 @@ import cs.software.engineering.jobthirsty.R;
                     view.getContext().startActivity(intent);
                 }
 
-                public void Apply(int position){
+                public void Apply(final int position){
 
-                    ParseUser user = ParseUser.getCurrentUser();
+                    final ParseUser user = ParseUser.getCurrentUser();
 
-                    ParseObject applicant = new ParseObject("AppliedWorkers");
-                    applicant.put("name", user.get("firstName").toString() + user.get("lastName").toString());
-                    //applicant.put("location",user.get("location").toString());
-//                    applicant.put("degree", user.get("degree").toString());
-//                    applicant.put("quote",user.get("quote"));
-                    applicant.put("position", data.get(position).getPositionTitle());
-                    applicant.put("applicantId", user.getObjectId().toString());
-                    applicant.put("positionId", data.get(position).getParseObjectId());
-                    applicant.saveInBackground();
+                    ParseQuery<ParseObject> q = ParseQuery.getQuery("AppliedWorkers");
+                    q.whereEqualTo("applicantId", user.getObjectId());
+                    q.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            boolean found = false;
+                            for (ParseObject parseObject : objects) {
+                                if (parseObject.get("positionId").toString().equals(data.get(position).getParseObjectId())) {
+                                    found = true;
+                                    break;
+                                }
+                            }
 
-                    ParseObject news = new ParseObject("Newsfeed");
-                    news.put("title", ParseUser.getCurrentUser().get("firstName") );
-                    news.put("update", ParseUser.getCurrentUser().get("firstName") + " Applied for " + data.get(position).getPositionTitle() );
-                    news.saveInBackground();
+                            //ony add if not found
+                            if (!found) {
+                                ParseObject applicant = new ParseObject("AppliedWorkers");
+                                applicant.put("name", user.get("firstName").toString() + " " + user.get("lastName").toString());
+                                applicant.put("position", data.get(position).getPositionTitle());
+                                applicant.put("applicantId", user.getObjectId().toString());
+                                applicant.put("positionId", data.get(position).getParseObjectId());
+                                applicant.saveInBackground();
 
+                                ParseObject news = new ParseObject("Newsfeed");
+                                news.put("title", ParseUser.getCurrentUser().get("firstName"));
+                                news.put("update", ParseUser.getCurrentUser().get("firstName") + " Applied for " + data.get(position).getPositionTitle());
+                                news.saveInBackground();
+                            }
+                        }
+                    });
                 }
             });
 
