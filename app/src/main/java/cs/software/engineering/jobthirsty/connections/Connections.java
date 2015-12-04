@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -27,8 +28,9 @@ public class Connections extends Fragment {
     private RecyclerView recyclerView;
     private ConnectionsRecyclerAdapter adapter;
     private static final String ARG_PAGE = "ARG_PAGE";
-    private Map<String, String> connObjectIDs;
+    private ArrayList<String> connections;
     int page;
+    ParseObject dataObject;
 
     ParseUser currentUser;
     String currentUserId;
@@ -39,7 +41,7 @@ public class Connections extends Fragment {
         if (getArguments() != null) {
             page = getArguments().getInt(ARG_PAGE);
         }
-        connObjectIDs = new HashMap<>();
+        connections = new ArrayList<>();
     }
 
     @Override
@@ -63,33 +65,24 @@ public class Connections extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        ParseQuery<ParseObject> queryData;
 
-        ParseQuery<ParseObject> queryIntender = ParseQuery.getQuery("Connections");
-        queryIntender.whereEqualTo("intenderId", currentUserId);
-
-        ParseQuery<ParseObject> queryReceiver = ParseQuery.getQuery("Connections");
-        queryReceiver.whereEqualTo("receiverId", currentUserId);
-
-        List<ParseQuery<ParseObject>> queryList = new ArrayList<ParseQuery<ParseObject>>();
-        queryList.add(queryIntender);
-        queryList.add(queryReceiver);
-
-        final ParseQuery<ParseObject> queryConnections = ParseQuery.or(queryList);
-        queryConnections.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> connections, ParseException e) {
+        if (currentUser.getBoolean("isBoss")) {
+            queryData = new ParseQuery<ParseObject>("EmployerData");
+        } else {
+            queryData = new ParseQuery<ParseObject>("EmployeeData");
+        }
+        queryData.whereEqualTo("objectId", currentUser.getString("dataId"));
+        queryData.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
                 if (e == null) {
-                    Toast.makeText(getActivity(), String.valueOf(connections.size()), Toast.LENGTH_SHORT).show();
-                    for (ParseObject c : connections) {
-                        if (c.getBoolean("handshake")) {
-                            String connectionId = (c.getString("intenderId").equals(currentUserId))
-                                    ? (c.getString("receiverId")) : (c.getString("intenderId"));
-                            if(!connObjectIDs.containsKey(connectionId)) {
-                                adapter.addRow(new ConnectionsRecyclerInfo(connectionId));
-                                connObjectIDs.put(connectionId, "");
-                            }
-                        }
+                    dataObject = parseObject;
+                    connections = (ArrayList) dataObject.getList("connections");
+//                    Toast.makeText(getActivity(), String.valueOf(connections.size()), Toast.LENGTH_SHORT).show();
+                    for (String connectionId : connections) {
+                        adapter.addRow(new ConnectionsRecyclerInfo(connectionId));
                     }
-                    connObjectIDs.clear();
                 }
             }
         });
