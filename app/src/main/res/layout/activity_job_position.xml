@@ -126,7 +126,9 @@
                 android:layout_marginTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="20dp"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="false">
 
                 <View
                     android:id="@+id/descriptionBar"
@@ -152,8 +154,8 @@
                     android:textSize="15sp"
                     android:editable="false"
                     android:lineSpacingMultiplier="1.5"
-                    android:background="#00000000"/>
-
+                    android:background="#00000000"
+                    android:inputType="textMultiLine"/>
             </RelativeLayout>
 
             <!--</LinearLayout>-->
@@ -175,7 +177,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
-                android:id="@+id/editProfileBtn"
+                android:id="@+id/editPositionBtn"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
                 android:layout_marginRight="5dp"
@@ -184,7 +186,7 @@
                 android:gravity="center"
                 android:textColor="@color/cloud"
                 android:layout_gravity="right"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
         </android.support.v7.widget.Toolbar>
 

@@ -52,12 +52,21 @@ import cs.software.engineering.jobthirsty.R;
             MyViewHolder holder = new MyViewHolder(view, new MyViewHolder.MyViewHolderClicks() {
                 public void RowClick(View caller, int position) {
 
+                    // To display edit button or apply for job
+                    ParseUser user = ParseUser.getCurrentUser();
+                    boolean owner = false;
+                    if (user.getObjectId().toString().equals(data.get(position).getBossID()) ) {
+                        owner = true;
+                    }
+
                     Intent intent = new Intent(context, ViewJobPosition.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());
                     intent.putExtra("positionTitle", data.get(position).getPositionTitle());
                     intent.putExtra("positionDescription", data.get(position).getDescription());
                     intent.putExtra("positionLocation", data.get(position).getBody());
                     intent.putExtra("positionCompany", data.get(position).getSubject());
+                    intent.putExtra("isOwner", owner);
+                    intent.putExtra("positionId", data.get(position).getPositionID());
 
                     view.getContext().startActivity(intent);
                 }

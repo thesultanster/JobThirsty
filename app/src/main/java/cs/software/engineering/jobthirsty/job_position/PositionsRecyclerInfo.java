@@ -33,7 +33,9 @@ public class PositionsRecyclerInfo {
         return position.get("description").toString();
     }
 
-    public String getBossID() { return position.get("bossID").toString(); }
+    public String getBossID() { return position.get("bossId").toString(); }
+
+    public String getPositionID() { return position.getObjectId().toString(); }
 
     public String getParseObjectId() {
         return position.getObjectId();
