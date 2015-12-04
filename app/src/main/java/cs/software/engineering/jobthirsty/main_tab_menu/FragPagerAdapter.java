@@ -1,4 +1,4 @@
-package cs.software.engineering.jobthirsty.util;
+package cs.software.engineering.jobthirsty.main_tab_menu;
 
 
 import android.support.v4.app.FragmentManager;

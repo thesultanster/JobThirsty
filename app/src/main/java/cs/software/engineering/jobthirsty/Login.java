@@ -13,7 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
-import cs.software.engineering.jobthirsty.util.MainTabMenu;
+import cs.software.engineering.jobthirsty.main_tab_menu.MainTabMenu;
 
 public class Login extends AppCompatActivity {
 

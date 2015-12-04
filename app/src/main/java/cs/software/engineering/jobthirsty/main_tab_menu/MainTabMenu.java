@@ -1,23 +1,19 @@
-package cs.software.engineering.jobthirsty.util;
+package cs.software.engineering.jobthirsty.main_tab_menu;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.job_position.Positions;
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
 
 public class MainTabMenu extends NavigationDrawerFramework {

@@ -52,7 +52,7 @@
             android:name=".ComposeMail"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".util.MainTabMenu"
+            android:name=".main_tab_menu.MainTabMenu"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
