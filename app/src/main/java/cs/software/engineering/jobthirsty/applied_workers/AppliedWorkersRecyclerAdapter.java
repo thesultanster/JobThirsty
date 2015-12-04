@@ -87,8 +87,6 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 
             holder.name.setText(current.getName());
             holder.position.setText(current.getPosition());
-            holder.degree.setText(current.getDegree());
-            holder.quote.setText(current.getQuote());
         }
 
         @Override
@@ -101,7 +99,6 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 
             TextView name;
             TextView position;
-            TextView degree;
             TextView quote;
 
             Button accept;
@@ -116,7 +113,6 @@ import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
                 mListener = listener;
                 //Link the objects
                 name = (TextView) itemView.findViewById(R.id.name);
-                degree = (TextView) itemView.findViewById(R.id.degree);
                 position = (TextView) itemView.findViewById(R.id.position);
                 quote = (TextView) itemView.findViewById(R.id.quote);
                 accept = (Button) itemView.findViewById(R.id.accept);
