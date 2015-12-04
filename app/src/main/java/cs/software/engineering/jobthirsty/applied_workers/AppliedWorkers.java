@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -16,17 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs.software.engineering.jobthirsty.R;
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
-public class AppliedWorkers extends AppCompatActivity {
+public class AppliedWorkers extends NavigationDrawerFramework {
 
     private RecyclerView recyclerView;
     private AppliedWorkersRecyclerAdapter adapter;
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_positions);
+        setContentView(R.layout.activity_applied_workers);
 
         // RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -53,5 +55,4 @@ public class AppliedWorkers extends AppCompatActivity {
         });
 
     }
-
 }

@@ -210,10 +210,10 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
             case R.id.logout:
                 ParseUser.logOut();
                 intent = new Intent(this, Login.class);
-                finish();
                 break;
         }
 
+        finish();
         startActivity(intent);
     }
 

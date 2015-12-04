@@ -9,6 +9,6 @@
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_find_positions">Job Positions</string>
     <string name="title_activity_job_position">JobPosition</string>
-    <string name="title_activity_applied_workers">AppliedWorkers</string>
-    <string name="title_activity_connection_request">ConnectionRequest</string>
+    <string name="title_activity_applied_workers">Applied Workers</string>
+    <string name="title_activity_connection_request">Connection Requests</string>
 </resources>
