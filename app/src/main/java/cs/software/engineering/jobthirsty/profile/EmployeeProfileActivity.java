@@ -344,6 +344,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                     newConnection.put("intenderId", currentUserId);
                     newConnection.put("intenderFullName", currentUserFullName);
                     newConnection.put("receiverId", userId);
+                    newConnection.put("receiverFullName",userFullName);
                     newConnection.put("handshake", false);
                     newConnection.saveInBackground();
 
