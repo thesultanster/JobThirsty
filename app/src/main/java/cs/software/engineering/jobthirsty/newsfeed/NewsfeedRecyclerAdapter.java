@@ -129,11 +129,11 @@ import cs.software.engineering.jobthirsty.R;
 
             @Override
             public void onClick(View v) {
-                switch(v.getId()) {
-                    default:
-                        mListener.RowClick(v, getAdapterPosition());
-                        break;
-                }
+//                switch(v.getId()) {
+//                    default:
+//                        mListener.RowClick(v, getAdapterPosition());
+//                        break;
+//                }
             }
 
             public  interface MyViewHolderClicks {
