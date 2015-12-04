@@ -601,6 +601,8 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
                 //only enabled when viewing someone else's profile
                 skillsSection.setDataObject(dataRow);
                 skillsSection.setData(skillsData, isOwnerUser);
+                skillsSection.setUserId(userId);
+                skillsSection.setUser(user);
                 skillsParent.addView(skillsSection);
 
                 experienceParent.removeView(experienceSection);
@@ -669,6 +671,7 @@ public class EmployeeProfileActivity extends NavigationDrawerFramework {
 
                 //set profile owner's data id
                 skillsSection.setDataId(dataId);
+                skillsSection.setUserId(userId);
 
                 isOwnerUser = currentUserId.equals(userId);
 

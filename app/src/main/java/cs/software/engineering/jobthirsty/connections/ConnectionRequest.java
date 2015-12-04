@@ -22,8 +22,6 @@ public class ConnectionRequest extends NavigationDrawerFramework {
 
     private RecyclerView recyclerView;
     private ConnectionRequestRecyclerAdapter adapter;
-    List<ParseObject> feed;
-    int page;
 
 
     @Override
@@ -42,15 +40,15 @@ public class ConnectionRequest extends NavigationDrawerFramework {
         query.whereEqualTo("receiverId", ParseUser.getCurrentUser().getObjectId());
         query.whereEqualTo("handshake", false);
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> newsfeed, ParseException e) {
+            public void done(List<ParseObject> connections, ParseException e) {
                 if (e == null) {
-                    Toast.makeText(getApplicationContext(), String.valueOf(newsfeed.size()), Toast.LENGTH_SHORT).show();
-                    for (ParseObject news : newsfeed) {
-                        adapter.addRow(new ConnectionRequestRecyclerInfo(news));
+//                    Toast.makeText(getApplicationContext(), String.valueOf(connections.size()), Toast.LENGTH_SHORT).show();
+                    for (ParseObject connection : connections) {
+                        adapter.addRow(new ConnectionRequestRecyclerInfo(connection));
                     }
 
                 } else {
-                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

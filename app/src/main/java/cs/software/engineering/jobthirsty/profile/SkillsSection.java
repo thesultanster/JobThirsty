@@ -19,8 +19,11 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
+import cs.software.engineering.jobthirsty.connections.ConnectionsRecyclerInfo;
 import cs.software.engineering.jobthirsty.util.StringParser;
 
 
@@ -34,6 +37,8 @@ public class SkillsSection extends ProfileSection {
     private LinearLayout.LayoutParams blockLayoutParams;
 
     private String TAG = "checkEndorse";
+    String userId;
+    ParseUser user;
 
 
     //CONSTRUCTOR [START] --------------------------------------------------------------------------
@@ -124,11 +129,6 @@ public class SkillsSection extends ProfileSection {
             }
             //need to fetch from db if there are any endorsements
             else {
-//                ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
-                //q.whereEqualTo("dataId", dataId);
-//                    ParseObject dataRow = q.get(dataId);
-
-                //TODO: continue
                 ArrayList<String> skills = (ArrayList<String>) dataObject.get("skills");
                 ArrayList<ArrayList<String>> skillsList = (new StringParser(skills, false)).getParsed();
                 for(int j = 0; j < skillsList.size(); ++j) {
@@ -197,6 +197,12 @@ public class SkillsSection extends ProfileSection {
 
     //setter for dataId
     public void setDataObject(ParseObject dataObject) { this.dataObject = dataObject; }
+
+    //setter for dataId
+    public void setUserId(String userId) { this.userId = userId; }
+
+    //setter for dataId
+    public void setUser(ParseUser user) { this.user = user; }
     //[END] ----------------------------------------------------------------------------------------
 
 
@@ -218,7 +224,7 @@ public class SkillsSection extends ProfileSection {
         etLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         etLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 //        etLayoutParams.setMargins(0, 0, 0, 0);
-        etLayoutParams.setMargins((int)(displayMetrics.widthPixels*0.025), 0, 0, 0);
+        etLayoutParams.setMargins((int) (displayMetrics.widthPixels * 0.025), 0, 0, 0);
 
         //set up EditText
         EditText et = new EditText(context);
@@ -249,6 +255,10 @@ public class SkillsSection extends ProfileSection {
 
     private TextView createEndorseView(boolean isOwnerUser, boolean enabled)
     {
+        final ParseUser currentUser = ParseUser.getCurrentUser();
+        final String currentUserId = currentUser.getObjectId();
+        final String dataId = currentUser.getString("dataId");
+
         RelativeLayout.LayoutParams endorseCountLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -303,7 +313,7 @@ public class SkillsSection extends ProfileSection {
                     boolean removed = false;
                     for (int i = 0; i < row.size(); ++i) {
                         //found
-                        if (row.get(i).equals(ParseUser.getCurrentUser().get("dataId").toString())) {
+                        if (row.get(i).equals(dataId)) {
                             row.remove(row.get(i));
                             removed = true;
                             break;
@@ -312,41 +322,17 @@ public class SkillsSection extends ProfileSection {
 
                     //this user wasn't listed under the endorse list, endorse
                     if (!removed) {
-                        row.add(ParseUser.getCurrentUser().get("dataId").toString());
+                        row.add(dataId);
+                        RelativeLayout rl = list.get(rowCount);
+                        TextView view = (TextView) rl.getChildAt(0);
+                        String skillEndorsed = view.getText().toString();
+                        Log.d("<JOBTHIRSTY>", skillEndorsed);
+                        updateNewsfeed(currentUser, currentUserId, user, userId, skillEndorsed);
+//                        updateNewsfeed(ParseUser currentUser, String currentUserId, ParseUser user, String userId, String skillEndorsed)
                     }
 
                     data = updateData(data, endorsedUsers);
                     updateEndorse(data);
-
-//                    //get dataRow
-//                    ParseQuery<ParseObject> q = ParseQuery.getQuery("EmployeeData");
-//                    q.getInBackground(dataId, new GetCallback<ParseObject>() {
-//                        @Override
-//                        public void done(ParseObject dataRow, ParseException e) {
-//                            ArrayList<String> data = (ArrayList<String>) dataRow.get("skills");
-//                            ArrayList<ArrayList<String>> endorsedUsers = getEndorsedUsers(data);
-//
-//                            //remove if this user exists, unendorse
-//                            ArrayList<String> row = endorsedUsers.get(rowCount);
-//                            boolean removed = false;
-//                            for (int i = 0; i < row.size(); ++i) {
-//                                //found
-//                                if (row.get(i).equals(ParseUser.getCurrentUser().get("dataId").toString())) {
-//                                    row.remove(row.get(i));
-//                                    removed = true;
-//                                    break;
-//                                }
-//                            }
-//
-//                            //this user wasn't listed under the endorse list, endorse
-//                            if (!removed) {
-//                                row.add(ParseUser.getCurrentUser().get("dataId").toString());
-//                            }
-//
-//                            data = updateData(data, endorsedUsers);
-//                            updateEndorse(data);
-//                        }
-//                    });
                 }
             });
         }
@@ -385,9 +371,51 @@ public class SkillsSection extends ProfileSection {
             ArrayList<String> row = endorserList.get(i);
             ArrayList<String> dataRow = parsedData.get(i);
             row.add(0, dataRow.get(0)); //push front skill name
+//            Log.d("<JOBTHIRSTY>",dataRow.get(0));
         }
         ArrayList<String> toReturn = (new StringParser(endorserList)).getConcated();
         return toReturn;
+    }
+
+    private ParseObject getDataObject(ParseObject user) {
+        ParseObject dataObject = null;
+        ParseQuery<ParseObject> queryData;
+
+        if (user.getBoolean("isBoss")) {
+            queryData = new ParseQuery<ParseObject>("EmployerData");
+        } else {
+            queryData = new ParseQuery<ParseObject>("EmployeeData");
+        }
+        queryData.whereEqualTo("objectId", user.getString("dataId"));
+        try {
+            dataObject = queryData.getFirst();
+        } catch(Exception e) {
+        }
+        return dataObject;
+    }
+
+    private void updateNewsfeed(ParseUser currentUser, String currentUserId, ParseUser user, String userId, String skillEndorsed) {
+        //push to newsfeed for all connections involved
+        String currentUserFullName = currentUser.getString("firstName") + " " + currentUser.getString("lastName");
+        String userFullName = user.getString("firstName") + " " + user.getString("lastName");
+        ParseObject currentUserDataObject = getDataObject(currentUser);
+
+        ArrayList<String> involvedList = new ArrayList<String>();
+        involvedList.add(userId);
+        involvedList.add(currentUserId);
+
+        Set<String> connectionsList = new HashSet<String>();
+        connectionsList.addAll((ArrayList) dataObject.getList("connections"));
+        connectionsList.addAll((ArrayList) currentUserDataObject.getList("connections"));
+        connectionsList.add(userId);
+        connectionsList.add(currentUserId);
+
+        ParseObject newNewsfeedPost = new ParseObject("Newsfeed");
+        newNewsfeedPost.put("update", currentUserFullName + " endorsed " + userFullName + " for " + skillEndorsed);
+        newNewsfeedPost.put("involvedList", involvedList);
+        newNewsfeedPost.put("visibleList", new ArrayList<String>(connectionsList));
+        newNewsfeedPost.saveInBackground();
+
     }
 
     //updates the endorse change to database
