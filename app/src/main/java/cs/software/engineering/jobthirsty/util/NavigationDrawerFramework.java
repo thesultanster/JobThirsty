@@ -2,13 +2,13 @@ package cs.software.engineering.jobthirsty.util;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,17 +19,16 @@ import android.widget.TextView;
 
 import com.parse.ParseUser;
 
+import cs.software.engineering.jobthirsty.Login;
+import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.SettingsActivity;
+import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
 import cs.software.engineering.jobthirsty.company_page.CreateCompanyPage;
 import cs.software.engineering.jobthirsty.company_page.FindCompany;
 import cs.software.engineering.jobthirsty.connections.ConnectionRequest;
-import cs.software.engineering.jobthirsty.job_position.CreateJobPosition;
-import cs.software.engineering.jobthirsty.Login;
-import cs.software.engineering.jobthirsty.applied_workers.AppliedWorkers;
-import cs.software.engineering.jobthirsty.job_position.Positions;
 import cs.software.engineering.jobthirsty.find_workers.FindWorker;
+import cs.software.engineering.jobthirsty.job_position.CreateJobPosition;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
-import cs.software.engineering.jobthirsty.R;
 import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
 
 public class NavigationDrawerFramework extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -48,12 +47,23 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     protected FrameLayout mContent;
     protected Toolbar toolbar;
 
+    boolean isEmployer = false;
+
     @Override
     public void setContentView(final int layoutResID) {
 
 
+        // Hide menu items if employee
+        if ( (Boolean) ParseUser.getCurrentUser().get("isBoss")) {
+            isEmployer = true;
+        }
+
         // Your base layout here
-        mDrawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.framework_navigation_drawer, null);
+        if (isEmployer) {
+            mDrawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.framework_navigation_drawer, null);
+        } else {
+            mDrawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.framework_navigation_drawer_employee, null);
+        }
         mContent = (FrameLayout) mDrawerLayout.findViewById(R.id.content);
 
         // Setting the content of layout your provided to the content frame
@@ -64,6 +74,7 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         mHeaderLayout = getLayoutInflater().inflate(R.layout.framework_navigation_header, null);
         String firstName = ParseUser.getCurrentUser().get("firstName").toString();
         String lastName = ParseUser.getCurrentUser().get("lastName").toString();
+
         final String temp = firstName +" " + lastName;
         Log.d("name", temp);
 
@@ -88,6 +99,15 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        // Hide menu items
+        if (!isEmployer) {
+            MenuItem positions = (MenuItem) findViewById(R.id.createPosition);
+            if (positions != null) {
+                positions.setVisible(false);
+                invalidateOptionsMenu();
+            }
+        }
+
         // set up the hamburger icon to open and close the drawer
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -99,6 +119,20 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_employee_profile, menu);
+
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("EmployerData");
+//        query.getInBackground(objectId, new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject p, ParseException e) {
+//                if (e == null) {
+//                    Log.d("JobThirsty", "Employer!");
+//                    isEmployer = true;
+//                } else {
+//                    Log.d("JobThirsty", "Employee...");
+//                }
+//            }
+//        });
+
         return true;
     }
 

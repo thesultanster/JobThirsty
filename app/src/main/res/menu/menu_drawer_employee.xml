@@ -16,25 +16,6 @@
             android:title="Connection Requests" />
 
         <item
-            android:id="@+id/bossPosition"
-            android:layout_gravity="bottom"
-            android:title="Position">
-
-            <menu>
-
-                <item
-                    android:id="@+id/createPosition"
-                    android:icon="@drawable/fab_background"
-                    android:title="Post Position" />
-
-                <item
-                    android:id="@+id/applied_workers"
-                    android:icon="@drawable/fab_background"
-                    android:title="Applied Workers" />
-            </menu>
-        </item>
-
-        <item
             android:layout_gravity="bottom"
             android:title="Company">
             <menu>
