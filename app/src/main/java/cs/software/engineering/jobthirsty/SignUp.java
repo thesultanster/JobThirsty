@@ -72,6 +72,7 @@ public class SignUp extends AppCompatActivity {
                         data.put("location", "");
                         data.put("biography", "");
                         data.put("jobPostings", new ArrayList<String>());
+                        data.put("connections", new ArrayList<String>());
                     } else {
                         data = new ParseObject("EmployeeData");
                         data.put("contact", "");
