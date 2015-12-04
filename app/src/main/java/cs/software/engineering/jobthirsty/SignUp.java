@@ -115,6 +115,7 @@ public class SignUp extends AppCompatActivity {
                             //ParseObject row = new ParseObject("")
                             ParseUser.logIn(username.getText().toString(), password.getText().toString());
                             data.put("userId", ParseUser.getCurrentUser().getObjectId());
+                            data.saveInBackground();
 
                             // Go to Main Page when successfully logged in
                             Intent intent;
