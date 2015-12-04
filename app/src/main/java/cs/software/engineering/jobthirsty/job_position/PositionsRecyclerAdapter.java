@@ -55,8 +55,11 @@ import cs.software.engineering.jobthirsty.R;
                     Intent intent = new Intent(context, ViewJobPosition.class);
                     intent.putExtra("selectedId", data.get(position).getParseObjectId());
                     intent.putExtra("positionTitle", data.get(position).getPositionTitle());
-                    view.getContext().startActivity(intent);
+                    intent.putExtra("positionDescription", data.get(position).getDescription());
+                    intent.putExtra("positionLocation", data.get(position).getBody());
+                    intent.putExtra("positionCompany", data.get(position).getSubject());
 
+                    view.getContext().startActivity(intent);
                 }
 
                 public void Apply(int position){
@@ -79,7 +82,6 @@ import cs.software.engineering.jobthirsty.R;
                     news.saveInBackground();
 
                 }
-
             });
 
             return holder;

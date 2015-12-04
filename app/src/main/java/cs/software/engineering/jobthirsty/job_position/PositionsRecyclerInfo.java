@@ -29,6 +29,12 @@ public class PositionsRecyclerInfo {
         return position.get("location").toString();
     }
 
+    public String getDescription() {
+        return position.get("description").toString();
+    }
+
+    public String getBossID() { return position.get("bossID").toString(); }
+
     public String getParseObjectId() {
         return position.getObjectId();
     }

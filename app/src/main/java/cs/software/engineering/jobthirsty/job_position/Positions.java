@@ -15,6 +15,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +64,8 @@ public class Positions extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Parse Query
+        ParseUser currentUser;
+        String currentUserId;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> positions, ParseException e) {

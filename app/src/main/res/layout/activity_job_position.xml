@@ -6,59 +6,198 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="cs.software.engineering.jobthirsty.job_position.ViewJobPosition">
 
-
+    <!-- Scrollable View -->
     <android.support.v4.widget.NestedScrollView
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_job_position"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="cs.software.engineering.jobthirsty.job_position.ViewJobPosition">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_margin="15sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="#FFffffff">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/mainLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="Job Description Goes Here"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/jobTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:background="#FFffffff"
+                android:hint="[Job Title]"
+                android:textColor="@color/darkText"
+                android:textSize="25sp"
+                android:editable="false"
+                android:textStyle="bold"
+                android:lineSpacingMultiplier="1.5"
+                android:inputType="none"
+                android:text="Software Engineer"
+                />
+
+            <RelativeLayout
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/companyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="10dp"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFffffff"
+                        android:hint="[Title]"
+                        android:textColor="@color/dividerColor"
+                        android:textSize="15sp"
+                        android:editable="false"
+                        android:textStyle="bold"
+                        android:text="Facebook"
+                        />
+
+                    <!-- Vertical Divider -->
+                    <TextView
+                        android:id="@+id/divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="17sp"
+                        android:text="|"
+                        android:textColor="@color/dividerColor"
+                        android:layout_toRightOf="@id/companyTitle"/>
+
+                    <EditText
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="20dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_toRightOf="@+id/navigation_icon"
+                        android:layout_marginBottom="10dp"
+                        android:background="#FFffffff"
+                        android:hint="[Location]"
+                        android:textColor="@color/dividerColor"
+                        android:textSize="15sp"
+                        android:editable="false"
+                        android:text="San Francisco, CA"
+                        />
+
+                    <ImageView
+                        android:id="@+id/navigation_icon"
+                        android:layout_width="18.5dp"
+                        android:layout_height="18.5dp"
+                        android:layout_marginTop="3dp"
+                        android:src="@mipmap/navigation_icon_green"
+                        android:layout_toRightOf="@+id/divider"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <!-- Beginning of sections -->
+
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:paddingBottom="20dp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_weight="1">-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="20dp">
+
+                <View
+                    android:id="@+id/descriptionBar"
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignBottom="@+id/descriptionText"
+                    android:background="@color/secondaryColor"/>
+
+
+                <EditText
+                    android:id="@+id/descriptionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="Looking for a worker who is capable of handling a high stress environment while delivering great work."
+                    android:textColor="@color/darkText"
+                    android:textSize="15sp"
+                    android:editable="false"
+                    android:lineSpacingMultiplier="1.5"
+                    android:background="#00000000"/>
+
+            </RelativeLayout>
+
+            <!--</LinearLayout>-->
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-
-
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:fitsSystemWindows="true"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:fitsSystemWindows="true"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:theme="@style/AppTheme.Dark"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent"
-                app:layout_collapseMode="pin"
-                app:theme="@style/AppTheme.Dark"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <TextView
+                android:id="@+id/editProfileBtn"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="3dp"
+                android:text="Edit"
+                android:gravity="center"
+                android:textColor="@color/cloud"
+                android:layout_gravity="right"
+                android:visibility="visible"/>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        android:src="@android:drawable/ic_dialog_email" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:layout_anchor="@id/app_bar"-->
+        <!--app:layout_anchorGravity="bottom|end"-->
+        <!--android:src="@android:drawable/ic_dialog_email" />-->
 
 </android.support.design.widget.CoordinatorLayout>

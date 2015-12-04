@@ -9,6 +9,7 @@
     <color name="primaryText">#212121</color>
     <color name="secondaryText">#727272</color>
     <color name="titleText">#8F8F8F</color>
+    <color name="darkText">#27292b</color>
     <color name="divider">#CFCFCF</color>
     <color name="dividerColor">#B6B6B6</color>
     <color name="cloud">#ecf0f1</color>
