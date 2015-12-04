@@ -1,7 +1,5 @@
 package cs.software.engineering.jobthirsty.applied_workers;
 
-import com.parse.GetCallback;
-import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
