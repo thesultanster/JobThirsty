@@ -1,6 +1,8 @@
 package cs.software.engineering.jobthirsty.job_position;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -14,12 +16,14 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import cs.software.engineering.jobthirsty.R;
 
 public class ViewJobPosition extends AppCompatActivity {
 
     private TextView editPositionsBtn;
+    FloatingActionButton fab;
     private EditText jobTitle;
     private EditText companyTitle;
     private EditText location;
@@ -27,6 +31,8 @@ public class ViewJobPosition extends AppCompatActivity {
 
     boolean editable = false;
     ParseObject positionObj = null;
+
+    String positionId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,7 @@ public class ViewJobPosition extends AppCompatActivity {
         String positionDescription="This is the description";
         String positionLocation="Example Location";
         String positionCompany="Example Company";
-        String positionId = "";
+
 
         boolean isOwner = false;
 
@@ -80,9 +86,14 @@ public class ViewJobPosition extends AppCompatActivity {
         description.setEnabled(false);
         description.setSingleLine(false);
 
+        // If user is owner, display edit button, else show the apply button
         if (isOwner) {
             editPositionsBtn = (TextView) findViewById(R.id.editPositionBtn);
             editPositionsBtn.setVisibility(View.VISIBLE);
+        }
+        else {
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setVisibility(View.VISIBLE);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -91,56 +102,78 @@ public class ViewJobPosition extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setListeners();
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Thank You For Applying", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     private void setListeners() {
-        //Overall edit button
-        editPositionsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //toggle
-                editable = !editable;
 
-                //if editable
-                if (editable) {
-                    jobTitle.setEnabled(true);
-                    jobTitle.setInputType(InputType.TYPE_CLASS_TEXT);
+        if (editPositionsBtn != null) {
+            editPositionsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //toggle
+                    editable = !editable;
 
-                    companyTitle.setEnabled(true);
-                    companyTitle.setInputType(InputType.TYPE_CLASS_TEXT);
+                    //if editable
+                    if (editable) {
+                        jobTitle.setEnabled(true);
+                        jobTitle.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                    location.setEnabled(true);
-                    location.setInputType(InputType.TYPE_CLASS_TEXT);
+                        companyTitle.setEnabled(true);
+                        companyTitle.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                    description.setEnabled(true);
+                        location.setEnabled(true);
+                        location.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                    description.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
-                    description.setSingleLine(false);
+                        description.setEnabled(true);
 
-                    editPositionsBtn.setText("Save");
+                        description.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                        description.setSingleLine(false);
 
-                } else {
+                        editPositionsBtn.setText("Save");
 
-                    //disable edits for EditTexts
-                    jobTitle.setEnabled(false);
-                    companyTitle.setEnabled(false);
-                    location.setEnabled(false);
-                    description.setEnabled(false);
+                    } else {
 
-                    //hide edit buttons for sections
-                    editPositionsBtn.setText("Edit");
-                    sendDataToParse();
+                        //disable edits for EditTexts
+                        jobTitle.setEnabled(false);
+                        companyTitle.setEnabled(false);
+                        location.setEnabled(false);
+                        description.setEnabled(false);
+
+                        //hide edit buttons for sections
+                        editPositionsBtn.setText("Edit");
+                        sendDataToParse();
+                    }
                 }
-            }
-        });
+            });
+        }
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Thank You For Applying", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    Apply();
+                }
+            });
+        }
+    }
+
+    public void Apply(){
+
+        ParseUser user = ParseUser.getCurrentUser();
+
+        ParseObject applicant = new ParseObject("AppliedWorkers");
+        applicant.put("name", user.get("firstName").toString() + user.get("lastName").toString());
+        applicant.put("position", jobTitle.getText().toString());
+        applicant.put("applicantId", user.getObjectId().toString());
+        applicant.put("positionId", positionId);
+        applicant.saveInBackground();
+
+        ParseObject news = new ParseObject("Newsfeed");
+        news.put("title", ParseUser.getCurrentUser().get("firstName") );
+        news.put("update", ParseUser.getCurrentUser().get("firstName") + " Applied for " + jobTitle );
+        news.saveInBackground();
+
     }
 
     private void sendDataToParse() {
