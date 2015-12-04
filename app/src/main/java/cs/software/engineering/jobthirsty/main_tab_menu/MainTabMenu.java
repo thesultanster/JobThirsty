@@ -26,8 +26,6 @@ public class MainTabMenu extends NavigationDrawerFramework {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FragmentManager fm = getSupportFragmentManager();
         adapter = new FragPagerAdapter(fm);
