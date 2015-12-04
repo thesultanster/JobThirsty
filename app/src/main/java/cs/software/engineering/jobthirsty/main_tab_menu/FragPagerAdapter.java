@@ -34,6 +34,19 @@ public class FragPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
+        switch (position) {
+            case 0:
+                frags.set(0, new Newsfeed());
+                break;
+            case 1:
+                frags.set(1, new Positions());
+                break;
+            case 2:
+                frags.set(2, new Connections());
+                break;
+            default:
+                return null;
+        }
         return frags.get(position);
     }
 
