@@ -49,10 +49,14 @@ public class MainTabMenu extends NavigationDrawerFramework {
                     int currentPage = tab.getPosition();
                     switch (currentPage) {
                         case 0:
+                            viewPager.setCurrentItem(0);
+                            break;
                         case 2:
+                            viewPager.setCurrentItem(2);
                             searchItem.setVisible(false);
                             break;
                         case 1:
+                            viewPager.setCurrentItem(1);
                             searchItem.setVisible(true);
                             break;
                     }
