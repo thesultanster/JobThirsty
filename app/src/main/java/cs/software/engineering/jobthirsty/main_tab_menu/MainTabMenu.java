@@ -1,39 +1,34 @@
-package cs.software.engineering.jobthirsty.util;
+package cs.software.engineering.jobthirsty.main_tab_menu;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.job_position.Positions;
+import cs.software.engineering.jobthirsty.util.NavigationDrawerFramework;
 
 
 public class MainTabMenu extends NavigationDrawerFramework {
-    ViewPager viewPager;
-    SearchView searchView;
-    MenuItem searchItem;
+    private ViewPager viewPager;
+    private SearchView searchView;
+    private MenuItem searchItem;
+    private FragPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FragmentManager fm = getSupportFragmentManager();
-        FragPagerAdapter adapter = new FragPagerAdapter(fm);
+        adapter = new FragPagerAdapter(fm);
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -49,10 +44,15 @@ public class MainTabMenu extends NavigationDrawerFramework {
                     int currentPage = tab.getPosition();
                     switch (currentPage) {
                         case 0:
+                            viewPager.setCurrentItem(0);
+                            searchItem.setVisible(false);
+                            break;
                         case 2:
+                            viewPager.setCurrentItem(2);
                             searchItem.setVisible(false);
                             break;
                         case 1:
+                            viewPager.setCurrentItem(1);
                             searchItem.setVisible(true);
                             break;
                     }
@@ -88,6 +88,7 @@ public class MainTabMenu extends NavigationDrawerFramework {
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(MainTabMenu.this.getComponentName()));
         }
+        adapter.setSearchView(searchView);
 
         return super.onCreateOptionsMenu(menu);
     }
