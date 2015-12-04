@@ -163,7 +163,13 @@ import cs.software.engineering.jobthirsty.R;
                 apply = (Button) itemView.findViewById(R.id.apply);
 
                 itemView.setOnClickListener(this);
-                apply.setOnClickListener(this);
+
+                if((boolean) ParseUser.getCurrentUser().get("isBoss")) {
+                    apply.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    apply.setOnClickListener(this);
+                }
             }
 
             @Override
