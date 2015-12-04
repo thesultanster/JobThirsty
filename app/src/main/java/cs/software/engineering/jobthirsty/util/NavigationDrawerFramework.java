@@ -28,6 +28,7 @@ import cs.software.engineering.jobthirsty.company_page.FindCompany;
 import cs.software.engineering.jobthirsty.connections.ConnectionRequest;
 import cs.software.engineering.jobthirsty.find_workers.FindWorker;
 import cs.software.engineering.jobthirsty.job_position.CreateJobPosition;
+import cs.software.engineering.jobthirsty.main_tab_menu.MainTabMenu;
 import cs.software.engineering.jobthirsty.profile.EmployeeProfileActivity;
 import cs.software.engineering.jobthirsty.profile.EmployerProfileActivity;
 
@@ -98,16 +99,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        // Hide menu items
-        if (!isEmployer) {
-            MenuItem positions = (MenuItem) findViewById(R.id.createPosition);
-            if (positions != null) {
-                positions.setVisible(false);
-                invalidateOptionsMenu();
-            }
-        }
-
         // set up the hamburger icon to open and close the drawer
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -119,19 +110,6 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_employee_profile, menu);
-
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("EmployerData");
-//        query.getInBackground(objectId, new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject p, ParseException e) {
-//                if (e == null) {
-//                    Log.d("JobThirsty", "Employer!");
-//                    isEmployer = true;
-//                } else {
-//                    Log.d("JobThirsty", "Employee...");
-//                }
-//            }
-//        });
 
         return true;
     }
@@ -193,6 +171,9 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
         Intent intent = new Intent();
 
         switch(itemId){
+            case R.id.home:
+                intent = new Intent(this, MainTabMenu.class);
+                break;
             case R.id.profile:
                 // If user exist and authenticated, send user to Welcome.class
                 //  Need to check flag to send user to appropriate activty (worker or boss)
@@ -229,10 +210,10 @@ public class NavigationDrawerFramework extends AppCompatActivity implements Navi
             case R.id.logout:
                 ParseUser.logOut();
                 intent = new Intent(this, Login.class);
-                finish();
                 break;
         }
 
+        finish();
         startActivity(intent);
     }
 

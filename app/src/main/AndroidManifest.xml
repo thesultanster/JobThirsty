@@ -67,6 +67,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".job_position.CreateJobPosition"
+            android:label="Post Position"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".applied_workers.AppliedWorkers"
@@ -78,6 +79,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".find_workers.FindWorker"
+            android:label="Find Connections"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -92,9 +94,11 @@
         </activity>
         <activity
             android:name=".company_page.CreateCompanyPage"
+            android:label="Create Company"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".company_page.FindCompany"
+            android:label="Find Company"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".SettingsActivity"

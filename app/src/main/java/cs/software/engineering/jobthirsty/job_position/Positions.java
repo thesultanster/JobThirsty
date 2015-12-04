@@ -1,15 +1,10 @@
 package cs.software.engineering.jobthirsty.job_position;
 
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +22,12 @@ import java.util.List;
 import java.util.Map;
 
 import cs.software.engineering.jobthirsty.R;
-import cs.software.engineering.jobthirsty.find_workers.FindWorkerRecyclerAdapter;
-import cs.software.engineering.jobthirsty.find_workers.FindWorkerRecyclerInfo;
 
 public class Positions extends Fragment {
 
 
     private RecyclerView recyclerView;
     private PositionsRecyclerAdapter adapter;
-    private FloatingActionButton fab;
     private static final String ARG_PAGE = "ARG_PAGE";
     private Map<String, String> positionObjectIDs;
     int page;
@@ -98,11 +90,12 @@ public class Positions extends Fragment {
             queryList.add(positionTitle);
 
             ParseQuery<ParseObject> query = ParseQuery.or(queryList);
+            if((boolean) ParseUser.getCurrentUser().get("isBoss")) {
+                query.whereEqualTo("bossId", ParseUser.getCurrentUser().get("isBoss"));
+            }
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> positions, ParseException e) {
                     if (e == null) {
-                        Toast.makeText(getContext(), String.valueOf(positions.size()), Toast.LENGTH_SHORT).show();
-
                         for (ParseObject position : positions) {
                             String objectID = position.getObjectId();
                             if (!positionObjectIDs.containsKey(objectID)) {
@@ -114,7 +107,6 @@ public class Positions extends Fragment {
                     } else {
                         Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
         }
@@ -137,11 +129,12 @@ public class Positions extends Fragment {
 
         // Parse Query
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Position");
+        if((boolean) ParseUser.getCurrentUser().get("isBoss")) {
+            query.whereEqualTo("bossId", ParseUser.getCurrentUser().getObjectId());
+        }
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> positions, ParseException e) {
                 if (e == null) {
-
-                    Toast.makeText(c, String.valueOf(positions.size()), Toast.LENGTH_SHORT).show();
                     for (ParseObject position : positions) {
                         String objectID = position.getObjectId();
                         if (!positionObjectIDs.containsKey(objectID)) {
